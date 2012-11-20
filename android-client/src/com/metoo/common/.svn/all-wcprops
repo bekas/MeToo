@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/groupdev_12_e-burmistrova/!svn/ver/58/trunk/android-client/src/com/metoo/common
+END
+AppSettings.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/groupdev_12_e-burmistrova/!svn/ver/58/trunk/android-client/src/com/metoo/common/AppSettings.java
+END
+AppLog.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/groupdev_12_e-burmistrova/!svn/ver/58/trunk/android-client/src/com/metoo/common/AppLog.java
+END
+AndroServices.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/groupdev_12_e-burmistrova/!svn/ver/58/trunk/android-client/src/com/metoo/common/AndroServices.java
+END
+IAsyncTaskNotifyer.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/groupdev_12_e-burmistrova/!svn/ver/58/trunk/android-client/src/com/metoo/common/IAsyncTaskNotifyer.java
+END
