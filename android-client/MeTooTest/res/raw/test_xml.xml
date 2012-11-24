@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results count="6">
+<result>
+     <id>1</id>
+     <name>Mark</name>
+     <score>6958</score>
+ </result>
+ <result>
+     <id>2</id>
+     <name>Wesley</name>
+     <score>4039</score>
+ </result>
+ <result>
+     <id>3</id>
+     <name>Roy</name>
+     <score>3809</score>
+ </result>
+ <result>
+     <id>4</id>
+     <name>Mike</name>
+     <score>1980</score>
+ </result>
+ <result>
+     <id>5</id>
+     <name>Tina</name>
+     <score>24</score>
+ </result>
+ <result>
+     <id>6</id>
+     <name>Ike</name>
+     <score>3</score>
+ </result>
+</results>
