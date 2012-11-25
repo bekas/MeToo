@@ -16,8 +16,11 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import com.metoo.R;
 import com.metoo.activities.NavActivity;
+import com.metoo.common.AppSettings;
 import com.metoo.gmap.MapProvider;
-import com.metoo.gmap.MeetingsOverlay;
+import com.metoo.gmap.overlay.MapItemsLayer;
+import com.metoo.gmap.overlay.MeetingMapItem;
+import com.metoo.gmap.overlay.MeetingsMapLayer;
 
 /**
  * Layout with GoogleMap widget and which provides interaction with it
@@ -28,35 +31,27 @@ public class MapLayout {
 	private MapView mapView;
 	private MapProvider mapProv;
 	private NavActivity activity;
-	private MeetingsOverlay overlayMeetings;
+	private MeetingsMapLayer overlayMeetings;
+	
+	List<Overlay> mapOverlays;
 
 	public MapLayout(NavActivity parent) {
 		activity = parent;
 	}
 
-
 	public void Activate() {
         activity.setContentView(R.layout.screen_map);
         mapView = (MapView)activity.findViewById(R.id.mapview);
 		mapProv = new MapProvider(activity, mapView);
-
-		List<Overlay> mapOverlays = mapView.getOverlays();
-		Drawable drawable = activity.getApplicationContext().getResources().getDrawable(R.drawable.token_orange);
-		  
-		MeetingsOverlay itemizedoverlay = new MeetingsOverlay(drawable, mapView, activity);
-		GeoPoint point = MapProvider.ConvertCoordinates(55.9, 37.8);
-		OverlayItem overlayitem = new OverlayItem(point, "Где-то на севере", "Рядом Мытищи");
-		
-		GeoPoint point2 = MapProvider.ConvertCoordinates(55.1, 37.3);
-		OverlayItem overlayitem2 = new OverlayItem(point2, "Где-то на юге", "Неподалёку Чехов");
-		
-		itemizedoverlay.addOverlay(overlayitem);
-		itemizedoverlay.addOverlay(overlayitem2);
-		
-		mapOverlays.add(itemizedoverlay);
+		mapOverlays = mapView.getOverlays();
 	}
 	
 	public void Deactivate() {
+	}
+	
+	public void AddLayer(MapItemsLayer layer) {
+		mapOverlays.add(layer);
+		mapView.postInvalidate();
 	}
 
     public boolean onCreateOptionsMenu(Menu menu) {
