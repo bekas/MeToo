@@ -4,18 +4,18 @@ import java.util.List;
 
 public final class Meeting {
 
-	String Name;
-	User Owner;
-	double Latitude, Longitude;
-	String Information;
-	Integer MainCategory;
-	List<Integer> TagsIds;
+	public String Name;
+	public User Owner;
+	public double Latitude, Longitude;
+	public String Information;
+	public Integer MainCategory;
+	public List<Integer> TagsIds;
 	
-	List<User> Administrators;
+	public List<User> Administrators;
 	
 	
-	Integer AreGoingAmount, AreGoingMaybeAmount;
-	List<Integer> UsersAreGoing, UsersAreGoingMaybe;
-	List<User> UsersAreGoingIds, UsersAreGoingMaybeIds; 
+	public Integer AreGoingAmount, AreGoingMaybeAmount;
+	public List<Integer> UsersAreGoing, UsersAreGoingMaybe;
+	public List<User> UsersAreGoingIds, UsersAreGoingMaybeIds; 
 	
 }

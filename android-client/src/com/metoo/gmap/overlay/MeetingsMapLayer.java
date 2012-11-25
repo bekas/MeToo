@@ -1,18 +1,26 @@
 package com.metoo.gmap.overlay;
 
-import java.util.ArrayList;
-import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
-import android.app.AlertDialog;
+import com.metoo.common.AndroServices;
+
 import android.graphics.drawable.Drawable;
 
-public class MeetingsMapLayer extends MapItemsLayer
-{
+/**
+ * Слой встреч
+ * @author Theurgist
+ */
+public class MeetingsMapLayer extends MapItemsLayer {
+	AndroServices services;
 
-	public MeetingsMapLayer(Drawable defaultMarker) {
+	public MeetingsMapLayer(Drawable defaultMarker, AndroServices services) {
 		super(defaultMarker);
-		
+		this.services = services;
 	}
+	
+	 @Override
+	 protected boolean onTap(int index) {
+		 OverlayItem item = mOverlays.get(index);
+		 services.ShowAlert(item.getTitle(), item.getSnippet());
+		 return true;
+	 }
 }

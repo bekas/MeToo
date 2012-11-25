@@ -12,14 +12,16 @@ import java.io.Serializable;
 import android.content.Context;
 
 
-
+/**
+ * Предоставляет статический доступ к настройкам приложения
+ * @author Theurgist
+ */
 public final class AppSettings {
     @SuppressWarnings("unused")
 	private static final AppSettings INSTANCE = new AppSettings();
 
 	/**
-	 * Defines structure of data which is saved into phone memory (for restoring
-	 * after minimizing, for account data saving etc.)
+	 * Структура, в которой хранятся все настройки
 	 */
 	private static StateData _data;
 	
@@ -28,7 +30,7 @@ public final class AppSettings {
 	}
 	
 	/*
-	 * State getters and modifyers section
+	 * Статические геттеры и сеттеры параметров
 	 */
 	
 	public static Boolean IsDebugModeOn() {
@@ -114,7 +116,7 @@ public final class AppSettings {
 
 
 	/**
-	 * Save state in internal storage
+	 * Сохранить состояние во внутренней памяти устройства
 	 * @param Android Context
 	 * @return Operation successfulness
 	 */
@@ -138,7 +140,7 @@ public final class AppSettings {
 		return true;
 	}
 	/**
-	 * Load settings state from internal storage
+	 * Загрузить состояние из внутренней памяти устройства
 	 * @param Android Context
 	 * @return Operation successfulness
 	 */
@@ -178,17 +180,16 @@ public final class AppSettings {
 }
 
 /**
- * Serializeable object which holds all the settings
+ * Объект, поддерживающий сериализацию и хранящий в себе все настройки
  * @TODO non-destroyable deserialization on settings collection update
  * @author Theurgist
- * 
  */
 class StateData implements Serializable{
 	static final long serialVersionUID = 4L;
 	static final String DEF_STATE_SETTINGS_FILE = "appstate.ser";
 	String filePath;
 	
-	// Settings
+	// Базовые настройки
 	boolean debugMode;
 	boolean emulationMode; 
 	int msSplashDelay;
@@ -198,21 +199,21 @@ class StateData implements Serializable{
 	int srvPort;
 	String srvTestURL;
 	
-	// Confidentional data
+	// Конфиденциальные данные
 	String login;
 	String password;
 	String session_id;
 	
-	//Previous navigational state
+	// Предыдущее состояние навигации
 	int lastZoomLevel;
 	double lastLatitude;
 	double lastLongitude;
 	
-	// State parameters
+	// Общие параметры
 	int nLaunches;
 	
 	/**
-	 * Setting up default values
+	 * Установка значений по умолчанию
 	 */
 	StateData() {
 		debugMode = true;

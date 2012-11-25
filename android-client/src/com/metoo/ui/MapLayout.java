@@ -5,21 +5,16 @@ package com.metoo.ui;
 
 import java.util.List;
 
-import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.Menu;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 import com.metoo.R;
 import com.metoo.activities.NavActivity;
-import com.metoo.common.AppSettings;
 import com.metoo.gmap.MapProvider;
 import com.metoo.gmap.overlay.MapItemsLayer;
-import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
 
 /**
@@ -31,7 +26,6 @@ public class MapLayout {
 	private MapView mapView;
 	private MapProvider mapProv;
 	private NavActivity activity;
-	private MeetingsMapLayer overlayMeetings;
 	
 	List<Overlay> mapOverlays;
 
@@ -42,8 +36,9 @@ public class MapLayout {
 	public void Activate() {
         activity.setContentView(R.layout.screen_map);
         mapView = (MapView)activity.findViewById(R.id.mapview);
-		mapProv = new MapProvider(activity, mapView);
+		mapProv = new MapProvider(mapView);
 		mapOverlays = mapView.getOverlays();
+		
 	}
 	
 	public void Deactivate() {

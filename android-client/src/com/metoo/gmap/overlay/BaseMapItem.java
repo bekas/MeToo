@@ -7,8 +7,8 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;
 
 /**
+ * Элемент-оверлей
  * @author Theurgist
- *
  */
 public class BaseMapItem extends OverlayItem {
 
