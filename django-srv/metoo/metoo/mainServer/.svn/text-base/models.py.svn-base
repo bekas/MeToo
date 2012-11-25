@@ -1,0 +1,74 @@
+from django.db import models
+
+class MetooType(models.Model):
+	name = models.CharField(max_length = 256)
+
+class City(models.Model):
+	name = models.CharField(max_length = 256)
+	
+class Country(models.Model):
+	name = models.CharField(max_length = 256)
+
+class Place(models.Model):
+	y = models.IntegerField()
+	x = models.IntegerField()
+	name = models.CharField(max_length = 256)
+	cityId = models.ForeignKey(City)
+	countryId = models.ForeignKey(Country)
+        
+class EventType(models.Model):
+	name = models.CharField(max_length=256)
+	description = models.TextField() 
+        
+class Photo(models.Model):
+	photo = models.ImageField(upload_to='uploads') 
+        
+class User(models.Model):
+	GENDER_CHOICES = (
+    	('M', 'Male'),
+    	('F', 'Female'),
+        ('U', 'Unknown'),
+    )
+	login = models.CharField(max_length = 256)
+	password = models.CharField(max_length = 256)
+	avatarId = models.ForeignKey(Photo)
+	rating = models.IntegerField()	
+	gender = models.CharField(max_length = 1, choices = GENDER_CHOICES)
+	description = models.TextField() 
+        
+class Event(models.Model):
+	creatorId = models.ForeignKey(User)    
+	name = models.CharField(max_length=256)
+	time = models.DateTimeField('date published')
+	description = models.TextField() 
+ 	photoId = models.ForeignKey(Photo)
+	eventTypeId = models.ForeignKey(EventType)
+	PlaceId = models.ForeignKey(Place)        
+
+class Metoo(models.Model):
+	userId = models.ForeignKey(User)
+	eventId = models.ForeignKey(Event)
+	metooTypeId = models.ForeignKey(MetooType)
+        
+class Interest(models.Model):
+	name = models.CharField(max_length = 256)
+        
+class UserInterest(models.Model):
+	userId = models.ForeignKey(User)
+	interestId = models.ForeignKey(Interest)
+        
+class SocialNetwork(models.Model):
+	name = models.CharField(max_length = 256)
+	url = models.CharField(max_length = 256)
+        
+class UserSocialNetwork(models.Model):
+	userId = models.ForeignKey(User)
+	socialNetworkId = models.ForeignKey(SocialNetwork)
+        
+class Friend(models.Model):
+	userId = models.ForeignKey(User)
+	friend = models.TextField()
+        	
+class Session(models.Model):
+	userId = models.ForeignKey(User)
+	referenceTime = models.DateTimeField('date published')

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contacts>
+    <contact 
+        first_name="Кот" 
+        last_name="Рыжик"
+        phone="4516585"/>
+    <contact 
+        first_name="Кот"
+        last_name="Барсик"
+        phone="4558963"/>
+    <contact 
+        first_name="Кошка"
+        last_name="Мурка"
+        phone="6254147"/>
+    <contact 
+        first_name="Кот"
+        last_name="Бегемот"
+        phone="06666660"/>
+</contacts>

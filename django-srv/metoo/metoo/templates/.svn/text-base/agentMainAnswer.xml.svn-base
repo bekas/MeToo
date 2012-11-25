@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metoo>
+	<type>{{ type }}</type>
+	<request_id>{{ request_id }}</request_id> 
+	{% if type == "mainType" %}
+		<answer>{{ message }}</answer>
+		<agent>{{ agent }}</agent>
+		<get>{{ get }}</get>
+		<post>{{ post }}</post>
+	{% endif %}
+	{% if type == "auth" %}
+		<result>{{ result }}</result>
+    	<description>{{ description }}</description>
+    	<session_id>{{ session_id }}</session_id>
+    {% endif %}
+</metoo>
