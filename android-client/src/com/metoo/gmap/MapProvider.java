@@ -3,8 +3,6 @@
  */
 package com.metoo.gmap;
 
-import android.app.Activity;
-
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
@@ -12,14 +10,12 @@ import com.metoo.common.AppSettings;
 import com.metoo.gmap.location.Coordinate;
 
 /**
+ * Функции и настройки отображения карты
  * @author Theurgist
- *
  */
 public class MapProvider {
-	private Activity appActivity;
 	
-	public MapProvider(Activity activity, MapView mapView) {
-		appActivity = activity;
+	public MapProvider(MapView mapView) {
 		
 		mapView.setBuiltInZoomControls(true);
         
