@@ -2,6 +2,7 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
+from eventManager import EventManager
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -107,9 +108,11 @@ class MessageManager:
 		context['type'] = 'dev'
 		
 		devcontext={}
-		devcontext['type'] = 'auth'
-		devcontext['login'] = 'test'
-		devcontext['password'] = 'test'
+		devcontext['type'] = 'events'
+		devcontext['latitude'] = 1000
+		devcontext['longitude'] = 1000
+		devcontext['radius'] = 100
+		
 		context['data'] = devcontext
 		
 		return context	
@@ -142,8 +145,9 @@ class MessageManager:
 	@staticmethod	
 	def eventsContext(agentMessage):
 		context = {}
-		context['type'] = 'events'
-		#context['events'] = EventManager.getEvents(agentMessage['conditionals'])
+		context['type'] = 'events'	
+		context['events'] = EventManager.getEvents(agentMessage['sessionid'], agentMessage)
+		context['result'] = 300
 		return context
 	
 	@staticmethod

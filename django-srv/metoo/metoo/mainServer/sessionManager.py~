@@ -20,7 +20,7 @@ class SessionManager:
 	
 	@staticmethod
 	def __init__():
-		checkSessionWorker.doWork(ConfigurationManager.loopDeleteSessionInterval())
+		SessionManager.checkSessionWorker.doWork(ConfigurationManager.loopDeleteSessionInterval())
 
 	@staticmethod
 	def getSessionID(userId):
@@ -54,5 +54,15 @@ class SessionManager:
 			userId = reqSession.userId.pk
 		return userId
 		
-		
+	# method to get user by session 
+	@staticmethod
+	def getUser(sessionId):
+		user = -1	
+		#userId = 0 - SessionManager.checkSessionWorker.test
+		if SessionManager.checkSession(sessionId):
+			reqSession = Session.objects.get(pk = sessionId)
+			reqSession.referenceTime = TimeManager.getTime()
+			reqSession.save()
+			user = reqSession.userId
+		return userId
 	

@@ -39,7 +39,7 @@ class EventManager:
 		events =  Events.objects.filter(latitude__range=(latitudeR-radius,latitudeR+radius),longitude__range=(longitudeR-radius,longitudeR+radius))
 		
 		eventList = []
-		for event in events:
+		for event in events
 			addEvent = {}
 			addEvent['id'] = event.pk
 			addEvent['creatorId'] = event.creatorId
