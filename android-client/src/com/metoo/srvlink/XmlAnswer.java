@@ -102,4 +102,10 @@ public class XmlAnswer {
 			result = Integer.parseInt(doc.getElementsByTagName("result").item(0).getTextContent());
 		} catch (Exception ex) { }
 	}
+	
+	public void readEvents() {
+		try {
+			type = doc.getElementsByTagName("events").item(0).getAttributes().getNamedItem(arg0)
+		} catch (Exception ex) { }
+	}
 }

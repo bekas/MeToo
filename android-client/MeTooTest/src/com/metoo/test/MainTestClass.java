@@ -40,10 +40,10 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 	}
 
 	
-	public void testStartActivity() {
-		MainActivity hActivity = startActivity(new Intent(Intent.ACTION_MAIN), null, null);
-		AndroServices srv = new AndroServices(hActivity);
-	}
+//	public void testStartActivity() {
+//		MainActivity hActivity = startActivity(new Intent(Intent.ACTION_MAIN), null, null);
+//		AndroServices srv = new AndroServices(hActivity);
+//	}
 	
 	public void testXmlAnswerObject() {
 		String testRightAnswer = 
