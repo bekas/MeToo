@@ -96,9 +96,25 @@ public class NavActivity extends MapActivity
 		meeting2.Latitude = 55.4;
 		meeting2.Longitude = 37.4;
 		MeetingMapItem overlayitem2 = new MeetingMapItem(meeting2);
-		
+
+		Event meeting3 = new Event();
+		meeting2.Name = "Имя события";
+		meeting2.Information = "Тут что-то будет";
+		meeting2.Latitude = 55.6;
+		meeting2.Longitude = 37.45;
+		MeetingMapItem overlayitem3 = new MeetingMapItem(meeting2);
+
+		Event meeting4 = new Event();
+		meeting2.Name = "Тут что-то было";
+		meeting2.Information = "Всё закончилось";
+		meeting2.Latitude = 55.2;
+		meeting2.Longitude = 37.55;
+		MeetingMapItem overlayitem4 = new MeetingMapItem(meeting2);
+
 		meetingsCache.addOverlay(overlayitem);
 		meetingsCache.addOverlay(overlayitem2);
+		meetingsCache.addOverlay(overlayitem3);
+		meetingsCache.addOverlay(overlayitem4);
 		
 		layout.AddLayer(meetingsCache);
 	}

@@ -2,13 +2,8 @@ package com.metoo.model;
 
 import java.util.List;
 
-import org.w3c.dom.Node;
 
-import xmlparser.INodeSerializer;
-import xmlparser.PageParser;
-
-
-public class Event implements INodeSerializer {
+public class Event { //implements INodeSerializer {
 
 	public String Name;
 	public User Owner;
@@ -25,13 +20,12 @@ public class Event implements INodeSerializer {
 	public List<User> UsersAreGoingIds, UsersAreGoingMaybeIds;
 	
 	
-	
-	public boolean serialize(Node node, PageParser parser) {
-
-		String src = node.getTextContent().trim();
-		System.out.println(src);
-		
-		return true;
-	}
+//	public boolean serialize(Node node, PageParser parser) {
+//
+//		String src = node.getTextContent().trim();
+//		System.out.println(src);
+//		
+//		return true;
+//	}
 	
 }

@@ -54,8 +54,8 @@ public class MainActivity extends BaseActivity {
             
 	        // Force device to power on display and to disable keyguard - 
 	        // it makes testing more comfortable
-	        //services.set_wake_policy(this.getWindow(), true);
-	        //services.set_keyg_policy(this.getWindow(), true);
+	       services.SetWakePolicy(this.getWindow(), true);
+	       services.SetKeygPolicy(this.getWindow(), true);
         }
         else {
         	screenMain = new MainLayout(this, null);
