@@ -95,18 +95,18 @@ class EventManager:
 		Метод для редактирования событий (по сессии и списку аргументов)
 		'''
 		userId = SessionManager.getUser(sessionId)
-		modEvent = Event.objects.get()
+		modEvent = Event.objects.get(pk=eventId)
 		
-		eName = 'Noname event'
-		eTime = '31.12.2012'
-		eDescription = 'No defenition'
-		ePhoto = 'test'
-		eEventTypeId = 1
-		eLatitude = 0
-		eLongitude = 0
-		eCountryId = 1
-		eCityId = 1
-		eNamePlace = 'Noname place'
+		eName = modEvent.name
+		eTime = modEvent.time
+		eDescription = modEvent.description
+		photo = modEvent.photoId
+		eEventTypeId = modEvent.eventTypeId
+		eLatitude = modEvent.PlaceId.latitude
+		eLongitude = modEvent.PlaceId.longitude
+		eCountryId = modeEvent.PlaceId.countryId
+		eCityId = modeEvent.PlaceId.cityId
+		eNamePlace = modeEvent.PlaceId.name
 		
 		if eventArgs.has_key('name'):
 			eName = eventArgs['name']
@@ -115,7 +115,7 @@ class EventManager:
 		if eventArgs.has_key('description'):
 			eDescription = eventArgs['description']
 		if eventArgs.has_key('photo'):
-			ePhoto = eventArgs['photo']
+			photo = Photo(photo = eventArgs['photo'])
 		if eventArgs.has_key('eventTypeId'):
 			eEventTypeId = eventArgs['eventTypeId']
 		if eventArgs.has_key('longitude'):
@@ -123,7 +123,7 @@ class EventManager:
 		if eventArgs.has_key('eventTypeId'):
 			eLongitude = eventArgs['longitude']	
 		
-		photo = Photo(photo = ePhoto)
+		#TODO: Редактирование подредактировать
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
 		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId = eEventTypeId, PlaceId = place)
 		newEvent.save()
