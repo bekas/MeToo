@@ -56,8 +56,7 @@ class SessionManager:
 		
 	# method to get user by session 
 	@staticmethod
-	def getUser(sessionId):
-		user = -1	
+	def getUser(sessionId):	
 		#userId = 0 - SessionManager.checkSessionWorker.test
 		if SessionManager.checkSession(sessionId):
 			reqSession = Session.objects.get(pk = sessionId)

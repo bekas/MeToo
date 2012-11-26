@@ -17,18 +17,18 @@
     {% endif %}
     
     {% if type == "events" %}
-		  <events N = "{ len(events) }">
+		  <events N = "{{ count }}">
 		  {% for event in events %}
     	  	<event>
-          		  <id>{ event['id'] }</id>
-                  <creator>{ event['creatorId'] }</creator>
-                  <name>{ event['name'] }</name>
-                  <date>{ event['date'] }</date>
-                  <description>{ event['descrption'] }</description>
-                  <photo>{ event['photo'] }</photo>
-                  <latitude>{ event['latitude'] }</latitude>
-                  <longitude>{ event['longitude'] }</longitude>
-                  <type>{ event['type'] }</type>
+    	  		<id>{{ event.id }}</id>
+          		<creator>{{ event.creatorId }}</creator>
+                <name>{{ event.name}}</name>
+                <date>{{ event.date }}</date>
+                <description>{{ event.description }}</description>
+                <photo>{{ event.photo }}</photo>
+                <latitude>{{ event.latitude }}</latitude>
+                <longitude>{{ event.longitude }}</longitude>
+             	<type>{{ event.type }}</type>              
              </event>
 		  {% endfor %}
        </events>
