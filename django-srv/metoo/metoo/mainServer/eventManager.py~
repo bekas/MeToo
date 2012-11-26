@@ -123,15 +123,20 @@ class EventManager:
 		if eventArgs.has_key('eventTypeId'):
 			eLongitude = eventArgs['longitude']	
 		
+		#TODO: Редактирование подредактировать
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
 		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId = eEventTypeId, PlaceId = place)
 		newEvent.save()
 		return null
 	
 	@staticmethod	
-	def deleteEvent(sessionId,):
+	def deleteEvent(sessionId,eventId):
 		'''
-		Метод для редактирования событий (по сессии и списку аргументов)
+		Метод для удаления событий (по сессии и Id сессии)
 		'''
+		userId = SessionManager.getUser(sessionId)
+		modEvent = Event.objects.get(pk=eventId)
+		modEvent.delete()
+		
 		return null
 

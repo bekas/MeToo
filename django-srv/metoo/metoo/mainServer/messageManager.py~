@@ -106,6 +106,7 @@ class MessageManager:
 		context = {}
 		context['title'] = '<<Developer page>>'
 		context['type'] = 'dev'
+	
 		
 		devcontext={}
 		devcontext['type'] = 'events'

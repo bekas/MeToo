@@ -130,9 +130,13 @@ class EventManager:
 		return null
 	
 	@staticmethod	
-	def deleteEvent(sessionId,):
+	def deleteEvent(sessionId,eventId):
 		'''
-		Метод для редактирования событий (по сессии и списку аргументов)
+		Метод для удаления событий (по сессии и Id сессии)
 		'''
+		userId = SessionManager.getUser(sessionId)
+		modEvent = Event.objects.get(pk=eventId)
+		modEvent.delete()
+		
 		return null
 
