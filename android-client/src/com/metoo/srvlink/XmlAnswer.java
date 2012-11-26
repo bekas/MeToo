@@ -5,6 +5,9 @@ package com.metoo.srvlink;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,6 +17,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import com.metoo.model.Event;
 
 /**
  * @author Theurgist
@@ -103,9 +108,19 @@ public class XmlAnswer {
 		} catch (Exception ex) { }
 	}
 	
-	public void readEvents() {
+	public List<Event> readEvents() {
+		readBasicMessageTags();
+		if (type != "events")
+			return null;
+		
+		List<Event> res = new ArrayList<Event>();
 		try {
-			type = doc.getElementsByTagName("events").item(0).getAttributes().getNamedItem(arg0)
+			// Получаем количество ивентов
+			NodeList events = doc.getElementsByTagName("event");
+			
+			//foreach
 		} catch (Exception ex) { }
+		
+		return res;
 	}
 }

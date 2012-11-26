@@ -10,6 +10,6 @@ public class User {
 	List<Integer> Interested;
 	
 	List<Integer> IsGoingIds, IsGoingMaybeIds;
-	List<Meeting> IsGoing, IsGoingMaybe;
+	List<Event> IsGoing, IsGoingMaybe;
 
 }

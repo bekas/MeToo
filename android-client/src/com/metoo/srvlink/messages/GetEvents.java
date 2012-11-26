@@ -4,13 +4,12 @@
 package com.metoo.srvlink.messages;
 
 import com.metoo.srvlink.MetooGetRequest;
-import com.metoo.srvlink.XmlAnswer;
 
 /**
  * @author Theurgist
  *
  */
-public class GetEvents extends MetooGetRequest {
+public class GetEvents extends MetooGetRequest{
 
 	/**
 	 * 

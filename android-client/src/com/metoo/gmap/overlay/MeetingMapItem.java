@@ -4,7 +4,7 @@
 package com.metoo.gmap.overlay;
 
 import com.metoo.gmap.MapProvider;
-import com.metoo.model.Meeting;
+import com.metoo.model.Event;
 
 /**
  * Элемент-оверлей "Встреча"
@@ -14,12 +14,12 @@ public class MeetingMapItem extends BaseMapItem {
 	/**
 	 * Ассоциированная встреча
 	 */
-	private Meeting meeting;
+	private Event meeting;
 
 	/**
 	 * @param meeting Связанный экземпляр сущности "Встреча"
 	 */
-	public MeetingMapItem(Meeting meeting) {
+	public MeetingMapItem(Event meeting) {
 		super(	MapProvider.ConvertCoordinates(meeting.Latitude, meeting.Longitude),
 				meeting.Name, meeting.Information);
 		this.meeting = meeting;

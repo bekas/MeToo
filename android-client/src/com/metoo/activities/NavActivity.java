@@ -10,7 +10,7 @@ import com.metoo.common.IAsyncTaskNotifyer;
 import com.metoo.gmap.overlay.MapItemsLayer;
 import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
-import com.metoo.model.Meeting;
+import com.metoo.model.Event;
 import com.metoo.srvlink.Connector;
 import com.metoo.srvlink.XmlAnswer;
 import com.metoo.srvlink.messages.GetEvents;
@@ -83,14 +83,14 @@ public class NavActivity extends MapActivity
 	
 
 	private void emulatedSituation() {
-		Meeting meeting = new Meeting();
+		Event meeting = new Event();
 		meeting.Name = "Тусовка на севере";
 		meeting.Information = "Дискотека на открытом воздухе";
 		meeting.Latitude = 55.9;
 		meeting.Longitude = 37.8;
 		MeetingMapItem overlayitem = new MeetingMapItem(meeting);
 
-		Meeting meeting2 = new Meeting();
+		Event meeting2 = new Event();
 		meeting2.Name = "Тусовка на юге";
 		meeting2.Information = "Будет весело!";
 		meeting2.Latitude = 55.4;
