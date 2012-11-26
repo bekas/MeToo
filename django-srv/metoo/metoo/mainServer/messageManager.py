@@ -2,7 +2,6 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
-from eventManager import EventManager
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -108,19 +107,9 @@ class MessageManager:
 		context['type'] = 'dev'
 		
 		devcontext={}
-		devcontext['type'] = 'events'
-		devcontext['sessionid'] = 15
-		devcontext['latitude'] = 55.5
-		devcontext['longitude'] = 37.4
-		devcontext['radius'] = 0.3
-		'''
-		devcontext['type'] = 'createEvent'
-		devcontext['sessionid'] = 15
-		devcontext['latitude'] = 700
-		devcontext['longitude'] = 700
-		devcontext['name'] = 'TEST_EVENT'
-		'''
-
+		devcontext['type'] = 'auth'
+		devcontext['login'] = 'test'
+		devcontext['password'] = 'test'
 		context['data'] = devcontext
 		
 		return context	
@@ -153,17 +142,15 @@ class MessageManager:
 	@staticmethod	
 	def eventsContext(agentMessage):
 		context = {}
-		context['type'] = 'events'	
-		context['events'] = EventManager.getEvents(agentMessage['sessionid'], agentMessage)
-		context['count'] = len(context['events'])
-		context['result'] = 300
+		context['type'] = 'events'
+		#context['events'] = EventManager.getEvents(agentMessage['conditionals'])
 		return context
 	
 	@staticmethod
 	def createEventContext(agentMessage):
 		context = {}
 		context['type'] = 'eventcreate'
-		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
+		#cintext['result'] = EventManager.createEvent(agentMessage[''])
 		return context
 	
 	@staticmethod

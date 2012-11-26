@@ -1,9 +1,0 @@
-<!--   <creator>{{ event['creatorId'] }}</creator>
-                  <name>{{ event['name'] }}</name>
-                  <date>{{ event['date'] }}</date>
-                  <description>{{ event['descrption'] }}</description>
-                  <photo>{{ event['photo'] }}</photo>
-                  <latitude>{{ event['latitude'] }}</latitude>
-                  <longitude>{{ event['longitude'] }}</longitude>
-                  <type>{{ event['type'] }}</type>
-             	-->
