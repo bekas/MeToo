@@ -69,9 +69,9 @@ public class PageParser {
 		Node N = nodes.item(0);
 		for(int i = 0; i < nodesLength; i++) {
 			N = nodes.item(i);
-			T T = (T) dataClass.newInstance();
-			T.serialize(N, this);
-			ser_list.add(T);
+			T t = (T) dataClass.newInstance();
+			t.serialize(N, this);
+			ser_list.add(t);
 		}
 	
 		return (List<T>) ser_list;

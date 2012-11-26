@@ -21,7 +21,7 @@ import xmlparser.XmlDoc.PageException;
 public class TestingApp {
 
 	/**
-	 * 
+	 * Для проверки модуля
 	 */
 	public TestingApp() {
 	}
