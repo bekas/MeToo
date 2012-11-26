@@ -27,8 +27,8 @@ public class PageParser {
 	 */
 	
 
-	public List ReadFromPage(TaggedDoc page, Class<?> dataClass, String xpath, boolean print) throws InstantiationException, IllegalAccessException {
-		List L = ReadFromPage(page, dataClass, xpath);
+	public <T extends INodeSerializer> List<T> ReadFromPage(TaggedDoc page, Class<T> dataClass, String xpath, boolean print) throws InstantiationException, IllegalAccessException {
+		List<T> L = ReadFromPage(page, dataClass, xpath);
 		if (!print)
 			return L;
 
@@ -43,15 +43,15 @@ public class PageParser {
 		
 		return L;
 	}
-	@SuppressWarnings("unchecked")
-	public List ReadFromPage(TaggedDoc page, Class<?> dataClass, String xpath) throws InstantiationException, IllegalAccessException {
+
+	public <T extends INodeSerializer> List<T> ReadFromPage(TaggedDoc page, Class<T> dataClass, String xpath) throws InstantiationException, IllegalAccessException {
 		Node rootNode = page.getNode();
 		if (rootNode == null) {
 			setLastError("ReadFromPage(): файл не распарсен!");
 	    	return null;
 		}
 
-		if (!ClassChecker.CheckInterface(dataClass, NodeSerializer.class)) {
+		if (!ClassChecker.CheckInterface(dataClass, INodeSerializer.class)) {
 			setLastError("ReadFromPage(): тип данных не поддерживает интерфейс сериализации");
 	    	return null;
 		}
@@ -63,18 +63,18 @@ public class PageParser {
 			return null;
 		}
 
-		ArrayList<NodeSerializer> ser_list = new ArrayList<NodeSerializer>();
+		ArrayList<T> ser_list = new ArrayList<T>();
 		ser_list.ensureCapacity(nodesLength);
 		
 		Node N = nodes.item(0);
 		for(int i = 0; i < nodesLength; i++) {
 			N = nodes.item(i);
-			NodeSerializer T = (NodeSerializer) dataClass.newInstance();
-			T.serialize(N);
+			T T = (T) dataClass.newInstance();
+			T.serialize(N, this);
 			ser_list.add(T);
 		}
 	
-		return ser_list;
+		return (List<T>) ser_list;
 	}
 	
 	

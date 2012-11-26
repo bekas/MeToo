@@ -1,8 +1,9 @@
-package com.metoo.model;
+package messages;
 
 import java.util.List;
 
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import xmlparser.INodeSerializer;
 import xmlparser.PageParser;
@@ -26,10 +27,16 @@ public final class Event implements INodeSerializer {
 	
 	
 	
+
+
+	@Override
 	public boolean serialize(Node node, PageParser parser) {
 
 		String src = node.getTextContent().trim();
 		System.out.println(src);
+		
+		parser.XPath("@id", node);
+
 		
 		return true;
 	}
