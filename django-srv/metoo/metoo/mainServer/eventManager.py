@@ -3,7 +3,7 @@
 Модуль, отвечающий за работу с событиями.
 '''
 from django.db import models
-from models import Session, User
+from models import Session, User, Event, Place, City, Country, Photo
 from timeManager import TimeManager, Worker
 from configurationManager import ConfigurationManager
 from sessionManager import SessionManager
@@ -22,43 +22,104 @@ class EventManager:
 		Метод для создания событий (по сессии и списку аргументов)
 		'''
 		userId = SessionManager.getUserId(sessionId)
+		eName = 'Noname event'
+		eTime = '31.12.2012'
+		eDescription = 'No defenition'
+		ePhoto = 'test'
+		eEventTypeId = 1
+		eLatitude = 0
+		eLongitude = 0
+		eCountryId = 1
+		eCityId = 1
+		eNamePlace = 'Noname place'
 		
-		#newEvent = Event(creatorId = userId, name = )
+		if eventArgs.has_key('name'):
+			eName = eventArgs['name']
+		if eventArgs.has_key('time'):
+			eTime = eventArgs['time']
+		if eventArgs.has_key('description'):
+			eDescription = eventArgs['description']
+		if eventArgs.has_key('photo'):
+			ePhoto = eventArgs['photo']
+		if eventArgs.has_key('eventTypeId'):
+			eEventTypeId = eventArgs['eventTypeId']
+		if eventArgs.has_key('longitude'):
+			eLatitude = eventArgs['longitude']
+		if eventArgs.has_key('eventTypeId'):
+			eLongitude = eventArgs['longitude']	
+		
+		photo = Photo(photo = ePhoto)
+		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
+		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId = eEventTypeId, PlaceId = place)
+		newEvent.save()
 		return null
 	
 	@staticmethod
-	def getEvents(sessiobId, conditionals):
+	def getEvents(sessionId, conditionals):
 		'''
 		Метод для запроса событий (по сессии и запросу)
 		'''
-		userId = SessionManager.getUserId(sessionId)
-		latitudeR = conditionals['latitude']
-		longitudeR = conditionals['longitude']
-		radius = conditionals['radius']
-		
-		events =  Events.objects.filter(latitude__range=(latitudeR-radius,latitudeR+radius),longitude__range=(longitudeR-radius,longitudeR+radius))
-		
 		eventList = []
-		for event in events:
-			addEvent = {}
-			addEvent['id'] = event.pk
-			addEvent['creatorId'] = event.creatorId
-			addEvent['name'] = event.name
-			addEvent['time'] = event.time
-			addEvent['description'] = event.description
-			addEvent['photo'] = event.photoId.photo
-			addEvent['type'] = event.eventTypeId.name
-			addEvent['latitude'] = event.placeId.latitude
-			addEvent['longitude'] = event.placeId.longitude
-			eventList.append(addEvent)
+		userId = SessionManager.getUserId(sessionId)
+		#TODO Обработка user-a;
+		if userId > 0:
+			latitudeR = conditionals['latitude']
+			longitudeR = conditionals['longitude']
+			radius = conditionals['radius']
 		
+			events =  Event.objects.filter(PlaceId__latitude__range=(latitudeR-radius,latitudeR+radius),PlaceId__longitude__range=(longitudeR-radius,longitudeR+radius))
+			for event in events:
+				addEvent = {}			
+				addEvent['id'] = event.pk
+				addEvent['creatorId'] = event.creatorId
+				addEvent['name'] = event.name
+				addEvent['time'] = event.time
+				addEvent['description'] = event.description
+				addEvent['photo'] = event.photoId.photo
+				addEvent['type'] = event.eventTypeId.name
+				addEvent['latitude'] = event.PlaceId.latitude
+				addEvent['longitude'] = event.PlaceId.longitude
+				eventList.append(addEvent)
 		return eventList
 	
 	@staticmethod
-	def modifyEvent(name,description,date,x,y,photo,creator):
+	def modifyEvent(sessionId,eventId,eventArgs):
 		'''
 		Метод для редактирования событий (по сессии и списку аргументов)
 		'''
+		userId = SessionManager.getUserId(sessionId)
+		modEvent = Event.objects.get()
+		
+		eName = 'Noname event'
+		eTime = '31.12.2012'
+		eDescription = 'No defenition'
+		ePhoto = 'test'
+		eEventTypeId = 1
+		eLatitude = 0
+		eLongitude = 0
+		eCountryId = 1
+		eCityId = 1
+		eNamePlace = 'Noname place'
+		
+		if eventArgs.has_key('name'):
+			eName = eventArgs['name']
+		if eventArgs.has_key('time'):
+			eTime = eventArgs['time']
+		if eventArgs.has_key('description'):
+			eDescription = eventArgs['description']
+		if eventArgs.has_key('photo'):
+			ePhoto = eventArgs['photo']
+		if eventArgs.has_key('eventTypeId'):
+			eEventTypeId = eventArgs['eventTypeId']
+		if eventArgs.has_key('longitude'):
+			eLatitude = eventArgs['longitude']
+		if eventArgs.has_key('eventTypeId'):
+			eLongitude = eventArgs['longitude']	
+		
+		photo = Photo(photo = ePhoto)
+		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
+		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId = eEventTypeId, PlaceId = place)
+		newEvent.save()
 		return null
 	
 	@staticmethod	

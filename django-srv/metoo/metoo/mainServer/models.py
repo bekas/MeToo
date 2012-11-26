@@ -43,7 +43,7 @@ class Event(models.Model):
 	description = models.TextField() 
  	photoId = models.ForeignKey(Photo)
 	eventTypeId = models.ForeignKey(EventType)
-	placeId = models.ForeignKey(Place)        
+	PlaceId = models.ForeignKey(Place)        
 
 class Metoo(models.Model):
 	userId = models.ForeignKey(User)

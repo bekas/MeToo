@@ -109,6 +109,7 @@ class MessageManager:
 		
 		devcontext={}
 		devcontext['type'] = 'events'
+		devcontext['sessionid'] = 15
 		devcontext['latitude'] = 1000
 		devcontext['longitude'] = 1000
 		devcontext['radius'] = 100
@@ -147,6 +148,7 @@ class MessageManager:
 		context = {}
 		context['type'] = 'events'	
 		context['events'] = EventManager.getEvents(agentMessage['sessionid'], agentMessage)
+		context['count'] = len(context['events'])
 		context['result'] = 300
 		return context
 	
