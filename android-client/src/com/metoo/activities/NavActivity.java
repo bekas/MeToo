@@ -83,7 +83,7 @@ public class NavActivity extends MapActivity
 	
 
 	private void emulatedSituation() {
-		Event meeting = new Event();
+		com.metoo.model.Event meeting = new com.metoo.model.Event();
 		meeting.Name = "Тусовка на севере";
 		meeting.Information = "Дискотека на открытом воздухе";
 		meeting.Latitude = 55.9;

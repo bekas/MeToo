@@ -8,7 +8,7 @@ import xmlparser.INodeSerializer;
 import xmlparser.PageParser;
 
 
-public final class Event implements INodeSerializer {
+public class Event implements INodeSerializer {
 
 	public String Name;
 	public User Owner;
