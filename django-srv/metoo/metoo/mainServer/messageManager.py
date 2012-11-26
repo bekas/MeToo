@@ -108,18 +108,18 @@ class MessageManager:
 		context['type'] = 'dev'
 		
 		devcontext={}
-		#devcontext['type'] = 'events'
-		#devcontext['sessionid'] = 15
-		#devcontext['latitude'] = 1000
-		#devcontext['longitude'] = 1000
-		#devcontext['radius'] = 100
-		
+		devcontext['type'] = 'events'
+		devcontext['sessionid'] = 15
+		devcontext['latitude'] = 55.5
+		devcontext['longitude'] = 37.4
+		devcontext['radius'] = 0.3
+		'''
 		devcontext['type'] = 'createEvent'
 		devcontext['sessionid'] = 15
 		devcontext['latitude'] = 700
 		devcontext['longitude'] = 700
 		devcontext['name'] = 'TEST_EVENT'
-		
+		'''
 
 		context['data'] = devcontext
 		

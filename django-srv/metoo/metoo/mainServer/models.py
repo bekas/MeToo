@@ -10,8 +10,8 @@ class Country(models.Model):
 	name = models.CharField(max_length = 256)
 
 class Place(models.Model):
-	longitude = models.IntegerField()
-	latitude = models.IntegerField()
+	longitude = models.FloatField()
+	latitude = models.FloatField()
 	name = models.CharField(max_length = 256)
 	cityId = models.ForeignKey(City)
 	countryId = models.ForeignKey(Country)
