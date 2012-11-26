@@ -94,40 +94,46 @@ class EventManager:
 		'''
 		Метод для редактирования событий (по сессии и списку аргументов)
 		'''
+		#TODO Обработка Юзера!
 		userId = SessionManager.getUser(sessionId)
 		modEvent = Event.objects.get(pk=eventId)
 		
-		eName = modEvent.name
-		eTime = modEvent.time
-		eDescription = modEvent.description
-		photo = modEvent.photoId
-		eEventTypeId = modEvent.eventTypeId
-		eLatitude = modEvent.PlaceId.latitude
-		eLongitude = modEvent.PlaceId.longitude
-		eCountryId = modeEvent.PlaceId.countryId
-		eCityId = modeEvent.PlaceId.cityId
-		eNamePlace = modeEvent.PlaceId.name
+		#eName = modEvent.name
+		#eTime = modEvent.time
+		#eDescription = modEvent.description
+		#photo = modEvent.photoId
+		#eEventTypeId = modEvent.eventTypeId
+		#place = modEvent.PlaceId
+		#eLatitude = modEvent.PlaceId.latitude
+		#eLongitude = modEvent.PlaceId.longitude
+		#eCountryId = modEvent.PlaceId.countryId
+		#eCityId = modEvent.PlaceId.cityId
+		#eNamePlace = modEvent.PlaceId.name
 		
 		if eventArgs.has_key('name'):
-			eName = eventArgs['name']
+			modEvent.name = eventArgs['name']
 		if eventArgs.has_key('time'):
-			eTime = eventArgs['time']
+			modEvent.time = eventArgs['time']
 		if eventArgs.has_key('description'):
-			eDescription = eventArgs['description']
-		if eventArgs.has_key('photo'):
-			photo = Photo(photo = eventArgs['photo'])
-		if eventArgs.has_key('eventTypeId'):
-			eEventTypeId = eventArgs['eventTypeId']
-		if eventArgs.has_key('longitude'):
-			eLatitude = eventArgs['longitude']
-		if eventArgs.has_key('eventTypeId'):
-			eLongitude = eventArgs['longitude']	
+			modEvent.description = eventArgs['description']
 		
-		#TODO: Редактирование подредактировать
-		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
-		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId = eEventTypeId, PlaceId = place)
-		newEvent.save()
-		return null
+		#TODO: Подумать насчет изменений. Где они олжны происходить?
+		if eventArgs.has_key('photo'):
+			modEvent.photoId.photo = eventArgs['photo']
+		if eventArgs.has_key('eventTypeId'):
+			modEvent.eventTypeId_id = eventArgs['eventTypeId']
+		if eventArgs.has_key('longitude'):
+			modEvent.PlaceId.longitude = eventArgs['longitude']
+		if eventArgs.has_key('latitude'):
+			modEvent.PlaceId.latitude = eventArgs['latitude']	
+		
+		modEvent.photoId.save()
+		modEvent.eventTypeId.save()
+		modEvent.PlaceId.save()
+		modEvent.save()
+		
+		#TODO Обработка ошибок
+		return modEvent.pk
 	
 	@staticmethod	
 	def deleteEvent(sessionId,eventId):
@@ -138,5 +144,5 @@ class EventManager:
 		modEvent = Event.objects.get(pk=eventId)
 		modEvent.delete()
 		
-		return null
+		return modEvent.pk
 
