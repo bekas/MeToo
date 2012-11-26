@@ -21,38 +21,44 @@ class EventManager:
 		'''
 		Метод для создания событий (по сессии и списку аргументов)
 		'''
-		userId = SessionManager.getUserId(sessionId)
+		userId = SessionManager.getUser(sessionId)
 		eName = 'Noname event'
-		eTime = '31.12.2012'
+		eTime = '2012-12-31'
 		eDescription = 'No defenition'
-		ePhoto = 'test'
+		photo = Photo.objects.get(pk = 1)
 		eEventTypeId = 1
 		eLatitude = 0
 		eLongitude = 0
-		eCountryId = 1
-		eCityId = 1
+		eCountryId = Country.objects.get(pk = 1)
+		eCityId = City.objects.get(pk = 1)
 		eNamePlace = 'Noname place'
 		
 		if eventArgs.has_key('name'):
 			eName = eventArgs['name']
+			
 		if eventArgs.has_key('time'):
 			eTime = eventArgs['time']
+			
 		if eventArgs.has_key('description'):
 			eDescription = eventArgs['description']
+			
 		if eventArgs.has_key('photo'):
-			ePhoto = eventArgs['photo']
+			photo = Photo(photo = eventArgs['photo'])
+			
 		if eventArgs.has_key('eventTypeId'):
 			eEventTypeId = eventArgs['eventTypeId']
+			
 		if eventArgs.has_key('longitude'):
 			eLatitude = eventArgs['longitude']
+			
 		if eventArgs.has_key('eventTypeId'):
 			eLongitude = eventArgs['longitude']	
 		
-		photo = Photo(photo = ePhoto)
+		
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
-		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId = eEventTypeId, PlaceId = place)
+		newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId_id = eEventTypeId, PlaceId = place)
 		newEvent.save()
-		return null
+		return newEvent.pk
 	
 	@staticmethod
 	def getEvents(sessionId, conditionals):
@@ -87,7 +93,7 @@ class EventManager:
 		'''
 		Метод для редактирования событий (по сессии и списку аргументов)
 		'''
-		userId = SessionManager.getUserId(sessionId)
+		userId = SessionManager.getUser(sessionId)
 		modEvent = Event.objects.get()
 		
 		eName = 'Noname event'

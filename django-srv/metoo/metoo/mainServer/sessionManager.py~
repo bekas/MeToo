@@ -64,5 +64,5 @@ class SessionManager:
 			reqSession.referenceTime = TimeManager.getTime()
 			reqSession.save()
 			user = reqSession.userId
-		return userId
+		return user
 	
