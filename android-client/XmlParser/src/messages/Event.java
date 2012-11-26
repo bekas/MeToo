@@ -26,8 +26,6 @@ public final class Event implements INodeSerializer {
 	public List<User> UsersAreGoingIds, UsersAreGoingMaybeIds;
 	
 	
-	
-
 
 	@Override
 	public boolean serialize(Node node, PageParser parser) {
@@ -35,8 +33,8 @@ public final class Event implements INodeSerializer {
 		String src = node.getTextContent().trim();
 		System.out.println(src);
 		
-		parser.XPath("@id", node);
-
+		NodeList lst = parser.XPath("@id", node);
+		System.out.println(lst.toString() + " LENGTH: " + lst.getLength());
 		
 		return true;
 	}

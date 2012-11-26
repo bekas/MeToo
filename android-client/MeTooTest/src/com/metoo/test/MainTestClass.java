@@ -1,30 +1,14 @@
 package com.metoo.test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-
 import xmlparser.PageParser;
 import xmlparser.TaggedDoc;
 import xmlparser.XmlDoc;
 import xmlparser.XmlDoc.PageException;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.test.ActivityUnitTestCase;
 
 import com.metoo.activities.MainActivity;
-import com.metoo.common.AndroServices;
-import com.metoo.model.Event;
 import com.metoo.srvlink.XmlAnswer;
-
-import junit.framework.TestCase;
 
 // Should try ActivityInstrumentationTestCase2
 public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
@@ -97,10 +81,10 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 	    "<z N = \"2\">" +
 	    "		<event>" +
 	    "              <id>123</id>" +
-	    "              <creator>Создатель</creator>" +
-	    "              <name>Имя события</name>" +
+	    "              <creator>РЎРѕР·РґР°С‚РµР»СЊ</creator>" +
+	    "              <name>Р�РјСЏ СЃРѕР±С‹С‚РёСЏ</name>" +
 	    "              <date>2012.12.21</date>" +
-	    "              <description>Конец света</description>" +
+	    "              <description>РљРѕРЅРµС† СЃРІРµС‚Р°</description>" +
 	    "              <photo>null</photo>" +
 	    "              <latitude>55.8</latitude>" +
 	    "              <longitude>37.7</longitude>" +
@@ -108,10 +92,10 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 	    "		</event>" +
 	    "		<event>" +
 	    "              <id>124</id>" +
-	    "              <creator>Создатель2</creator>" +
-	    "              <name>Имя события2</name>" +
+	    "              <creator>РЎРѕР·РґР°С‚РµР»СЊ2</creator>" +
+	    "              <name>Р�РјСЏ СЃРѕР±С‹С‚РёСЏ2</name>" +
 	    "              <date>2012.12.22</date>" +
-	    "              <description>После конца света</description>" +
+	    "              <description>РџРѕСЃР»Рµ РєРѕРЅС†Р° СЃРІРµС‚Р°</description>" +
 	    "              <photo>null</photo>" +
 	    "              <latitude>55.7</latitude>" +
 	    "              <longitude>37.8</longitude>" +
@@ -129,13 +113,9 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 			TaggedDoc tagged = new TaggedDoc(page);
 			PageParser pageParser = new PageParser();
 			
-			pageParser.ReadFromPage(tagged, Event.class, "/");
+			//pageParser.ReadFromPage(tagged, Event.class, "/");
 			
 		} catch (PageException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}
