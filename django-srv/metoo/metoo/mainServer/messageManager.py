@@ -77,6 +77,15 @@ class MessageManager:
 					'users':
 						lambda x:
 							MessageManager.usersContext(x),
+					'metoo':
+						lambda x:
+							MessageManager.metooContext(x),
+					'modmetoo':
+						lambda x:
+							MessageManager.modMetooContext(x),
+					'delmetoo':
+						lambda x:
+							MessageManager.delMetooContext(x),
 					
 						
 					}[agentMessage['type']](agentMessage)

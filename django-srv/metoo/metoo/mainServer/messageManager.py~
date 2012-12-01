@@ -5,7 +5,6 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
-from eventManager import EventManager
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -78,6 +77,15 @@ class MessageManager:
 					'users':
 						lambda x:
 							MessageManager.usersContext(x),
+					'metoo':
+						lambda x:
+							MessageManager.metooContext(x),
+					'modmetoo':
+						lambda x:
+							MessageManager.modMetooContext(x),
+					'delmetoo':
+						lambda x:
+							MessageManager.delMetooContext(x),
 					
 						
 					}[agentMessage['type']](agentMessage)
@@ -143,6 +151,11 @@ class MessageManager:
 	
 		
 		devcontext={}
+<<<<<<< HEAD
+		devcontext['type'] = 'auth'
+		devcontext['login'] = 'test'
+		devcontext['password'] = 'test'
+=======
 		
 		'''
 		devcontext['type'] = 'events'
@@ -165,6 +178,7 @@ class MessageManager:
 		devcontext['sessionid'] = 15
 		devcontext['eventid'] = 10
 		
+>>>>>>> master
 		context['data'] = devcontext
 		
 		return context	
@@ -209,10 +223,8 @@ class MessageManager:
 		Контекст пакета запроса событий
 		'''
 		context = {}
-		context['type'] = 'events'	
-		context['events'] = EventManager.getEvents(agentMessage['sessionid'], agentMessage)
-		context['count'] = len(context['events'])
-		context['result'] = 300
+		context['type'] = 'events'
+		#context['events'] = EventManager.getEvents(agentMessage['conditionals'])
 		return context
 	
 	@staticmethod
@@ -222,7 +234,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'eventcreate'
-		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
+		#cintext['result'] = EventManager.createEvent(agentMessage[''])
 		return context
 	
 	@staticmethod
