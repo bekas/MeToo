@@ -1,9 +1,5 @@
 package com.metoo.test;
 
-import xmlparser.PageParser;
-import xmlparser.TaggedDoc;
-import xmlparser.XmlDoc;
-import xmlparser.XmlDoc.PageException;
 
 import android.test.ActivityUnitTestCase;
 
@@ -107,17 +103,17 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 		XmlAnswer parser = new XmlAnswer();
 		String errorInfo = parser.ParseMessage(testAnswer);
 		
-		XmlDoc page = new XmlDoc();
-		try {
-			page.LoadFromFile("res/raw/testevents.xml", true);
-			TaggedDoc tagged = new TaggedDoc(page);
-			PageParser pageParser = new PageParser();
-			
-			//pageParser.ReadFromPage(tagged, Event.class, "/");
-			
-		} catch (PageException e) {
-			e.printStackTrace();
-		}
+//		XmlDoc page = new XmlDoc();
+//		try {
+//			page.LoadFromFile("res/raw/testevents.xml", true);
+//			TaggedDoc tagged = new TaggedDoc(page);
+//			PageParser pageParser = new PageParser();
+//			
+//			//pageParser.ReadFromPage(tagged, Event.class, "/");
+//			
+//		} catch (PageException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

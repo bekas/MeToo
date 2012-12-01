@@ -11,10 +11,12 @@ import xmlparser.PageParser;
 
 public final class Event implements INodeSerializer {
 
+	public int Id;
 	public String Name;
 	public User Owner;
 	public double Latitude, Longitude;
-	public String Information;
+	public String Date;
+	public String Description;
 	public Integer MainCategory;
 	public List<Integer> TagsIds;
 	
@@ -33,8 +35,13 @@ public final class Event implements INodeSerializer {
 		String src = node.getTextContent().trim();
 		System.out.println(src);
 		
-		NodeList lst = parser.XPath("@id", node);
-		System.out.println(lst.toString() + " LENGTH: " + lst.getLength());
+		NodeList lst;
+
+		Id = Integer.parseInt(parser.XPath("id", node).item(0).getTextContent());
+		Date = parser.XPath("date", node).item(0).getTextContent();
+		Latitude = Double.parseDouble(parser.XPath("latitude", node).item(0).getTextContent());
+		Longitude = Double.parseDouble(parser.XPath("longitude", node).item(0).getTextContent());
+		Description = parser.XPath("description", node).item(0).getTextContent();
 		
 		return true;
 	}

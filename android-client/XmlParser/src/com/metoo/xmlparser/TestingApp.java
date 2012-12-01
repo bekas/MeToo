@@ -34,7 +34,7 @@ public class TestingApp {
 			TaggedDoc tagged = new TaggedDoc(page);
 			PageParser pageParser = new PageParser();
 			
-			List<Event> events = pageParser.ReadFromPage(tagged, Event.class, "/metoo/events");
+			List<Event> events = pageParser.ReadFromPage(tagged, Event.class, "/metoo/events/event");
 			PrLn("Получено событий: " + events.size());
 			
 		} catch (PageException e) {
