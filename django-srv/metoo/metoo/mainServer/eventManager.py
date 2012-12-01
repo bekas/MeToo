@@ -1,14 +1,15 @@
+# -*- coding: utf-8 -*-
 from django.db import models
-import models
+from models import Session, User, Event, Place, City, Country, Photo
+from timeManager import TimeManager, Worker
+from configurationManager import ConfigurationManager
+from sessionManager import SessionManager
+from eventManager import EventManager
+'''
+Модуль, предоставляющий инструментарий для работы с событиями
+'''
 
 class EventManager:
-<<<<<<< HEAD
-	def createEvent(name,description,date,x,y,photo,creator):
-		return null
-
-	def getEvents(conditionals,creator):
-		return null
-=======
 	'''
 	Класс, предоставлящий возможности:\n
 	-Создания событий;\n
@@ -153,12 +154,6 @@ class EventManager:
 	@staticmethod
 	def checkEvent(eventId):
 		'''
-		Метод для проверки существованияя события
+		Метод для проверки существованияя события(по id события)
 		'''
 		return Event.objects.filter(pk = eventId).exists()
-		
-	
->>>>>>> master
-
-	def modifyEvent(name,description,date,x,y,photo,creator):
-		return null

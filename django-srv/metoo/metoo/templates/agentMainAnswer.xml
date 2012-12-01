@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metoo>
+	<!--Общие поля для всех пакетов-->
 	<type>{{ type }}</type>
 	<request_id>{{ request_id }}</request_id> 
+	<result>{{ result }}</result>
+
+	<!--Старый тип, может использоваться для отладки-->
 	{% if type == "mainType" %}
 		<answer>{{ message }}</answer>
 		<agent>{{ agent }}</agent>
 		<get>{{ get }}</get>
 		<post>{{ post }}</post>
 	{% endif %}
+	
+	<!--Авторизация.Возвращает id сессии-->
 	{% if type == "auth" %}
-		<result>{{ result }}</result>
     	<description>{{ description }}</description>
     	<session_id>{{ session_id }}</session_id>
     {% endif %}
-<<<<<<< HEAD
-=======
     
+    <!--Список событий-->
     {% if type == "events" %}
 		  <events N = "{{ count }}">
 		  {% for event in events %}
@@ -34,6 +38,7 @@
        </events>
     {% endif %}
     
+    <!--Список список пользователей-->
     {% if type == "users" %}
 		<users N = "{{ count }}">
 		  {% for user in users %}
@@ -46,5 +51,4 @@
 		  {% endfor %}
        </users>
     {% endif %}
->>>>>>> master
 </metoo>

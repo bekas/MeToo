@@ -23,6 +23,6 @@ class ConfigurationManager:
 	@staticmethod	
 	def loopDeleteSessionInterval():
 		'''
-		Метод, возвращающий таймаут цикла удаления старых сессий
+		Метод, возвращающий таймаут удаления старых сессий
 		'''
 		return 5

@@ -16,7 +16,7 @@ class MessageManager:
 	@staticmethod
 	def createContext(agentMessage):		
 		'''
-		Создание контекста для генерации ответных пакетов/страниц
+		Метод для создания контекста для генерации ответных пакетов/страниц
 		'''
 		#ИМХО это решение не очень. Надо бы подумать ка лучше сделать
 		context = {		
@@ -85,9 +85,7 @@ class MessageManager:
 							MessageManager.modMetooContext(x),
 					'delmetoo':
 						lambda x:
-							MessageManager.delMetooContext(x),
-					
-						
+							MessageManager.delMetooContext(x),						
 					}[agentMessage['type']](agentMessage)
 		
 		

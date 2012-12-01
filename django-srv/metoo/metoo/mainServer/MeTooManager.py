@@ -11,12 +11,12 @@ from eventManager import EventManager
 
 class MeTooManager:
 	'''
-	Класс, позволяющиййй узнать, кто идет на конкретное событие,\n
+	Класс, позволяющий узнать, кто идет на конкретное событие,\n
 	пойти самому, изменить тип похода или отказаться от события
 	'''
 	def getUsersbyEvent(sessionId,eventId):
 		'''
-		Узнать, кто идет на конкретное событие
+		Метод, позволяющий узнать, кто идет на конкретное событие
 		'''
 		result = {}
 		userId = SessionManager.getUser(sessionId)
@@ -40,7 +40,7 @@ class MeTooManager:
 		
 	def meToo(sessionId,eventId,metooTypeId):
 		'''
-		Пойти на событие
+		Метод, для того, чтобы пойти на событие
 		'''
 		userId = SessionManager.getUser(sessionId)
 		if(userId != -1):
@@ -53,7 +53,7 @@ class MeTooManager:
 		
 	def delMeToo(sessionId,eventId):
 		'''
-		Отказаться от события
+		Метод отказа от события
 		'''
 		userId = SessionManager.getUser(sessionId)
 		if(userId != -1):
@@ -66,7 +66,7 @@ class MeTooManager:
 		
 	def modMeToo(sessionId,eventId,metooTypeId):
 		'''
-		Изменить тип похода
+		Метод для измения типа похода
 		'''
 		userId = SessionManager.getUser(sessionId)
 		if(userId != -1):
