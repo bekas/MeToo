@@ -2,19 +2,19 @@
 <metoo>
 	<type>{{ type }}</type>
 	<request_id>{{ request_id }}</request_id> 
+	<result>{{ result }}</result>
+	
 	{% if type == "mainType" %}
 		<answer>{{ message }}</answer>
 		<agent>{{ agent }}</agent>
 		<get>{{ get }}</get>
 		<post>{{ post }}</post>
 	{% endif %}
+	
 	{% if type == "auth" %}
-		<result>{{ result }}</result>
     	<description>{{ description }}</description>
     	<session_id>{{ session_id }}</session_id>
     {% endif %}
-<<<<<<< HEAD
-=======
     
     {% if type == "events" %}
 		  <events N = "{{ count }}">
@@ -46,5 +46,4 @@
 		  {% endfor %}
        </users>
     {% endif %}
->>>>>>> master
 </metoo>

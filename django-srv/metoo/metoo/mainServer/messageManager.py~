@@ -5,6 +5,7 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
+from eventManager import EventManager
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -142,11 +143,6 @@ class MessageManager:
 	
 		
 		devcontext={}
-<<<<<<< HEAD
-		devcontext['type'] = 'auth'
-		devcontext['login'] = 'test'
-		devcontext['password'] = 'test'
-=======
 		
 		'''
 		devcontext['type'] = 'events'
@@ -169,7 +165,6 @@ class MessageManager:
 		devcontext['sessionid'] = 15
 		devcontext['eventid'] = 10
 		
->>>>>>> master
 		context['data'] = devcontext
 		
 		return context	
@@ -214,8 +209,10 @@ class MessageManager:
 		Контекст пакета запроса событий
 		'''
 		context = {}
-		context['type'] = 'events'
-		#context['events'] = EventManager.getEvents(agentMessage['conditionals'])
+		context['type'] = 'events'	
+		context['events'] = EventManager.getEvents(agentMessage['sessionid'], agentMessage)
+		context['count'] = len(context['events'])
+		context['result'] = 300
 		return context
 	
 	@staticmethod
@@ -225,7 +222,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'eventcreate'
-		#cintext['result'] = EventManager.createEvent(agentMessage[''])
+		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
 		return context
 	
 	@staticmethod

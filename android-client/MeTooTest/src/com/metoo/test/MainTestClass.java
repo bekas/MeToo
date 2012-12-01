@@ -1,10 +1,13 @@
 package com.metoo.test;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+=======
+>>>>>>> master
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -82,6 +85,56 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 		errorInfo = parser.ParseMessage(testWrongAnswer);
 		assertNotNull(errorInfo);
 	}
+<<<<<<< HEAD
+=======
+	
+	public void testXmlEventAnswer() {
+		String testAnswer = 
+		"<metoo>" +
+	    "<type>events</type>" +
+	    "<result>1</result>" +
+	    "<z N = \"2\">" +
+	    "		<event>" +
+	    "              <id>123</id>" +
+	    "              <creator>РЎРѕР·РґР°С‚РµР»СЊ</creator>" +
+	    "              <name>Р�РјСЏ СЃРѕР±С‹С‚РёСЏ</name>" +
+	    "              <date>2012.12.21</date>" +
+	    "              <description>РљРѕРЅРµС† СЃРІРµС‚Р°</description>" +
+	    "              <photo>null</photo>" +
+	    "              <latitude>55.8</latitude>" +
+	    "              <longitude>37.7</longitude>" +
+	    "              <type></type>" +
+	    "		</event>" +
+	    "		<event>" +
+	    "              <id>124</id>" +
+	    "              <creator>РЎРѕР·РґР°С‚РµР»СЊ2</creator>" +
+	    "              <name>Р�РјСЏ СЃРѕР±С‹С‚РёСЏ2</name>" +
+	    "              <date>2012.12.22</date>" +
+	    "              <description>РџРѕСЃР»Рµ РєРѕРЅС†Р° СЃРІРµС‚Р°</description>" +
+	    "              <photo>null</photo>" +
+	    "              <latitude>55.7</latitude>" +
+	    "              <longitude>37.8</longitude>" +
+	    "              <type></type>" +
+	    "		</event>" +
+	    "  </events>" +
+	    "</metoo>";
+		
+		XmlAnswer parser = new XmlAnswer();
+		String errorInfo = parser.ParseMessage(testAnswer);
+		
+//		XmlDoc page = new XmlDoc();
+//		try {
+//			page.LoadFromFile("res/raw/testevents.xml", true);
+//			TaggedDoc tagged = new TaggedDoc(page);
+//			PageParser pageParser = new PageParser();
+//			
+//			//pageParser.ReadFromPage(tagged, Event.class, "/");
+//			
+//		} catch (PageException e) {
+//			e.printStackTrace();
+//		}
+	}
+>>>>>>> master
 
 }
 

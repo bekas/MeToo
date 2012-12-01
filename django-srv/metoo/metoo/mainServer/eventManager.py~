@@ -1,14 +1,14 @@
+# -*- coding: utf-8 -*-
+'''
+Модуль, отвечающий за работу с событиями.
+'''
 from django.db import models
-import models
+from models import Session, User, Event, Place, City, Country, Photo
+from timeManager import TimeManager, Worker
+from configurationManager import ConfigurationManager
+from sessionManager import SessionManager
 
 class EventManager:
-<<<<<<< HEAD
-	def createEvent(name,description,date,x,y,photo,creator):
-		return null
-
-	def getEvents(conditionals,creator):
-		return null
-=======
 	'''
 	Класс, предоставлящий возможности:\n
 	-Создания событий;\n
@@ -146,7 +146,6 @@ class EventManager:
 		if EventManager.checkEvent(eventId):
 			modEvent = Event.objects.get(pk=eventId)
 			modEvent.delete()
-			#TODO Вернуть норм ошибку
 			result = 300
 		return result
 		
@@ -158,7 +157,4 @@ class EventManager:
 		return Event.objects.filter(pk = eventId).exists()
 		
 	
->>>>>>> master
 
-	def modifyEvent(name,description,date,x,y,photo,creator):
-		return null
