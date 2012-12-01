@@ -74,7 +74,11 @@ class MessageManager:
 							MessageManager.modifyProfileContext(x),
 					'test':
 						lambda x:
-							MessageManager.testContext(x),
+							MessageManager.testContext(x),				
+					'users':
+						lambda x:
+							MessageManager.usersContext(x),
+					
 						
 					}[agentMessage['type']](agentMessage)
 		
@@ -159,7 +163,7 @@ class MessageManager:
 		
 		devcontext['type'] = 'deleteEvent'
 		devcontext['sessionid'] = 15
-		devcontext['eventid'] = 9
+		devcontext['eventid'] = 10
 		
 		context['data'] = devcontext
 		
@@ -258,4 +262,50 @@ class MessageManager:
 		context = {}
 		context['type'] = 'test'
 		context['get'] = agentMessage
+		return context
+		
+	@staticmethod	
+	def usersContext(agentMessage):
+		'''
+		Контекст пакета запроса пользователей, подписавшихся на событие
+		'''
+		context = {}
+		context['type'] = 'users'	
+		result = MeTooManager.getUsersbyEvent(agentMessage['sessionid'], agentMessage['eventId'])
+		context['users'] = result['users']
+		context['count'] = len(context['events'])
+		context['result'] = result['result']
+		return context		
+		
+	@staticmethod	
+	def metooContext(agentMessage):
+		'''
+		Контекст пакета запроса подписывания на событие
+		'''
+		context = {}
+		context['type'] = 'metoo'	
+		result = MeTooManager.meToo(agentMessage['sessionid'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		context['result'] = result
+		return context		
+
+	@staticmethod	
+	def delMetooContext(agentMessage):
+		'''
+		Контекст пакета запроса отказа на событие
+		'''
+		context = {}
+		context['type'] = 'metoo'	
+		result = MeTooManager.delMeToo(agentMessage['sessionid'], agentMessage['eventId'])
+		context['result'] = result
+		return context
+		
+	@staticmethod	
+	def modMetooContext(agentMessage):
+		'''
+		Контекст пакета запроса изменения типа похода на событие
+		'''
+		context = {}
+		context['type'] = 'metoo'	
+		result = MeTooManager.modMeToo(agentMessage['sessionid'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		context['result'] = result
 		return context

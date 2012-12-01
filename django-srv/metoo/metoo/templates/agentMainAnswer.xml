@@ -33,4 +33,17 @@
 		  {% endfor %}
        </events>
     {% endif %}
+    
+    {% if type == "users" %}
+		<users N = "{{ count }}">
+		  {% for user in users %}
+    	  	<user>  	
+    	  		<id>{{ user.id }}</id>
+          		<login>{{ user.login }}</login>
+          		<avatar>{{ user.avatar }}</avatar>
+          		<rating>{{ user.rating }}</rating>
+          	</user>
+		  {% endfor %}
+       </users>
+    {% endif %}
 </metoo>

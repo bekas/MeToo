@@ -24,7 +24,7 @@
           		<creator>{{ event.creatorId }}</creator>
                 <name>{{ event.name}}</name>
                 <date>{{ event.date }}</date>
-                <description>{{ event.descrption }}</description>
+                <description>{{ event.description }}</description>
                 <photo>{{ event.photo }}</photo>
                 <latitude>{{ event.latitude }}</latitude>
                 <longitude>{{ event.longitude }}</longitude>
@@ -32,5 +32,18 @@
              </event>
 		  {% endfor %}
        </events>
+    {% endif %}
+    
+    {% if type == "users" %}
+		<users N = "{{ count }}">
+		  {% for user in users %}
+    	  	<user>  	
+    	  		<id>{{ user.id }}</id>
+          		<login>{{ user.login }}</login>
+          		<avatar>{{ user.avatar }}</avatar>
+          		<rating>{{ user.rating }}</rating>
+          	</user>
+		  {% endfor %}
+       </users>
     {% endif %}
 </metoo>
