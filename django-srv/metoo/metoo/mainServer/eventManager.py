@@ -141,9 +141,21 @@ class EventManager:
 		Метод для удаления событий (по сессии и Id сессии)
 		'''
 		#TODO Удалять ли события?
+		result = -1
 		userId = SessionManager.getUser(sessionId)
-		modEvent = Event.objects.get(pk=eventId)
-		modEvent.delete()
+		if EventManager.checkEvent(eventId):
+			modEvent = Event.objects.get(pk=eventId)
+			modEvent.delete()
+			#TODO Вернуть норм ошибку
+			result = 300
+		return result
 		
-		return modEvent.pk
+	@staticmethod
+	def checkEvent(eventId):
+		'''
+		Метод для проверки существованияя события
+		'''
+		return Event.objects.filter(pk = eventId).exists()
+		
+	
 

@@ -159,7 +159,7 @@ class MessageManager:
 		
 		devcontext['type'] = 'deleteEvent'
 		devcontext['sessionid'] = 15
-		devcontext['eventid'] = 8
+		devcontext['eventid'] = 9
 		
 		context['data'] = devcontext
 		
@@ -243,12 +243,18 @@ class MessageManager:
 	
 	@staticmethod	
 	def modifyProfileContext(agentMessage):
+		'''
+		Контекст пакета редактирования профиля
+		'''
 		context = {}
 		context['type'] = 'profilemodify'
 		return context
 		
 	@staticmethod
 	def testContext(agentMessage):
+		'''
+		Контекст пакета тестирования
+		'''
 		context = {}
 		context['type'] = 'test'
 		context['get'] = agentMessage

@@ -11,8 +11,4 @@ from eventManager import EventManager
 
 class MeTooManager:
 	def getUsersbyEvent(eventId):
-	
-	
-	def 
-	
 		

@@ -159,7 +159,7 @@ class MessageManager:
 		
 		devcontext['type'] = 'deleteEvent'
 		devcontext['sessionid'] = 15
-		devcontext['eventid'] = 8
+		devcontext['eventid'] = 10
 		
 		context['data'] = devcontext
 		
