@@ -1,7 +1,7 @@
 10
 
 dir
-71
+78
 http://dev.iu7.bmstu.ru/svn/groupdev_12_e-burmistrova/trunk/django-srv/metoo/metoo/templates/static/css
 http://dev.iu7.bmstu.ru/svn/groupdev_12_e-burmistrova
 
@@ -25,6 +25,74 @@ bekasov_de_bekasovdenis
 
 
 2ed5b185-c505-4198-a2dc-a7db1026ff70
+
+metoo.png
+file
+
+
+
+
+2012-11-17T20:21:15.065511Z
+550aa5aabc5901d4020635200f25b12d
+2012-10-23T10:27:54.112531Z
+14
+bekasov_de_bekasovdenis
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+34572
+
+style.css
+file
+
+
+
+
+2012-11-17T20:21:15.065511Z
+7a5e2bff0e747f9cd344557f0aba1aae
+2012-11-14T21:33:37.351400Z
+27
+bekasov_de_bekasovdenis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2419
 
 reset-min.css
 file
@@ -229,72 +297,4 @@ bekasov_de_bekasovdenis
 
 
 15954
-
-metoo.png
-file
-
-
-
-
-2012-11-17T20:21:15.065511Z
-550aa5aabc5901d4020635200f25b12d
-2012-10-23T10:27:54.112531Z
-14
-bekasov_de_bekasovdenis
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-34572
-
-style.css
-file
-
-
-
-
-2012-11-17T20:21:15.065511Z
-7a5e2bff0e747f9cd344557f0aba1aae
-2012-11-14T21:33:37.351400Z
-27
-bekasov_de_bekasovdenis
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2419
 

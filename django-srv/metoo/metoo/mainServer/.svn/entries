@@ -1,7 +1,7 @@
 10
 
 dir
-71
+78
 http://dev.iu7.bmstu.ru/svn/groupdev_12_e-burmistrova/trunk/django-srv/metoo/metoo/mainServer
 http://dev.iu7.bmstu.ru/svn/groupdev_12_e-burmistrova
 
@@ -25,6 +25,74 @@ bekasov_de_bekasovdenis
 
 
 2ed5b185-c505-4198-a2dc-a7db1026ff70
+
+configurationManager.py
+file
+
+
+
+
+2012-11-19T17:36:54.421140Z
+af5cca9ce689cfaff0588ff87923c4da
+2012-11-19T18:24:10.765441Z
+70
+bekasov_de_bekasovdenis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+255
+
+tests.py
+file
+
+
+
+
+2012-11-19T16:21:15.693496Z
+61ee7e3cab3bca81003d697013826040
+2012-11-19T18:24:10.765441Z
+70
+bekasov_de_bekasovdenis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2277
 
 models.py
 file
@@ -331,72 +399,4 @@ bekasov_de_bekasovdenis
 
 
 4134
-
-configurationManager.py
-file
-
-
-
-
-2012-11-19T17:36:54.421140Z
-af5cca9ce689cfaff0588ff87923c4da
-2012-11-19T18:24:10.765441Z
-70
-bekasov_de_bekasovdenis
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-255
-
-tests.py
-file
-
-
-
-
-2012-11-19T16:21:15.693496Z
-61ee7e3cab3bca81003d697013826040
-2012-11-19T18:24:10.765441Z
-70
-bekasov_de_bekasovdenis
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2277
 

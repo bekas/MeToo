@@ -1,7 +1,7 @@
 10
 
 dir
-71
+78
 http://dev.iu7.bmstu.ru/svn/groupdev_12_e-burmistrova/trunk/django-srv/metoo/metoo/templates
 http://dev.iu7.bmstu.ru/svn/groupdev_12_e-burmistrova
 
@@ -25,6 +25,9 @@ bekasov_de_bekasovdenis
 
 
 2ed5b185-c505-4198-a2dc-a7db1026ff70
+
+static
+dir
 
 agentMainAnswer.xml
 file
@@ -93,7 +96,4 @@ bekasov_de_bekasovdenis
 
 
 3131
-
-static
-dir
 

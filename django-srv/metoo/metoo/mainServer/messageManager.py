@@ -1,12 +1,24 @@
 # -*- coding: utf-8 -*-
+'''
+Модуль, отвечающий за работу с событиями.
+'''
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
+from eventManager import EventManager
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
+	'''
+	Класс, обрабатывающий входные сообщения и формирующий ответы.\n
+	Основной метод - createContext.Создает словарь, содержащий необходимую\n 
+	информацию\n
+	'''
 	@staticmethod
 	def createContext(agentMessage):		
+		'''
+		Создание контекста для генерации ответных пакетов/страниц
+		'''
 		#ИМХО это решение не очень. Надо бы подумать ка лучше сделать
 		context = {		
 					'main':
@@ -48,6 +60,10 @@ class MessageManager:
 					'createEvent':
 						lambda x: 
 							MessageManager.createEventContext(x),
+							
+					'deleteEvent':
+						lambda x: 
+							MessageManager.deleteEventContext(x),		
 			
 					'modifyEvent':
 						lambda x: 
@@ -58,7 +74,11 @@ class MessageManager:
 							MessageManager.modifyProfileContext(x),
 					'test':
 						lambda x:
-							MessageManager.testContext(x),
+							MessageManager.testContext(x),				
+					'users':
+						lambda x:
+							MessageManager.usersContext(x),
+					
 						
 					}[agentMessage['type']](agentMessage)
 		
@@ -71,6 +91,9 @@ class MessageManager:
 	# Страницы Веб-приложения
 	@staticmethod	
 	def mainContext(agentMessage):
+		'''
+		Контекст основной страницы сайта
+		'''
 		context = {}
 		context['title'] = 'Welcome!'
 		context['type'] = 'main'
@@ -78,6 +101,9 @@ class MessageManager:
 	
 	@staticmethod	
 	def aboutContext(agentMessage):
+		'''
+		Контекст страницы сайта "About"
+		'''
 		context = {}
 		context['title'] = 'About us'
 		context['type'] = 'about'
@@ -86,6 +112,9 @@ class MessageManager:
 		
 	@staticmethod	
 	def whatContext(agentMessage):
+		'''
+		Контекст cтраницы сайта "What is it?"
+		'''
 		context = {}
 		context['title'] = 'What is it?'
 		context['type'] = 'what'
@@ -94,6 +123,9 @@ class MessageManager:
 	
 	@staticmethod	
 	def downloadContext(agentMessage):
+		'''
+		Контекст cтраницы сайта "Download"
+		'''
 		context = {}
 		context['title'] = 'Download MeToo there!'
 		context['type'] = 'download'
@@ -102,14 +134,37 @@ class MessageManager:
 	
 	@staticmethod	
 	def devContext(agentMessage):
+		'''
+		Контекст cтраницы сайта для разработки и тестирования
+		'''
 		context = {}
 		context['title'] = '<<Developer page>>'
 		context['type'] = 'dev'
+	
 		
 		devcontext={}
-		devcontext['type'] = 'auth'
-		devcontext['login'] = 'test'
-		devcontext['password'] = 'test'
+		
+		'''
+		devcontext['type'] = 'events'
+		devcontext['sessionid'] = 15
+		devcontext['latitude'] = 55.5
+		devcontext['longitude'] = 37.4
+		devcontext['radius'] = 0.3
+		'''
+		'''
+		devcontext['type'] = 'modifyEvent'
+		devcontext['sessionid'] = 15
+		
+		devcontext['eventid'] = 8
+		devcontext['latitude'] = 55.0
+		devcontext['longitude'] = 37.0
+		devcontext['name'] = 'TEST_EVENT2'
+		'''
+		
+		devcontext['type'] = 'deleteEvent'
+		devcontext['sessionid'] = 15
+		devcontext['eventid'] = 10
+		
 		context['data'] = devcontext
 		
 		return context	
@@ -118,12 +173,18 @@ class MessageManager:
 	# Обработчики протокола обмена с приложением
 	@staticmethod	
 	def pingContext(agentMessage):
+		'''
+		Контекст пингующего пакета 
+		'''
 		context = {}
 		context['type'] = 'ping'
 		return context
 	
 	@staticmethod
 	def authoriseContext(agentMessage):
+		'''
+		Контекст пакета авторизации
+		'''
 		context = {}
 		context['type'] = 'auth'	
 		#sessionRes = 1
@@ -135,39 +196,116 @@ class MessageManager:
 		
 	@staticmethod
 	def registrateContext(agentMessage):
+		'''
+		Контекст пакета регистрации
+		'''
 		context = {}
 		context['type'] = 'registrate'
 		return context
 	
 	@staticmethod	
 	def eventsContext(agentMessage):
+		'''
+		Контекст пакета запроса событий
+		'''
 		context = {}
-		context['type'] = 'events'
-		#context['events'] = EventManager.getEvents(agentMessage['conditionals'])
+		context['type'] = 'events'	
+		context['events'] = EventManager.getEvents(agentMessage['sessionid'], agentMessage)
+		context['count'] = len(context['events'])
+		context['result'] = 300
 		return context
 	
 	@staticmethod
 	def createEventContext(agentMessage):
+		'''
+		Контекст пакета создания событий
+		'''
 		context = {}
 		context['type'] = 'eventcreate'
-		#cintext['result'] = EventManager.createEvent(agentMessage[''])
+		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
 		return context
 	
 	@staticmethod
 	def modifyEventContext(agentMessage):
+		'''
+		Контекст пакета изменения событий
+		'''
 		context = {}
 		context['type'] = 'eventmodify'
+		context['result'] = EventManager.modifyEvent(agentMessage['sessionid'],agentMessage['eventid'],agentMessage)
+		return context
+	
+	@staticmethod
+	def deleteEventContext(agentMessage):
+		'''
+		Контекст пакета удаления событий
+		'''
+		context = {}
+		context['type'] = 'eventdelete'
+		context['result'] = EventManager.deleteEvent(agentMessage['sessionid'],agentMessage['eventid'])
 		return context
 	
 	@staticmethod	
 	def modifyProfileContext(agentMessage):
+		'''
+		Контекст пакета редактирования профиля
+		'''
 		context = {}
 		context['type'] = 'profilemodify'
 		return context
 		
 	@staticmethod
 	def testContext(agentMessage):
+		'''
+		Контекст пакета тестирования
+		'''
 		context = {}
 		context['type'] = 'test'
 		context['get'] = agentMessage
+		return context
+		
+	@staticmethod	
+	def usersContext(agentMessage):
+		'''
+		Контекст пакета запроса пользователей, подписавшихся на событие
+		'''
+		context = {}
+		context['type'] = 'users'	
+		result = MeTooManager.getUsersbyEvent(agentMessage['sessionid'], agentMessage['eventId'])
+		context['users'] = result['users']
+		context['count'] = len(context['events'])
+		context['result'] = result['result']
+		return context		
+		
+	@staticmethod	
+	def metooContext(agentMessage):
+		'''
+		Контекст пакета запроса подписывания на событие
+		'''
+		context = {}
+		context['type'] = 'metoo'	
+		result = MeTooManager.meToo(agentMessage['sessionid'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		context['result'] = result
+		return context		
+
+	@staticmethod	
+	def delMetooContext(agentMessage):
+		'''
+		Контекст пакета запроса отказа на событие
+		'''
+		context = {}
+		context['type'] = 'metoo'	
+		result = MeTooManager.delMeToo(agentMessage['sessionid'], agentMessage['eventId'])
+		context['result'] = result
+		return context
+		
+	@staticmethod	
+	def modMetooContext(agentMessage):
+		'''
+		Контекст пакета запроса изменения типа похода на событие
+		'''
+		context = {}
+		context['type'] = 'metoo'	
+		result = MeTooManager.modMeToo(agentMessage['sessionid'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		context['result'] = result
 		return context
