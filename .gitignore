@@ -1,5 +1,8 @@
 /android-client/gen
 /android-client/bin
 /android-client/MeTooTest/gen
-/android-client/MeTooTest/assets
 /android-client/MeTooTest/bin
+/android-client/XmlParser/bin
+/android-client/MeToo/bin
+/android-client/MeToo/gen
+/android-client/MeToo/assets

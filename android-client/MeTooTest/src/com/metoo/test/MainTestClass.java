@@ -1,27 +1,10 @@
 package com.metoo.test;
 
-<<<<<<< HEAD
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-=======
->>>>>>> master
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.test.ActivityUnitTestCase;
 
 import com.metoo.activities.MainActivity;
-import com.metoo.common.AndroServices;
 import com.metoo.srvlink.XmlAnswer;
-
-import junit.framework.TestCase;
 
 // Should try ActivityInstrumentationTestCase2
 public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
@@ -43,10 +26,10 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 	}
 
 	
-	public void testStartActivity() {
-		MainActivity hActivity = startActivity(new Intent(Intent.ACTION_MAIN), null, null);
-		AndroServices srv = new AndroServices(hActivity);
-	}
+//	public void testStartActivity() {
+//		MainActivity hActivity = startActivity(new Intent(Intent.ACTION_MAIN), null, null);
+//		AndroServices srv = new AndroServices(hActivity);
+//	}
 	
 	public void testXmlAnswerObject() {
 		String testRightAnswer = 
@@ -85,8 +68,6 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 		errorInfo = parser.ParseMessage(testWrongAnswer);
 		assertNotNull(errorInfo);
 	}
-<<<<<<< HEAD
-=======
 	
 	public void testXmlEventAnswer() {
 		String testAnswer = 
@@ -134,7 +115,6 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 //			e.printStackTrace();
 //		}
 	}
->>>>>>> master
 
 }
 

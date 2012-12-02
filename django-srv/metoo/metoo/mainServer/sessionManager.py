@@ -54,5 +54,14 @@ class SessionManager:
 			userId = reqSession.userId.pk
 		return userId
 		
-		
+	# method to get user by session 
+	@staticmethod
+	def getUser(sessionId):	
+		#userId = 0 - SessionManager.checkSessionWorker.test
+		if SessionManager.checkSession(sessionId):
+			reqSession = Session.objects.get(pk = sessionId)
+			reqSession.referenceTime = TimeManager.getTime()
+			reqSession.save()
+			user = reqSession.userId
+		return user
 	
