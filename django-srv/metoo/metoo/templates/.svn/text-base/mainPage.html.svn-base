@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+
+	<head>
+		<!--Title-->
+		<title>MeToo</title>
+		
+		<!--CSS-->
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+  		<!--<link rel="stylesheet" type="text/css" href="/static/css/social.css">-->
+  		<link rel="stylesheet" type="text/css" href="/static/css/reset-min.css"/>    
+    	<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    	<link rel="stylesheet" type="text/css" href="/static/css/sweet.css"/>
+	</head>
+	
+    <body>
+
+
+    	<!--Button.becouse we can.-->
+    	<ul align="center" valign="center">
+    		<a href="/what/" data-icon="✰" class="button blue serif skew glossy">What is it?</a>
+			<a href="/download/" data-icon="✈" class="button green serif skew glossy">Download</a>  
+			<a href="/about/" data-icon="☺" class="button orange serif skew glossy">About us</a>    
+		  <!--  <a href="dev/" data-icon="✆" class="button pink serif skew glossy">Developer button</a>   -->   
+        </ul>
+        
+        <!--Logo-->
+        <h1 align="center" ><Img src="/static/images/metoo2.png"></h1>
+        <!--Slogan-->
+    	<h2 align="center">MeToo.He has came.</h2> -->
+    
+        <br/>
+    
+        <!--Content-->    
+        <h1 align="center" >{{title}}</h1>
+        <br/><br/><br/><br/><br/>
+        <p>{{data}}</p>
+        
+        {% if type == "download" %}
+		<h1 align="center"><a href="" class="button orange glossy" data-icon="✈">Download for Android</a> </h1>
+		{% endif %}
+		
+		
+	</body>
+</html>
+               
+ 
+ 
+ 
+ 
+ 
+ <!-- Examples -->
+ 
+ <!--
+        <ul>
+  			<li class="facebook"><a href="http://facebook.com" title="Share on Facebook">Facebook</a></li>
+	   		<li class="twitter"><a href="#non" title="Share on Twitter">Twitter</a></li>
+	  		<li class="rss"><a href="#non" title="Subscribe to the RSS feed">RSS</a></li>
+			<li class="flickr"><a href="#non" title="Share on Flickr">Flickr</a></li>
+			<li class="delicious"><a href="#non" title="Bookmark on Delicious">Delicious</a></li>
+			<li class="linkedin"><a href="#non" title="Share on LinkedIn">LinkedIn</a></li> 
+			<li class="google"><a href="#non" title="Bookmark with Google">Google</a></li>
+			<!-- <li class="orkut"><a href="#non" title="Share on Orkut">Orkut</a></li>
+			<li class="technorati"><a href="#non" title="Add to Technorati">Technorati</a></li>
+			<li class="netvibes"><a href="#non" title="Add to NetVibes">NetVibes</a></li> 
+		</ul>
+		-->
+<!-- <nav class="demo">
+		<a href="#" class="button">Button</a>
+		<a href="#" data-icon="✆" class="button blue brackets">Call</a>
+		<a href="#" data-icon="✰" class="button pink serif skew glossy">MeToo</a>
+		<a href="#" data-icon="✿" class="button green serif back xl glass icon">Reddit</a>
+		<br />
+		<a href="#" data-icon="" class="button green">Blog</a>
+		<a href="#" data-icon="☺" class="button pink oval icon">Love</a>
+		<a href="#" data-icon="✪" class="button orange shield xl glossy icon">Quit</a>
+		<a href="#" data-icon="" class="button blue back xl glass icon">Upload</a>
+		<a href="#" data-icon="✔" class="button orange drop glass icon">RSS</a>
+	</nav>-->
+

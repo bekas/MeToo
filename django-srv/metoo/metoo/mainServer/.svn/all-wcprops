@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/groupdev_12_e-burmistrova/!svn/ver/70/trunk/django-srv/metoo/metoo/mainServer
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/groupdev_12_e-burmistrova/!svn/ver/63/trunk/django-srv/metoo/metoo/mainServer/models.py
+END
+timeManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/groupdev_12_e-burmistrova/!svn/ver/63/trunk/django-srv/metoo/metoo/mainServer/timeManager.py
+END
+userManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/groupdev_12_e-burmistrova/!svn/ver/65/trunk/django-srv/metoo/metoo/mainServer/userManager.py
+END
+eventManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/groupdev_12_e-burmistrova/!svn/ver/29/trunk/django-srv/metoo/metoo/mainServer/eventManager.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/groupdev_12_e-burmistrova/!svn/ver/70/trunk/django-srv/metoo/metoo/mainServer/views.py
+END
+MeTooManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/groupdev_12_e-burmistrova/!svn/ver/31/trunk/django-srv/metoo/metoo/mainServer/MeTooManager.py
+END
+sessionManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/groupdev_12_e-burmistrova/!svn/ver/70/trunk/django-srv/metoo/metoo/mainServer/sessionManager.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/groupdev_12_e-burmistrova/!svn/ver/29/trunk/django-srv/metoo/metoo/mainServer/__init__.py
+END
+messageManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/groupdev_12_e-burmistrova/!svn/ver/70/trunk/django-srv/metoo/metoo/mainServer/messageManager.py
+END
+configurationManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/groupdev_12_e-burmistrova/!svn/ver/70/trunk/django-srv/metoo/metoo/mainServer/configurationManager.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/groupdev_12_e-burmistrova/!svn/ver/70/trunk/django-srv/metoo/metoo/mainServer/tests.py
+END

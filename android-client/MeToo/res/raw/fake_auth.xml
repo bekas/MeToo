@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<metoo>
+    <type>authorise</type>
+    <result>{{int result code}}</result>
+   <description>{{text of error}}</description>
+    <session_id>{{id}}</session_id>
+    <request_id>{{id}}</request_id>
+</metoo>
+
