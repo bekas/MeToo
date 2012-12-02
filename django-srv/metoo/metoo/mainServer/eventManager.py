@@ -4,7 +4,6 @@ from models import Session, User, Event, Place, City, Country, Photo
 from timeManager import TimeManager, Worker
 from configurationManager import ConfigurationManager
 from sessionManager import SessionManager
-from eventManager import EventManager
 '''
 Модуль, предоставляющий инструментарий для работы с событиями
 '''
