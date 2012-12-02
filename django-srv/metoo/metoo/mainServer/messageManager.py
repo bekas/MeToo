@@ -178,7 +178,7 @@ class MessageManager:
 		devcontext['name'] = 'New Event'
 		devcontext['time'] = '2012-12-21'		
 		devcontext['description'] = 'Some words about..'	
-		#devcontext['photo'] = 'new photo'	
+		devcontext['photo'] = 'new photo'	
 		devcontext['eventTypeId'] = 1			
 		
 		'''
