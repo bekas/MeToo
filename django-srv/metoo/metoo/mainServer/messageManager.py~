@@ -177,8 +177,8 @@ class MessageManager:
 		devcontext['longitude'] = 37.5
 		devcontext['name'] = 'New Event'
 		devcontext['time'] = '2012-12-21'		
-		devcontext['description'] = '2012-12-21'	
-		devcontext['photo'] = 'new photo'	
+		devcontext['description'] = 'Some words about..'	
+		#devcontext['photo'] = 'new photo'	
 		devcontext['eventTypeId'] = 1			
 		
 		'''
@@ -241,7 +241,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'eventcreate'
-		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage['eventid'],agentMessage)
+		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
 		return context
 	
 	@staticmethod

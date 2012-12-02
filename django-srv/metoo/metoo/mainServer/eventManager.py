@@ -44,6 +44,9 @@ class EventManager:
 			
 		if eventArgs.has_key('photo'):
 			photo = Photo(photo = eventArgs['photo'])
+			photo.save()
+		else:
+			photo = Photo.objects.get(pk = 1)
 			
 		if eventArgs.has_key('eventTypeId'):
 			eEventTypeId = eventArgs['eventTypeId']
