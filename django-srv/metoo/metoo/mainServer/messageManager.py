@@ -157,9 +157,9 @@ class MessageManager:
 		'''
 		devcontext['type'] = 'events'
 		devcontext['sessionid'] = 15
-		devcontext['latitude'] = 55.5
-		devcontext['longitude'] = 37.4
-		devcontext['radius'] = 0.3
+		devcontext['latitude'] = 55.6
+		devcontext['longitude'] = 37.5
+		devcontext['radius'] = 0.4
 		'''
 		'''
 		devcontext['type'] = 'modifyEvent'
@@ -170,10 +170,22 @@ class MessageManager:
 		devcontext['name'] = 'TEST_EVENT2'
 		'''
 		
+		devcontext['type'] = 'createEvent'
+		devcontext['sessionid'] = 15
+		
+		devcontext['latitude'] = 55.5
+		devcontext['longitude'] = 37.5
+		devcontext['name'] = 'New Event'
+		devcontext['time'] = '2012-12-21'		
+		devcontext['description'] = '2012-12-21'	
+		devcontext['photo'] = 'new photo'	
+		devcontext['eventTypeId'] = 1			
+		
+		'''
 		devcontext['type'] = 'deleteEvent'
 		devcontext['sessionid'] = 15
 		devcontext['eventid'] = 10
-
+		'''
 		context['data'] = devcontext
 		
 		return context	
@@ -219,7 +231,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'events'
-		#context['events'] = EventManager.getEvents(agentMessage['conditionals'])
+		context['events'] = EventManager.getEvents(agentMessage['sessionid'],agentMessage)
 		return context
 	
 	@staticmethod
@@ -229,7 +241,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'eventcreate'
-		#cintext['result'] = EventManager.createEvent(agentMessage[''])
+		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
 		return context
 	
 	@staticmethod

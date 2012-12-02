@@ -5,22 +5,22 @@
 	<request_id>{{ request_id }}</request_id> 
 	<result>{{ result }}</result>
 
-	<!--Старый тип, может использоваться для отладки-->
 	{% if type == "mainType" %}
+	<!--Старый тип, может использоваться для отладки-->
 		<answer>{{ message }}</answer>
 		<agent>{{ agent }}</agent>
 		<get>{{ get }}</get>
 		<post>{{ post }}</post>
 	{% endif %}
 	
-	<!--Авторизация.Возвращает id сессии-->
 	{% if type == "auth" %}
+    <!--Авторизация.Возвращает id сессии-->
     	<description>{{ description }}</description>
     	<session_id>{{ session_id }}</session_id>
     {% endif %}
     
-    <!--Список событий-->
     {% if type == "events" %}
+	<!--Список событий-->
 		  <events N = "{{ count }}">
 		  {% for event in events %}
     	  	<event>
@@ -38,8 +38,8 @@
        </events>
     {% endif %}
     
-    <!--Список список пользователей-->
     {% if type == "users" %}
+    <!--Список список пользователей-->	
 		<users N = "{{ count }}">
 		  {% for user in users %}
     	  	<user>  	

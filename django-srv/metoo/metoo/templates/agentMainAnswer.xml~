@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metoo>
+	<!--Общие поля для всех пакетов-->
 	<type>{{ type }}</type>
 	<request_id>{{ request_id }}</request_id> 
 	<result>{{ result }}</result>
-	
+
 	{% if type == "mainType" %}
+	<!--Старый тип, может использоваться для отладки-->
 		<answer>{{ message }}</answer>
 		<agent>{{ agent }}</agent>
 		<get>{{ get }}</get>
@@ -12,11 +14,13 @@
 	{% endif %}
 	
 	{% if type == "auth" %}
+    <!--Авторизация.Возвращает id сессии-->
     	<description>{{ description }}</description>
     	<session_id>{{ session_id }}</session_id>
     {% endif %}
     
     {% if type == "events" %}
+	 <!--Список событий-->
 		  <events N = "{{ count }}">
 		  {% for event in events %}
     	  	<event>
@@ -34,6 +38,7 @@
        </events>
     {% endif %}
     
+    <!--Список список пользователей-->
     {% if type == "users" %}
 		<users N = "{{ count }}">
 		  {% for user in users %}

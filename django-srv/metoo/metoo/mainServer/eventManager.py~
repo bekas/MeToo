@@ -11,10 +11,10 @@ from sessionManager import SessionManager
 class EventManager:
 	'''
 	Класс, предоставлящий возможности:\n
-	-Создания событий;\n
-	-Запроса событий по критерию;\n
-	-Изменения событий;\n
-	-Удаления событий;\n
+	- Создания событий;\n
+	- Запроса событий по критерию;\n
+	- Изменения событий;\n
+	- Удаления событий;\n
 	'''
 	@staticmethod
 	def createEvent(sessionId,eventArgs):
@@ -51,8 +51,8 @@ class EventManager:
 		if eventArgs.has_key('longitude'):
 			eLatitude = eventArgs['longitude']
 			
-		if eventArgs.has_key('eventTypeId'):
-			eLongitude = eventArgs['longitude']	
+		if eventArgs.has_key('latitude'):
+			eLongitude = eventArgs['latitude']	
 		
 		
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
@@ -75,6 +75,7 @@ class EventManager:
 			radius = conditionals['radius']
 		
 			events =  Event.objects.filter(PlaceId__latitude__range=(latitudeR-radius,latitudeR+radius),PlaceId__longitude__range=(longitudeR-radius,longitudeR+radius))
+			#events =  Event.objects.filter()
 			for event in events:
 				addEvent = {}			
 				addEvent['id'] = event.pk
@@ -144,8 +145,9 @@ class EventManager:
 		result = -1
 		userId = SessionManager.getUser(sessionId)
 		if EventManager.checkEvent(eventId):
-			modEvent = Event.objects.get(pk=eventId)
-			modEvent.delete()
+			delEvent = Event.objects.get(pk=eventId)
+			#delEvent.photo.delete()
+			delEvent.delete()
 			#TODO Вернуть норм ошибку
 			result = 300
 		return result

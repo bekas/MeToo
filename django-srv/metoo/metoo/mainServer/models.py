@@ -26,8 +26,8 @@ class Place(models.Model):
 	'''
 	Класс описания сущности "Место"
 	'''
-	y = models.IntegerField()
-	x = models.IntegerField()
+	longitude = models.FloatField()
+	latitude = models.FloatField()
 	name = models.CharField(max_length = 256)
 	cityId = models.ForeignKey(City)
 	countryId = models.ForeignKey(Country)
