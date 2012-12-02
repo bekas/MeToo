@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Шаблон основной страницы-->
 <html>
 
 	<head>
@@ -39,6 +40,7 @@
         {% if type == "download" %}
 		<h1 align="center"><a href="" class="button orange glossy" data-icon="✈">Download for Android</a> </h1>
 		{% endif %}
+		
 		
 	</body>
 </html>

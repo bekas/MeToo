@@ -86,8 +86,7 @@ class MessageManager:
 					'delmetoo':
 						lambda x:
 							MessageManager.delMetooContext(x),						
-					}[agentMessage['type']](agentMessage)
-		
+					}[agentMessage['type']](agentMessage)	
 		
 		if 'request_id' in agentMessage:
 			context['request_id'] = agentMessage['request_id'] 
@@ -149,12 +148,12 @@ class MessageManager:
 	
 		
 		devcontext={}
-<<<<<<< HEAD
+		
+		'''
 		devcontext['type'] = 'auth'
 		devcontext['login'] = 'test'
 		devcontext['password'] = 'test'
-=======
-		
+		'''
 		'''
 		devcontext['type'] = 'events'
 		devcontext['sessionid'] = 15
@@ -165,7 +164,6 @@ class MessageManager:
 		'''
 		devcontext['type'] = 'modifyEvent'
 		devcontext['sessionid'] = 15
-		
 		devcontext['eventid'] = 8
 		devcontext['latitude'] = 55.0
 		devcontext['longitude'] = 37.0
@@ -175,8 +173,7 @@ class MessageManager:
 		devcontext['type'] = 'deleteEvent'
 		devcontext['sessionid'] = 15
 		devcontext['eventid'] = 10
-		
->>>>>>> master
+
 		context['data'] = devcontext
 		
 		return context	
