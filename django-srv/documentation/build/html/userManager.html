@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 6 User manager &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="next" title="CHAPTER 7 Event manager" href="eventManager.html" />
+    <link rel="prev" title="CHAPTER 5 Session manager" href="sessionManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eventManager.html" title="CHAPTER 7 Event manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sessionManager.html" title="CHAPTER 5 Session manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-6-user-manager">
+<h1>CHAPTER 6 User manager<a class="headerlink" href="#chapter-6-user-manager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Система управления пользователями<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-mainServer.userManager"></span><p>Модуль работы с пользователями</p>
+<dl class="class">
+<dt id="mainServer.userManager.UserManager">
+<em class="property">class </em><tt class="descclassname">mainServer.userManager.</tt><tt class="descname">UserManager</tt><a class="headerlink" href="#mainServer.userManager.UserManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс предоставляющий методы работы с пользователями</p>
+<ul class="simple">
+<li>Создание аккаунта</li>
+<li>Редактирование аккаунта</li>
+<li>Подключение</li>
+<li>Отключение</li>
+<li>Добавить друзей</li>
+<li>Удалить друзей</li>
+<li>Выдать список друзей</li>
+</ul>
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.addFriends">
+<em class="property">static </em><tt class="descname">addFriends</tt><big>(</big><em>userid</em>, <em>session_id</em>, <em>list_newfriends</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.addFriends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод добавления друзей к пользователю</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.connectUser">
+<em class="property">static </em><tt class="descname">connectUser</tt><big>(</big><em>login</em>, <em>password</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.connectUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для подключения пользователя к серверу</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.createAccount">
+<em class="property">static </em><tt class="descname">createAccount</tt><big>(</big><em>new_login</em>, <em>new_password</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.createAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для создания аккаунта</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.deleteFriends">
+<em class="property">static </em><tt class="descname">deleteFriends</tt><big>(</big><em>userid</em>, <em>session_id</em>, <em>list_exfriends</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.deleteFriends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод удаления друзей у пользователя</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.disconnectUser">
+<em class="property">static </em><tt class="descname">disconnectUser</tt><big>(</big><em>userid</em>, <em>session_id</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.disconnectUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для отключения пользователя от сервера</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.editAccount">
+<em class="property">static </em><tt class="descname">editAccount</tt><big>(</big><em>userid</em>, <em>session_id</em>, <em>list_changes</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.editAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для редактирования аккаунта</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.userManager.UserManager.getListFriends">
+<em class="property">static </em><tt class="descname">getListFriends</tt><big>(</big><em>userid</em>, <em>session_id</em><big>)</big><a class="headerlink" href="#mainServer.userManager.UserManager.getListFriends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод получения списка друзей</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 6 User manager</a><ul>
+<li><a class="reference internal" href="#id1">Система управления пользователями</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sessionManager.html"
+                        title="previous chapter">CHAPTER 5 Session manager</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="eventManager.html"
+                        title="next chapter">CHAPTER 7 Event manager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/userManager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eventManager.html" title="CHAPTER 7 Event manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sessionManager.html" title="CHAPTER 5 Session manager"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

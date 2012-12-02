@@ -4,7 +4,6 @@ from models import Session, User, Event, Place, City, Country, Photo
 from timeManager import TimeManager, Worker
 from configurationManager import ConfigurationManager
 from sessionManager import SessionManager
-from eventManager import EventManager
 '''
 Модуль, предоставляющий инструментарий для работы с событиями
 '''
@@ -12,10 +11,10 @@ from eventManager import EventManager
 class EventManager:
 	'''
 	Класс, предоставлящий возможности:\n
-	-Создания событий;\n
-	-Запроса событий по критерию;\n
-	-Изменения событий;\n
-	-Удаления событий;\n
+	- Создания событий;\n
+	- Запроса событий по критерию;\n
+	- Изменения событий;\n
+	- Удаления событий;\n
 	'''
 	@staticmethod
 	def createEvent(sessionId,eventArgs):

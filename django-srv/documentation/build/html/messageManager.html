@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 4 Message manager &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="next" title="CHAPTER 5 Session manager" href="sessionManager.html" />
+    <link rel="prev" title="CHAPTER 3 Представление (View)" href="view.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sessionManager.html" title="CHAPTER 5 Session manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="view.html" title="CHAPTER 3 Представление (View)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-4-message-manager">
+<h1>CHAPTER 4 Message manager<a class="headerlink" href="#chapter-4-message-manager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Система управления пакетами и сообщениями<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-mainServer.messageManager"></span><p>Модуль, отвечающий за работу с событиями.</p>
+<dl class="class">
+<dt id="mainServer.messageManager.MessageManager">
+<em class="property">class </em><tt class="descclassname">mainServer.messageManager.</tt><tt class="descname">MessageManager</tt><a class="headerlink" href="#mainServer.messageManager.MessageManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс, обрабатывающий входные сообщения и формирующий ответы.</p>
+<p>Основной метод - createContext.Создает словарь, содержащий необходимую</p>
+<p>информацию</p>
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.aboutContext">
+<em class="property">static </em><tt class="descname">aboutContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.aboutContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст страницы сайта &#8220;About&#8221;</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.authoriseContext">
+<em class="property">static </em><tt class="descname">authoriseContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.authoriseContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета авторизации</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.createContext">
+<em class="property">static </em><tt class="descname">createContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.createContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для создания контекста для генерации ответных пакетов/страниц</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.createEventContext">
+<em class="property">static </em><tt class="descname">createEventContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.createEventContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета создания событий</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.delMetooContext">
+<em class="property">static </em><tt class="descname">delMetooContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.delMetooContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета запроса отказа на событие</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.deleteEventContext">
+<em class="property">static </em><tt class="descname">deleteEventContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.deleteEventContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета удаления событий</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.devContext">
+<em class="property">static </em><tt class="descname">devContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.devContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст cтраницы сайта для разработки и тестирования</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.downloadContext">
+<em class="property">static </em><tt class="descname">downloadContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.downloadContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст cтраницы сайта &#8220;Download&#8221;</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.eventsContext">
+<em class="property">static </em><tt class="descname">eventsContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.eventsContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета запроса событий</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.mainContext">
+<em class="property">static </em><tt class="descname">mainContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.mainContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст основной страницы сайта</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.metooContext">
+<em class="property">static </em><tt class="descname">metooContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.metooContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета запроса подписывания на событие</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.modMetooContext">
+<em class="property">static </em><tt class="descname">modMetooContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.modMetooContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета запроса изменения типа похода на событие</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.modifyEventContext">
+<em class="property">static </em><tt class="descname">modifyEventContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.modifyEventContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета изменения событий</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.modifyProfileContext">
+<em class="property">static </em><tt class="descname">modifyProfileContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.modifyProfileContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета редактирования профиля</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.pingContext">
+<em class="property">static </em><tt class="descname">pingContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.pingContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пингующего пакета</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.registrateContext">
+<em class="property">static </em><tt class="descname">registrateContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.registrateContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета регистрации</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.testContext">
+<em class="property">static </em><tt class="descname">testContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.testContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета тестирования</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.usersContext">
+<em class="property">static </em><tt class="descname">usersContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.usersContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета запроса пользователей, подписавшихся на событие</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.whatContext">
+<em class="property">static </em><tt class="descname">whatContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.whatContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст cтраницы сайта &#8220;What is it?&#8221;</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 4 Message manager</a><ul>
+<li><a class="reference internal" href="#id1">Система управления пакетами и сообщениями</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="view.html"
+                        title="previous chapter">CHAPTER 3 Представление (View)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sessionManager.html"
+                        title="next chapter">CHAPTER 5 Session manager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/messageManager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sessionManager.html" title="CHAPTER 5 Session manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="view.html" title="CHAPTER 3 Представление (View)"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

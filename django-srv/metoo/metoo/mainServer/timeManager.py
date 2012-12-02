@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sched, time, datetime
 from configurationManager import ConfigurationManager
 from threading import Timer
@@ -11,6 +12,9 @@ class TimeManager:
 	'''
 	@staticmethod
 	def getTime():
+		'''
+		Метод для получения текущего времени
+		'''
 		return datetime.datetime.now()
 			
 

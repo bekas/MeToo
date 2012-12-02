@@ -1,0 +1,151 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 8 MeToo manager &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="prev" title="CHAPTER 7 Event manager" href="eventManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eventManager.html" title="CHAPTER 7 Event manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-8-metoo-manager">
+<h1>CHAPTER 8 MeToo manager<a class="headerlink" href="#chapter-8-metoo-manager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Система управления походами на событие<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-mainServer.MeTooManager"></span><p>Модуль, отвечающий за работу с походами на события.</p>
+<dl class="class">
+<dt id="mainServer.MeTooManager.MeTooManager">
+<em class="property">class </em><tt class="descclassname">mainServer.MeTooManager.</tt><tt class="descname">MeTooManager</tt><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс, позволяющий узнать, кто идет на конкретное событие,</p>
+<p>пойти самому, изменить тип похода или отказаться от события</p>
+<dl class="method">
+<dt id="mainServer.MeTooManager.MeTooManager.delMeToo">
+<tt class="descname">delMeToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.delMeToo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод отказа от события</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.MeTooManager.MeTooManager.getUsersbyEvent">
+<tt class="descname">getUsersbyEvent</tt><big>(</big><em>sessionId</em>, <em>eventId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.getUsersbyEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, позволяющий узнать, кто идет на конкретное событие</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.MeTooManager.MeTooManager.meToo">
+<tt class="descname">meToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em>, <em>metooTypeId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.meToo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, для того, чтобы пойти на событие</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.MeTooManager.MeTooManager.modMeToo">
+<tt class="descname">modMeToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em>, <em>metooTypeId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.modMeToo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для измения типа похода</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 8 MeToo manager</a><ul>
+<li><a class="reference internal" href="#id1">Система управления походами на событие</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="eventManager.html"
+                        title="previous chapter">CHAPTER 7 Event manager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/MeTooManager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eventManager.html" title="CHAPTER 7 Event manager"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

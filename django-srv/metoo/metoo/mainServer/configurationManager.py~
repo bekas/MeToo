@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time,datetime
 '''
 Модуль конфигурации
@@ -23,6 +24,6 @@ class ConfigurationManager:
 	@staticmethod	
 	def loopDeleteSessionInterval():
 		'''
-		Метод, возвращающий таймаут удаления старых сессий
+		Метод, возвращающий таймаут цикла удаления старых сессий
 		'''
 		return 5
