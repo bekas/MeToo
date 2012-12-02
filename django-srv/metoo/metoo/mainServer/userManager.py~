@@ -11,13 +11,13 @@ from sessionManager import SessionManager
 class UserManager:
 	'''
 	Класс предоставляющий методы работы с пользователями\n
-	-Создание аккаунта
-	-Редактирование аккаунта
-	-Подключение
-	-Отключение
-	-Добавить друзей
-	-Удалить друзей
-	-Выдать список друзей
+	- Создание аккаунта\n
+	- Редактирование аккаунта\n
+	- Подключение\n
+	- Отключение\n
+	- Добавить друзей\n
+	- Удалить друзей\n
+	- Выдать список друзей\n
 	'''
 	
 	@staticmethod
@@ -28,7 +28,7 @@ class UserManager:
 		if u.exists(login__iexact=login):
 			msg_code = -201
 		else:
-		u = models.User.objects.create(login=new_login, password=new_password)
+			u = models.User.objects.create(login=new_login, password=new_password)
 		session_id = UserManager.connectUser(new_login, new_password)
 		if session_id == -101:
 			msg_code = -202

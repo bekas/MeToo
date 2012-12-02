@@ -11,10 +11,10 @@ from sessionManager import SessionManager
 class EventManager:
 	'''
 	Класс, предоставлящий возможности:\n
-	-Создания событий;\n
-	-Запроса событий по критерию;\n
-	-Изменения событий;\n
-	-Удаления событий;\n
+	- Создания событий;\n
+	- Запроса событий по критерию;\n
+	- Изменения событий;\n
+	- Удаления событий;\n
 	'''
 	@staticmethod
 	def createEvent(sessionId,eventArgs):

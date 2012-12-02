@@ -25,7 +25,9 @@ Contents:
    
    eventManager.rst
     
-   MeTooManager.rst    
+   MeTooManager.rst
+   
+   config.rst    
 
 Indices and tables
 ==================

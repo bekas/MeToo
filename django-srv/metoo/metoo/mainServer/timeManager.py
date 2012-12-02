@@ -12,6 +12,9 @@ class TimeManager:
 	'''
 	@staticmethod
 	def getTime():
+		'''
+		Метод для получения текущего времени
+		'''
 		return datetime.datetime.now()
 			
 

@@ -10,3 +10,13 @@ from sessionManager import SessionManager
 '''
 Здесь мог бы быть ваш код
 '''
+class ErrorManager:
+	'''
+	Класс работы с ошибками
+	'''
+	@staticmethod
+	def getErrorCode():
+		'''
+		Метод получения кода ошибки
+		'''
+		return 0

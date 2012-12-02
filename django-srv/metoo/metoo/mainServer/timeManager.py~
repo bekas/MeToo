@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sched, time, datetime
 from configurationManager import ConfigurationManager
 from threading import Timer
