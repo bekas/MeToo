@@ -15,8 +15,8 @@ import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
 /**
+ * Модель окна настроек
  * @author Theurgist
- *
  */
 public class SettingsLayout extends BaseLayout {
 	Button btnSettingsResetCred;
