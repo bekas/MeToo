@@ -18,6 +18,9 @@ class MessageManager:
 		'''
 		Метод для создания контекста для генерации ответных пакетов/страниц
 		'''
+		if not 'session_id' in agentMessage:
+			agentMessage['session_id'] = -1
+		
 		#ИМХО это решение не очень. Надо бы подумать ка лучше сделать
 		context = {		
 					'main':
@@ -47,7 +50,11 @@ class MessageManager:
 					'auth':
 						lambda x: 
 							MessageManager.authoriseContext(x),
-		
+					
+					'logout':
+						lambda x: 
+							MessageManager.logoutContext(x),				
+					
 					'registrate':
 						lambda x: 
 							MessageManager.registrateContext(x),
@@ -56,19 +63,19 @@ class MessageManager:
 						lambda x: 
 							MessageManager.eventsContext(x),
 		
-					'createEvent':
+					'event_create':
 						lambda x: 
 							MessageManager.createEventContext(x),
 							
-					'deleteEvent':
+					'event_delete':
 						lambda x: 
 							MessageManager.deleteEventContext(x),		
 			
-					'modifyEvent':
+					'event_modify':
 						lambda x: 
 							MessageManager.modifyEventContext(x),
 							
-					'modifyProfile':
+					'profile_modify':
 						lambda x: 
 							MessageManager.modifyProfileContext(x),
 					'test':
@@ -80,10 +87,10 @@ class MessageManager:
 					'metoo':
 						lambda x:
 							MessageManager.metooContext(x),
-					'modmetoo':
+					'metoo_modify':
 						lambda x:
 							MessageManager.modMetooContext(x),
-					'delmetoo':
+					'metoo_delete':
 						lambda x:
 							MessageManager.delMetooContext(x),						
 					}[agentMessage['type']](agentMessage)	
@@ -160,21 +167,29 @@ class MessageManager:
 		devcontext['password'] = 'new_test'
 		'''
 		'''
+		devcontext['type'] = 'profile_modify'
 		devcontext['avatar'] = 'new_photo'
 		devcontext['gender'] = 'M'
 		devcontext['description'] = 'Test modify user'
+		devcontext['interest'] = ['girls','food']
+		devcontext['sn'] = [1,2]
 		devcontext['session_id'] = 90		
 		'''
+		
+		devcontext['type'] = 'logout'
+		devcontext['session_id'] = 93
+		#devcontext['password'] = 'test'
+		
 		#Event
-	
+		'''
 		devcontext['type'] = 'events'
 		devcontext['session_id'] = 15
 		devcontext['latitude'] = 55.6
 		devcontext['longitude'] = 37.5
 		devcontext['radius'] = 0.4
-	
 		'''
-		devcontext['type'] = 'modifyEvent'
+		'''
+		devcontext['type'] = 'event_modify'
 		devcontext['session_id'] = 15
 		devcontext['eventid'] = 8
 		devcontext['latitude'] = 55.0
@@ -182,7 +197,7 @@ class MessageManager:
 		devcontext['name'] = 'TEST_EVENT2'
 		'''
 		'''
-		devcontext['type'] = 'createEvent'
+		devcontext['type'] = 'event_create'
 		devcontext['session_id'] = 15
 		
 		devcontext['latitude'] = 55.5
@@ -194,7 +209,7 @@ class MessageManager:
 		devcontext['eventTypeId'] = 1			
 		'''
 		'''
-		devcontext['type'] = 'deleteEvent'
+		devcontext['type'] = 'event_delete'
 		devcontext['session_id'] = 15
 		devcontext['eventid'] = 10
 		'''
@@ -225,6 +240,18 @@ class MessageManager:
 		context['result'] = sessionRes
 		context['session_id'] = sessionRes
 		return context
+	
+	@staticmethod
+	def logoutContext(agentMessage):
+		'''
+		Контекст пакета отключения пользователя от сервера
+		'''
+		context = {}
+		context['type'] = 'logout'	
+		#sessionRes = 1
+		sessionRes = UserManager.disconnectUser(agentMessage['session_id'])
+		context['result'] = sessionRes
+		return context
 		
 	@staticmethod
 	def registrateContext(agentMessage):
@@ -245,6 +272,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'events'
+		agentMessage['session_id'] = 15
 		context['events'] = EventManager.getEvents(agentMessage['session_id'],agentMessage)
 		return context
 	
@@ -254,7 +282,7 @@ class MessageManager:
 		Контекст пакета создания событий
 		'''
 		context = {}
-		context['type'] = 'eventcreate'
+		context['type'] = 'event_create'
 		context['result'] = EventManager.createEvent(agentMessage['session_id'],agentMessage)
 		return context
 	
@@ -264,8 +292,8 @@ class MessageManager:
 		Контекст пакета изменения событий
 		'''
 		context = {}
-		context['type'] = 'eventmodify'
-		context['result'] = EventManager.modifyEvent(agentMessage['session_id'],agentMessage['eventid'],agentMessage)
+		context['type'] = 'event_modify'
+		context['result'] = EventManager.modifyEvent(agentMessage['session_id'],agentMessage)
 		return context
 	
 	@staticmethod
@@ -274,7 +302,7 @@ class MessageManager:
 		Контекст пакета удаления событий
 		'''
 		context = {}
-		context['type'] = 'eventdelete'
+		context['type'] = 'event_delete'
 		context['result'] = EventManager.deleteEvent(agentMessage['session_id'],agentMessage['eventid'])
 		return context
 	
@@ -284,7 +312,8 @@ class MessageManager:
 		Контекст пакета редактирования профиля
 		'''
 		context = {}
-		context['type'] = 'profilemodify'
+		context['type'] = 'profile_modify'
+		context['result'] = UserManager.editAccount(agentMessage['session_id'], agentMessage)
 		return context
 		
 	@staticmethod

@@ -59,7 +59,14 @@ class SessionManager:
 		except:
 			sessionId = -1
 		return sessionId
-
+	
+	@staticmethod 
+	def freeSession(sessionId):
+		userId = getUserId(sessionId)
+		if userId > 0:
+			Session.objects.filter(pk = sessionId).delete()
+		return userId
+		
 	@staticmethod
 	def checkSession(sessionId):
 		'''

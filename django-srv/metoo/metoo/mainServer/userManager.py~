@@ -3,7 +3,7 @@
 Модуль работы с пользователями
 '''
 from django.db import models
-from models import User, UserInterest, UserSocialNetwork, Friend
+from models import User, UserInterest,Interest, UserSocialNetwork,SocialNetwork, Friend
 from sessionManager import SessionManager
 
 # создание/редактирование/удаление аккаунта, логин/логаут юзера, добавление/удаление друзей, получение списка друзей
@@ -60,35 +60,34 @@ class UserManager:
 		userid = SessionManager.getUserId(session_id)
 		if userid > 0:
 			try:
-				u = models.User.objects.get(pk=userid)
+				u = User.objects.get(pk=userid)
 				if userArgs.has_key('avatar'):
-					u.avatarId.photo = userArgs['avatarid']
+					u.avatarId.photo = userArgs['avatar']
 				
 				if userArgs.has_key('gender'):
 					u.gender = userArgs['gender']
 					
 				if userArgs.has_key('description'):
 					u.description = userArgs['description']
-				#u.save()
-
-				ui = models.UserInterest.objects
-				ui.filter(userId=iserid).delete() # может не сработать
-				for interest in userArgs['interest']:
-					#Проверка на существование 
-					if Interest.objects.filter(name = interest).exist():
-						uinterest = Interest.objects.get(name = interest)
-					else:
-						uinterest = Interest(name = interest)
-						uinterest.save()
-					new_ui = models.UserInterest(userId=userid, interestId=uinterest)
-					new_ui.save()
-
-				usn = models.UserSocialNetwork.objects
-				usn.filter(userId=iserid).delete() # может не сработать
-				for network in list_changes[4]:
-					new_usn = models.UserSocialNetwork(userId=userid, socialNetworkId=network)
-					new_usn.save()
-
+				u.save()
+				
+				if userArgs.has_key('interest'):
+					UserInterest.objects.filter(userId__pk = userid).delete()
+					for interest in userArgs['interest']:
+						#Проверка на существование 
+						if Interest.objects.filter(name = interest).exists():
+							uinterest = Interest.objects.get(name = interest)
+						else:
+							uinterest = Interest(name = interest)
+							uinterest.save()
+						
+						new_ui = UserInterest(userId=User.objects.get(pk=userid), interestId=uinterest)
+						new_ui.save()
+				if userArgs.has_key('sn'):
+					UserSocialNetwork.objects.filter(userId=userid).delete() 
+					for networkId in userArgs['sn']:
+						new_usn = UserSocialNetwork(userId=User.objects.get(pk=userid), socialNetworkId=SocialNetwork.objects.get(pk=networkId))
+						new_usn.save()
 				msg_code = 200
 			except:
 				msg_code = -205              
@@ -119,39 +118,38 @@ class UserManager:
 		return msg_code # возвращает айди сессии или код ошибки
 
 	@staticmethod
-	def disconnectUser(userid, session_id):
+	def disconnectUser(session_id):
 		'''
 		Метод для отключения пользователя от сервера
 		'''
-		userid2 = SessionManager.freeSessionID(session_id) #заглушка для метода освобождения хэндла
+		userid2 = SessionManager.freeSession(session_id) 
 		if userid2 > 0:
-			if userid == userid2: # и не надо мне говорить, что такого быть не может
-				msg_code = userid2
-			else:
-				msg_code = -104
+			#if userid == userid2: # и не надо мне говорить, что такого быть не может
+			msg_code = userid2
+			#else:
+			#	msg_code = -104
 		else:
 			msg_code = -105
 		return msg_code # возвращает айди юзера или код ошибки
 
 	@staticmethod
-	def addFriends(userid, session_id, list_newfriends): # !не проверяет правильность id друзей
+	def addFriends(session_id, list_newfriends): # !не проверяет правильность id друзей
 		'''
 		Метод добавления друзей к пользователю
 		'''
 		userid2 = SessionManager.getUserId(session_id)
 		if userid2 > 0:
-			if userid == userid2:
+			#if userid == userid2:
 				try:
-					f = models.Friend.objects.get(pk=userid)
-					friendline = f.friend
-					list_friends = list(set(friendline.split(";")) | set(list_newfriends))
-					friendline = ";".join(list_friends)
-
+					f = Friend.objects.get(pk=userid)
+					list_friends = list(set(f.friend.split(";")) | set(list_newfriends))
+					f.friend = ";".join(list_friends)
+					f.save()
 					msg_code = 200
 				except:
 					msg_code = -206
-			else:
-				msg_code = -204
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
 		return msg_code # возвращает 200 или код ошибки
