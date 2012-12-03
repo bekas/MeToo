@@ -82,7 +82,7 @@ class EventManager:
 			for event in events:
 				addEvent = {}			
 				addEvent['id'] = event.pk
-				addEvent['creatorId'] = event.creatorId
+				addEvent['creator_id'] = event.creatorId
 				addEvent['name'] = event.name
 				addEvent['time'] = event.time
 				addEvent['description'] = event.description
@@ -124,8 +124,8 @@ class EventManager:
 		#TODO: Подумать насчет изменений. Где они олжны происходить?
 		if eventArgs.has_key('photo'):
 			modEvent.photoId.photo = eventArgs['photo']
-		if eventArgs.has_key('eventTypeId'):
-			modEvent.eventTypeId_id = eventArgs['eventTypeId']
+		if eventArgs.has_key('event_type_id'):
+			modEvent.eventTypeId_id = eventArgs['event_type_id']
 		if eventArgs.has_key('longitude'):
 			modEvent.PlaceId.longitude = eventArgs['longitude']
 		if eventArgs.has_key('latitude'):

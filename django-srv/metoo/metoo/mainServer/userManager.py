@@ -25,10 +25,10 @@ class UserManager:
 		'''
 		Метод для создания аккаунта
 		'''
-		if u.exists(login__iexact=login):
+		if User.objects.filter(login__iexact=new_login).exists():
 			msg_code = -201
 		else:
-			u = models.User.objects.create(login=new_login, password=new_password)
+			u = User.objects.create(login=new_login, password=new_password,avatarId_id = 1,rating = 0)
 		session_id = UserManager.connectUser(new_login, new_password)
 		if session_id == -101:
 			msg_code = -202
@@ -53,37 +53,47 @@ class UserManager:
 #        return msg_code # возвращает 200 или код ошибки
 
 	@staticmethod
-	def editAccount(userid, session_id, list_changes):
+	def editAccount(session_id, userArgs):
 		'''
 		Метод для редактирования аккаунта
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
-				try:
-					u = models.User.objects.get(pk=userid)
-					u.avatarId = list_changes[0]
-					u.gender = list_changes[1]
-					u.description = list_changes[2]
-					u.save()
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			try:
+				u = models.User.objects.get(pk=userid)
+				if userArgs.has_key('avatar'):
+					u.avatarId.photo = userArgs['avatarid']
+				
+				if userArgs.has_key('gender'):
+					u.gender = userArgs['gender']
+					
+				if userArgs.has_key('description'):
+					u.description = userArgs['description']
+				#u.save()
 
-					ui = models.UserInterest.objects
-					ui.filter(userId=iserid).delete() # может не сработать
-					for interest in list_changes[3]:
-						new_ui = models.UserInterest(userId=userid, interestId=interest)
-						new_ui.save()
+				ui = models.UserInterest.objects
+				ui.filter(userId=iserid).delete() # может не сработать
+				for interest in userArgs['interest']:
+					#Проверка на существование 
+					if Interest.objects.filter(name = interest).exist():
+						uinterest = Interest.objects.get(name = interest)
+					else:
+						uinterest = Interest(name = interest)
+						uinterest.save()
+					new_ui = models.UserInterest(userId=userid, interestId=uinterest)
+					new_ui.save()
 
-					usn = models.UserSocialNetwork.objects
-					usn.filter(userId=iserid).delete() # может не сработать
-					for network in list_changes[4]:
-						new_usn = models.UserSocialNetwork(userId=userid, socialNetworkId=network)
-						new_usn.save()
+				usn = models.UserSocialNetwork.objects
+				usn.filter(userId=iserid).delete() # может не сработать
+				for network in list_changes['sn']:
+					new_usn = models.UserSocialNetwork(userId=userid, socialNetworkId=network)
+					new_usn.save()
 
-					msg_code = 200
-				except:
-					msg_code = -205              
-			else:
-				msg_code = -204
+				msg_code = 200
+			except:
+				msg_code = -205              
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
 		return msg_code
