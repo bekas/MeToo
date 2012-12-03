@@ -1,0 +1,26 @@
+<resources>
+
+    <string name="app_name">MeToo</string>
+    <string name="metoo_srv_base_uri">10.0.2.2</string>
+    <string name="metoo_srv_base_uri_LOCAL">http://127.0.0.1</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="mapskey">5B:1D:1B:3D:DD:86:E9:A3:61:57:83:BF:04:7A:36:71:5B:8B:6B:8B</string>
+    <string name="title_activity_map">MeToo Навигация</string>
+    <string name="logo_description">MeToo Logo</string>
+    <string name="wait_answer">********************
+Waiting for answer..
+********************</string>
+    <string name="input_username">Имя пользователя</string>
+    <string name="input_password">Пароль</string>
+    <string name="username_occupied">Имя пользователя занято, выберите другое</string>
+    <string name="login">Войти</string>
+    <string name="wrong_login_passwd">Введена неверная пара логин-пароль!</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings_srv_url">Адрес сервера</string>
+    <string name="settings_testsrv_url">Адрес тестового сервера</string>
+    <string name="settings_reset_login_data">Сброс настроек пользователя</string>
+    <string name="settings_splash_time">Время показа логотипа при запуске (мс)</string>
+
+</resources>

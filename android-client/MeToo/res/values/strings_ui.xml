@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_event_hint_name">Название события</string>
+    <string name="create_event_hint_descr">Описание мероприятия</string>
+    <string name="create_event_btn_change_point">Уточнить координаты</string>
+    <string name="create_event_chb_private">Могут видеть только друзья</string>
+    
+</resources>
