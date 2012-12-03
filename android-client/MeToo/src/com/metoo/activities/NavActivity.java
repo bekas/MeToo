@@ -65,7 +65,7 @@ public class NavActivity extends MapActivity
     }
     private void initMeetingsOverlay() {
 		Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.token_orange);
-    	meetingsCache = new MeetingsMapLayer(drawable, services);
+    	meetingsCache = new MeetingsMapLayer(drawable, services, layout.mapView);
     }
 
     @Override
@@ -86,6 +86,9 @@ public class NavActivity extends MapActivity
 	
 	
 
+	/**
+	 * Для тестирования
+	 */
 	private void emulatedSituation() {
 		com.metoo.model.Event meeting = new com.metoo.model.Event();
 		meeting.Name = "Тусовка на севере";
@@ -199,7 +202,7 @@ public class NavActivity extends MapActivity
 			
 		}
 		public void onError(String Reason) {
-			services.ShowAlert("Ошибка", "MapDataReceiver: " + Reason);
+			services.ShowToast("Ошибка в модуле MapDataReceiver: " + Reason);
 		}
 		public void onProgress(String Message) {
 		}

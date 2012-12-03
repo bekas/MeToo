@@ -2,6 +2,7 @@ package com.metoo.gmap.overlay;
 
 import java.util.List;
 
+import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 import com.metoo.common.AndroServices;
 import com.metoo.model.Event;
@@ -15,12 +16,14 @@ import android.graphics.drawable.Drawable;
  */
 public class MeetingsMapLayer extends MapItemsLayer {
 	AndroServices services;
+	MapView mapView;
 	
 	protected EventList evlist;
 
-	public MeetingsMapLayer(Drawable defaultMarker, AndroServices services) {
+	public MeetingsMapLayer(Drawable defaultMarker, AndroServices services, MapView mapView) {
 		super(defaultMarker);
 		this.services = services;
+		this.mapView = mapView;
 		evlist = new EventList();
 	}
 	
@@ -29,6 +32,7 @@ public class MeetingsMapLayer extends MapItemsLayer {
 		for(Event ev: added) {
 			addOverlay(new MeetingMapItem(ev));
 		}
+		mapView.postInvalidate();
 	}
 	
 	 @Override
