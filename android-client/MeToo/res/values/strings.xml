@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">MeToo</string>
@@ -22,5 +23,6 @@ Waiting for answer..
     <string name="settings_testsrv_url">Адрес тестового сервера</string>
     <string name="settings_reset_login_data">Сброс настроек пользователя</string>
     <string name="settings_splash_time">Время показа логотипа при запуске (мс)</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
 
 </resources>

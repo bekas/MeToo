@@ -17,7 +17,7 @@ import com.metoo.gmap.MapProvider;
 import com.metoo.gmap.overlay.MapItemsLayer;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.ui.views.MapViewEx;
-import com.metoo.ui.views.MapViewListener;
+import com.metoo.ui.views.IMapViewPanListener;
 
 /**
  * Layout with GoogleMap widget and which provides interaction with it
@@ -35,10 +35,10 @@ public class MapLayout {
 		activity = parent;
 	}
 
-	public void Activate(MapViewListener hook) {
+	public void Activate(IMapViewPanListener hook) {
         activity.setContentView(R.layout.screen_map);
         mapView = (MapViewEx)activity.findViewById(R.id.mapview);
-        mapView.setMapViewListener(hook);
+        mapView.setMapViewPanListener(hook);
 		mapProv = new MapProvider(mapView);
 		mapOverlays = mapView.getOverlays();
 		

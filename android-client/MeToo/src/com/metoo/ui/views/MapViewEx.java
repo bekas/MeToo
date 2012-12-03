@@ -3,6 +3,9 @@
  */
 package com.metoo.ui.views;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
@@ -20,6 +23,18 @@ public class MapViewEx extends MapView {
     private GeoPoint mOldCenter;
     private GeoPoint mOldBottomRight;
     private int mOldZoomLevel = -1;
+
+    static final int LONGPRESS_THRESHOLD = 500;
+    private Timer longpressTimer = new Timer();
+    /**
+     * Для проверки, перемещалась ли за время долгого нажатия карта
+     */
+    private GeoPoint longPressMapCenter;
+    
+    private IMapViewPanListener mapviewpanListener;
+    private IOnLongPressListener longpressListener;
+    
+    
     
 	/**
 	 * @param context
@@ -46,26 +61,40 @@ public class MapViewEx extends MapView {
 		super(context, attrs, defStyle);
 	}
      
-    private MapViewListener mMapViewListener;
-    public MapViewListener getMapViewListener() { return mMapViewListener; }
-    public void setMapViewListener(MapViewListener value) { mMapViewListener = value; }
+	
+    public IMapViewPanListener getMapViewPanListener() { return mapviewpanListener; }
+    public void setMapViewPanListener(IMapViewPanListener listener) {
+    	mapviewpanListener = listener;
+    }
+    public IOnLongPressListener getLongPressListener() {return longpressListener; }
+    public void setLongPressListener(IOnLongPressListener listener) {
+    	longpressListener = listener;
+    }
  
+    /**
+     * Событие касания
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+    	processLongPress(ev);
+    	
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             GeoPoint newCenter = this.getMapCenter();
             GeoPoint newTopLeft = this.getProjection().fromPixels(0, 0);
             GeoPoint newBottomRight = this.getProjection().fromPixels(this.getWidth(), this.getHeight());
              
-            if (this.mMapViewListener != null &&
+            if (this.mapviewpanListener != null &&
                 newTopLeft.getLatitudeE6() == mOldTopLeft.getLatitudeE6() &&
                 newTopLeft.getLongitudeE6() == mOldTopLeft.getLongitudeE6()) {
-                mMapViewListener.onClick(this.getProjection().fromPixels((int)ev.getX(), (int)ev.getY()));
+                mapviewpanListener.onClick(this.getProjection().fromPixels((int)ev.getX(), (int)ev.getY()));
             }
         }
         return super.onTouchEvent(ev);
     }
     
+    /**
+     * Перехват события отрисовки
+     */
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
@@ -85,7 +114,7 @@ public class MapViewEx extends MapView {
             mOldBottomRight = newBottomRight;
      
         if (newTopLeft.getLatitudeE6() != mOldTopLeft.getLatitudeE6() || newTopLeft.getLongitudeE6() != mOldTopLeft.getLongitudeE6()) {
-            if (this.mMapViewListener != null) {
+            if (this.mapviewpanListener != null) {
                 GeoPoint oldTopLeft, oldCenter, oldBottomRight;
                  
                 oldTopLeft = mOldTopLeft;
@@ -96,7 +125,7 @@ public class MapViewEx extends MapView {
                 mOldTopLeft = newTopLeft;
                 mOldCenter = newCenter;
                  
-                mMapViewListener.onPan(oldTopLeft,
+                mapviewpanListener.onPan(oldTopLeft,
                                        oldCenter,
                                        oldBottomRight,
                                        newTopLeft,
@@ -107,7 +136,7 @@ public class MapViewEx extends MapView {
          
         if (mOldZoomLevel == -1)
             mOldZoomLevel = newZoomLevel;
-        else if (mOldZoomLevel != newZoomLevel && mMapViewListener != null) {
+        else if (mOldZoomLevel != newZoomLevel && mapviewpanListener != null) {
             int oldZoomLevel = mOldZoomLevel;
             GeoPoint oldTopLeft, oldCenter, oldBottomRight;
             oldTopLeft = mOldTopLeft;
@@ -119,7 +148,7 @@ public class MapViewEx extends MapView {
             mOldTopLeft = newTopLeft;
             mOldCenter = newCenter;
              
-            mMapViewListener.onZoom(oldTopLeft,
+            mapviewpanListener.onZoom(oldTopLeft,
                                     oldCenter,
                                     oldBottomRight,
                                     newTopLeft,
@@ -130,6 +159,10 @@ public class MapViewEx extends MapView {
         }
     }
     
+    /**
+     * Получение границ экрана в географических координатах
+     * @return Двумерный массив 2х2: [0][0] - слева внизу, [1][1] - сверху справа
+     */
     public int[][] getBounds() {
 
         GeoPoint center = getMapCenter();
@@ -145,6 +178,53 @@ public class MapViewEx extends MapView {
         return bounds;
     }
 
+    /**
+     * Логика для распознавания длительного нажатия
+     * @param event - событие, полученное в onTouchEvent()
+     */
+    private void processLongPress(final MotionEvent event) { 
+        if (event.getPointerCount() > 1) {
+            // Дополнительное касание - мультитач-событие
+            longpressTimer.cancel();
+        }
+        
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // Палец дотронулся
+        	
+        	if (longpressTimer != null) {
+        		longpressTimer.cancel();
+        		longpressTimer = null;
+        	}
+        	
+            longpressTimer = new Timer();
+            longpressTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    GeoPoint longpressLocation = getProjection().fromPixels((int)event.getX(), 
+                            (int)event.getY());
+                    // Вызываем подписчика
+                    longpressListener.onLongpress(longpressLocation);
+                }
+            }, LONGPRESS_THRESHOLD);
+             
+            longPressMapCenter = getMapCenter();
+        }
+         
+        else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            // Палец сдвинул карту
+            if (!getMapCenter().equals(longPressMapCenter)) {
+                // Отменяем, если центр-таки сменился
+                longpressTimer.cancel();
+            }
+             
+            longPressMapCenter = getMapCenter();
+        }
+         
+        else if (event.getAction() == MotionEvent.ACTION_UP) {
+            // Палец сняли с карты
+            longpressTimer.cancel();
+        }
+    }
 
 
 }

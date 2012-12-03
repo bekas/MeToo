@@ -2,6 +2,7 @@ package com.metoo.gmap.overlay;
 
 import java.util.List;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 import com.metoo.common.AndroServices;
@@ -40,5 +41,7 @@ public class MeetingsMapLayer extends MapItemsLayer {
 		 OverlayItem item = mOverlays.get(index);
 		 services.ShowAlert(item.getTitle(), item.getSnippet());
 		 return true;
+		 
 	 }
+	 
 }

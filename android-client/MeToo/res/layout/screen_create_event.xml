@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <EditText
         android:id="@+id/etNewEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/create_event_hint_name" />
-
+
     <EditText
         android:id="@+id/etNewEventDescr"
         android:layout_width="match_parent"
@@ -22,15 +22,9 @@
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_event_btn_change_point" />
-
+
     <CheckBox
-        android:id="@+id/chbIsPrivate"
+        android:id="@+id/chbIsNewEventPrivate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create_event_chb_private" />
@@ -39,6 +33,6 @@
         android:id="@+id/btnCreateEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="СОЗДАТЬ" />
+        android:text="Button" />
 
 </LinearLayout>

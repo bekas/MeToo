@@ -8,8 +8,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.google.android.maps.GeoPoint;
 import com.metoo.R;
 import com.metoo.common.AppSettings;
+import com.metoo.common.IAsyncTaskNotifyer;
+import com.metoo.srvlink.Connector;
+import com.metoo.srvlink.MetooGetRequest;
+import com.metoo.srvlink.XmlAnswer;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -21,14 +26,21 @@ public class NewEventLayout extends BaseLayout {
 	EditText etNewEventName;
 	EditText etNewEventDescr;
 	Button btnCreateEvent;
-	CheckBox chbIsPrivate;
+	CheckBox chbIsNewEventPrivate;
+
+	Connector connect;
+	
+	GeoPoint locationOfNewEvent;
 
 	/**
 	 * @param parent
 	 * @param previous
 	 */
-	public NewEventLayout(BaseActivity parent, BaseLayout previous) {
+	public NewEventLayout(BaseActivity parent, BaseLayout previous, GeoPoint crd) {
 		super(parent, previous);
+		locationOfNewEvent = crd;
+		
+		connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
 	}
 
 
@@ -39,6 +51,15 @@ public class NewEventLayout extends BaseLayout {
 	@Override
 	public void onProgress(String Message) { }
 	
+	
+	private void onEventCreated() {
+		
+	}
+	
+	private void onEventNotCreated() {
+		
+	}
+	
 
 	@Override
 	public void Activate() {
@@ -47,7 +68,9 @@ public class NewEventLayout extends BaseLayout {
 		btnCreateEvent = (Button)activity.findViewById(R.id.btnCreateEvent);
 		etNewEventName = (EditText)activity.findViewById(R.id.etNewEventName);
 		etNewEventDescr = (EditText)activity.findViewById(R.id.etNewEventDescr);
-        chbIsPrivate = (CheckBox)activity.findViewById(R.id.chbIsPrivate);
+        chbIsNewEventPrivate = (CheckBox)activity.findViewById(R.id.chbIsNewEventPrivate);
+        
+        btnCreateEvent.setOnClickListener(new onSaveEvent());
 	}
 	@Override
 	public void Deactivate() {
@@ -61,7 +84,47 @@ public class NewEventLayout extends BaseLayout {
 
 	// Listeners
 	class onSaveEvent implements View.OnClickListener { public void onClick(View arg0) {
-        	
-		}}
+		MetooGetRequest req = new MetooGetRequest();
+		req.AddParam("type", "create_event");
+		req.AddParam("name", etNewEventName.getText().toString());
+		req.AddParam("description", etNewEventDescr.getText().toString());
+		req.AddParam("latitude", String.format("%.8f", locationOfNewEvent.getLatitudeE6()/1E6));
+		req.AddParam("longitude", String.format("%.8f", locationOfNewEvent.getLongitudeE6()/1E6));
+		
+		try {
+			connect.SendSimpleRequest(req, new SaveEventAnswerReceiver());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}}
 
+	
+	class SaveEventAnswerReceiver implements IAsyncTaskNotifyer<String, String, String> {
+
+		public void onSuccess(String Result) {
+			XmlAnswer ans = new XmlAnswer();
+			ans.ParseMessage(Result);
+			
+			
+			if (ans.type == "eventcreate") {
+				if (ans.result == 0) {
+					activity.services.ShowToast("Событие создано!");
+					onEventCreated();
+				}
+				else {
+					activity.services.ShowAlert("Ошибка создания события", "Код ошибки: " + ans.result);
+					onEventNotCreated();
+				}
+			}
+			else
+				activity.services.ShowAlert("Ошибка", "SaveEventAnswerReceiver: пришел ответ типа" + ans.type);
+			
+			
+		}
+		public void onError(String Reason) {
+			activity.services.ShowToast("Ошибка в модуле MapDataReceiver: " + Reason);
+		}
+		public void onProgress(String Message) {
+		}
+	}
 }

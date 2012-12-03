@@ -2,6 +2,7 @@ package com.metoo.activities;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 import com.metoo.R;
 import com.metoo.common.AndroServices;
 import com.metoo.common.AppLog;
@@ -16,16 +17,19 @@ import com.metoo.srvlink.Connector;
 import com.metoo.srvlink.XmlAnswer;
 import com.metoo.srvlink.messages.GetEvents;
 import com.metoo.ui.MapLayout;
-import com.metoo.ui.views.MapViewListener;
+import com.metoo.ui.views.IMapViewPanListener;
+import com.metoo.ui.views.IOnLongPressListener;
 import com.metoo.xmlparser.PageParser;
 import com.metoo.xmlparser.TaggedDoc;
 import com.metoo.xmlparser.XmlDoc;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.webkit.WebIconDatabase.IconListener;
 
 public class NavActivity extends MapActivity 
 {
@@ -127,7 +131,7 @@ public class NavActivity extends MapActivity
 	}
 	
 	
-	class MapViewHook implements MapViewListener {
+	class MapViewHook implements IMapViewPanListener {
 
 		public void onPan(GeoPoint oldTopLeft, GeoPoint oldCenter,
 				GeoPoint oldBottomRight, GeoPoint newTopLeft,
@@ -206,5 +210,17 @@ public class NavActivity extends MapActivity
 		}
 		public void onProgress(String Message) {
 		}
+	}
+
+	class LongTapOnMap implements IOnLongPressListener {
+
+		@Override
+		public void onLongpress(GeoPoint longpressLocation) {
+
+        	Intent myIntent = new Intent(NavActivity.this, CreateEventActivity.class);
+       	 	startActivity(myIntent);
+        	AppLog.E("Launching activity for event creating");
+		}
+		
 	}
 }
