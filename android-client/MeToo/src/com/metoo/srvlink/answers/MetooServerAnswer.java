@@ -47,7 +47,7 @@ public abstract class MetooServerAnswer extends ServerAnswer {
 	public MetooServerAnswer(String source, PageParser parser) {
 		super(source);
 
-		if (!preparse()) {
+		if (!initParsedDocument()) {
 			error = "MetooServerAnswer: Can't preparse XML answer";
 			type = null;
 			request_id = null;
@@ -83,7 +83,11 @@ public abstract class MetooServerAnswer extends ServerAnswer {
 		
 	}
 	
-	private boolean preparse() {
+	/**
+	 * Подготовка сообщения к разбору
+	 * @return
+	 */
+	private boolean initParsedDocument() {
 		XmlDoc page = new XmlDoc();
 		page.LoadFromString(source, true);
 		doc = new TaggedDoc();
