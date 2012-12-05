@@ -12,9 +12,9 @@ import com.google.android.maps.GeoPoint;
 import com.metoo.R;
 import com.metoo.common.AppSettings;
 import com.metoo.common.IAsyncTaskNotifyer;
-import com.metoo.srvlink.Connector;
-import com.metoo.srvlink.MetooGetRequest;
 import com.metoo.srvlink.XmlAnswer;
+import com.metoo.srvlink.base.Connector;
+import com.metoo.srvlink.requests.MetooServerRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -84,7 +84,7 @@ public class NewEventLayout extends BaseLayout {
 
 	// Listeners
 	class onSaveEvent implements View.OnClickListener { public void onClick(View arg0) {
-		MetooGetRequest req = new MetooGetRequest();
+		MetooServerRequest req = new MetooServerRequest();
 		req.AddParam("type", "create_event");
 		req.AddParam("name", etNewEventName.getText().toString());
 		req.AddParam("description", etNewEventDescr.getText().toString());

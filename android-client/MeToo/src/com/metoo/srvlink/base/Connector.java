@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.metoo.srvlink;
+package com.metoo.srvlink.base;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,7 +50,7 @@ public class Connector
 	/*
 	 * Request is only a shortened URI, without basis which is provided on object construction
 	 */
-	public boolean SendSimpleRequest(GetRequest request, IAsyncTaskNotifyer<String, String, String> callback)
+	public boolean SendSimpleRequest(ServerRequest request, IAsyncTaskNotifyer<String, String, String> callback)
 	{
 		try {
 			if ((onAir == null) || allowMultiple) {

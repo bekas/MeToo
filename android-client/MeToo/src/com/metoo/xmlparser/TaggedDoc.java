@@ -28,13 +28,13 @@ public class TaggedDoc {
 		rootNode = null;
 	}
 	public TaggedDoc(XmlDoc htmlpage) {
-		ParseHtml(htmlpage);
+		ParseXML(htmlpage);
 	}
 
 	/**
-	 * Преобразование HTML-страницы в дерево тегов
+	 * Преобразование XML-страницы в дерево тегов
 	 */
-	public boolean ParseHtml(XmlDoc htmlpage) {
+	public boolean ParseXML(XmlDoc htmlpage) {
 		InputSource source = htmlpage.getSource();
 		if (source == null) {
 			setLastError("TaggedPage.ParseHtml(Page): Page is not loaded");

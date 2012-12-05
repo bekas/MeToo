@@ -3,9 +3,10 @@ package com.metoo.ui;
 import com.metoo.R;
 import com.metoo.common.AppSettings;
 import com.metoo.common.IAsyncTaskNotifyer;
-import com.metoo.srvlink.Connector;
-import com.metoo.srvlink.GetRequest;
 import com.metoo.srvlink.XmlAnswer;
+import com.metoo.srvlink.base.Connector;
+import com.metoo.srvlink.base.ServerRequest;
+import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -144,11 +145,7 @@ public class LoginLayout extends BaseLayout {
 		pbLogin.setVisibility(View.VISIBLE);
 
 		try {
-		    GetRequest req = new GetRequest();
-		    //req.SetPreambula("q");
-		    req.AddParam("type", "auth");
-		    req.AddParam("login", etUsername.getText().toString());
-		    req.AddParam("password", etPasswd.getText().toString());
+			LoginRequest req = new LoginRequest(etUsername.getText().toString(), etPasswd.getText().toString());
 		    
     		connect = new Connector("http", activity.getResources().getString(R.string.metoo_srv_base_uri));
 			connect.SendSimpleRequest(req, new LoginRequestProceeder());

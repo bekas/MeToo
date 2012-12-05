@@ -13,9 +13,9 @@ import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.model.Event;
 import com.metoo.model.EventList;
-import com.metoo.srvlink.Connector;
 import com.metoo.srvlink.XmlAnswer;
-import com.metoo.srvlink.messages.GetEvents;
+import com.metoo.srvlink.base.Connector;
+import com.metoo.srvlink.requests.GetEventsRequest;
 import com.metoo.ui.MapLayout;
 import com.metoo.ui.views.IMapViewPanListener;
 import com.metoo.ui.views.IOnLongPressListener;
@@ -170,7 +170,7 @@ public class NavActivity extends MapActivity
 	        int maxSpan = Math.min( layout.mapView.getLatitudeSpan(), 
 	        						layout.mapView.getLongitudeSpan());
 	        
-			GetEvents req = new GetEvents(
+			GetEventsRequest req = new GetEventsRequest(
 					(double)center.getLatitudeE6() / 1E6, 
 					(double)center.getLongitudeE6() / 1E6, 
 					maxSpan/1E6*5);

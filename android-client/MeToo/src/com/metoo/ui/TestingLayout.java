@@ -17,8 +17,8 @@ import com.metoo.common.AndroServices;
 import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
 import com.metoo.common.IAsyncTaskNotifyer;
-import com.metoo.srvlink.Connector;
-import com.metoo.srvlink.GetRequest;
+import com.metoo.srvlink.base.Connector;
+import com.metoo.srvlink.base.ServerRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -29,7 +29,7 @@ import com.metoo.ui.base.BaseLayout;
 public class TestingLayout extends BaseLayout {
 	// Service connection object
     private Connector connect;
-    private GetRequest _initialRequest;
+    private ServerRequest _initialRequest;
     
     // UI
 	WebView webView;
@@ -41,7 +41,7 @@ public class TestingLayout extends BaseLayout {
 	
 	String loadResult;
 
-	public TestingLayout(BaseActivity parent, BaseLayout previous, GetRequest initialRequest) {
+	public TestingLayout(BaseActivity parent, BaseLayout previous, ServerRequest initialRequest) {
 		super(parent, previous);
 		_initialRequest = initialRequest;
 		loadResult = "Nothing loaded";
