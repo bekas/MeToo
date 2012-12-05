@@ -53,7 +53,7 @@ public class SettingsLayout extends BaseLayout {
         btnResetSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	AppSettings.ResetSettings(activity.services);
-            	activity.services.ShowAlert("Уведомление", "Все настрйки сброшены на настройки по-умолчанию");
+            	activity.services.ShowInfoAlert("Уведомление", "Все настрйки сброшены на настройки по-умолчанию");
             	AppLog.W("Настройки сброшены");
             }
         });

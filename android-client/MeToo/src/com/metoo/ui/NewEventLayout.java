@@ -112,12 +112,12 @@ public class NewEventLayout extends BaseLayout {
 					onEventCreated();
 				}
 				else {
-					activity.services.ShowAlert("Ошибка создания события", "Код ошибки: " + ans.result);
+					activity.services.ShowInfoAlert("Ошибка создания события", "Код ошибки: " + ans.result);
 					onEventNotCreated();
 				}
 			}
 			else
-				activity.services.ShowAlert("Ошибка", "SaveEventAnswerReceiver: пришел ответ типа" + ans.type);
+				activity.services.ShowInfoAlert("Ошибка", "SaveEventAnswerReceiver: пришел ответ типа" + ans.type);
 			
 			
 		}

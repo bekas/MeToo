@@ -133,7 +133,14 @@ public class AndroServices
         			   msg, isLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
     }
 
-	public void ShowAlert(String title, String msg) {
+	public void ShowInfoAlert(String title, String msg) {
+		 AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+		 dialog.setTitle(title);
+		 dialog.setMessage(msg);
+		 dialog.show();
+	}
+
+	public void ShowErrorAlert(String title, String msg) {
 		 AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 		 dialog.setTitle(title);
 		 dialog.setMessage(msg);

@@ -15,18 +15,29 @@ import com.metoo.xmlparser.XmlDoc;
  * @author theurgist
  *
  */
-public class MetooServerAnswer extends ServerAnswer {
+public abstract class MetooServerAnswer extends ServerAnswer {
 
 	/**
 	 * Используется этим классом и его потомками для десериализации
 	 */
 	protected TaggedDoc doc;
-	
+
+	/**
+	 * Параметр ответа: тип запроса
+	 */
+	public final String type;
 	/**
 	 * Параметр ответа: номер запроса, на который отправлен этот ответ
 	 */
 	public final Integer request_id;
-	public final String type;
+	/**
+	 * Параметр ответа: ID сессии пользователя
+	 */
+	public final Integer session_id;
+	/**
+	 * Параметр ответа: результат выполнения запроса
+	 */
+	public final Integer result;
 	
 	/**
 	 * Конструктор, определяющий наполнение данных 
@@ -37,21 +48,37 @@ public class MetooServerAnswer extends ServerAnswer {
 		super(source);
 
 		if (!preparse()) {
-			error = "MetooServerAnswer: Can't preparse XML answer!";
-			request_id = null;
+			error = "MetooServerAnswer: Can't preparse XML answer";
 			type = null;
+			request_id = null;
+			session_id = null;
+			result = null;
 		}
 		else {
 			NodeList nl;
-			nl = parser.XPath("/metoo/request_if", doc.getNode());
-			if ((nl != null) && (nl.getLength() > 0))
-				request_id = Integer.parseInt(nl.item(0).getTextContent());
-			else request_id = null;
 
 			nl = parser.XPath("/metoo/type", doc.getNode());
 			if ((nl != null) && (nl.getLength() > 0))
 				type = nl.item(0).getTextContent();
-			else type = null;
+			else {
+				type = null;
+				error = "MetooServerAnswer: Not valid MeToo server answer data";
+			}
+			
+			nl = parser.XPath("/metoo/request_id", doc.getNode());
+			if ((nl != null) && (nl.getLength() > 0))
+				request_id = Integer.parseInt(nl.item(0).getTextContent());
+			else request_id = null;
+			
+			nl = parser.XPath("/metoo/session_id", doc.getNode());
+			if ((nl != null) && (nl.getLength() > 0))
+				session_id = Integer.parseInt(nl.item(0).getTextContent());
+			else session_id = null;
+			
+			nl = parser.XPath("/metoo/result", doc.getNode());
+			if ((nl != null) && (nl.getLength() > 0))
+				result = Integer.parseInt(nl.item(0).getTextContent());
+			else result = null;
 		}
 		
 	}

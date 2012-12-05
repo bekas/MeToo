@@ -14,6 +14,7 @@ import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.model.Event;
 import com.metoo.model.EventList;
 import com.metoo.srvlink.XmlAnswer;
+import com.metoo.srvlink.answers.EventListAnswer;
 import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.GetEventsRequest;
 import com.metoo.ui.MapLayout;
@@ -183,27 +184,24 @@ public class NavActivity extends MapActivity
 		
 	}
 	
+	
+	/**
+	 * Внутренний объект-получатель ответа с сервера со списком событий в
+	 * запрошенном радиусе
+	 * @author theurgist
+	 *
+	 */
 	class MapDataReceiver implements IAsyncTaskNotifyer<String, String, String> {
 
 		public void onSuccess(String Result) {
-			XmlAnswer ans = new XmlAnswer();
-			ans.ParseMessage(Result);
-			
-			
-			if (ans.type == "events") {
-				XmlDoc page = new XmlDoc();
-				page.LoadFromString(Result, true);
-				TaggedDoc tagged = new TaggedDoc(page);
-				PageParser parser = new PageParser();
-				
-				EventList incoming = new EventList();
-				incoming.serialize(tagged.getNode(), parser);
-				meetingsCache.MergeNewEvents(incoming);
+
+			PageParser parser = new PageParser();
+			EventListAnswer answ = new EventListAnswer(Result, parser);
+			if (answ.GetError() != null) {
+				services.ShowInfoAlert("Ошибка", answ.GetError());
+			} else {
+				meetingsCache.MergeNewEvents(answ.events);
 			}
-			else
-				services.ShowAlert("Ошибка", "MapDataReceiver: пришел ответ типа" + ans.type);
-			
-			
 		}
 		public void onError(String Reason) {
 			services.ShowToast("Ошибка в модуле MapDataReceiver: " + Reason);

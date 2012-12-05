@@ -39,7 +39,7 @@ public class MeetingsMapLayer extends MapItemsLayer {
 	 @Override
 	 protected boolean onTap(int index) {
 		 OverlayItem item = mOverlays.get(index);
-		 services.ShowAlert(item.getTitle(), item.getSnippet());
+		 services.ShowInfoAlert(item.getTitle(), item.getSnippet());
 		 return true;
 		 
 	 }
