@@ -4,17 +4,12 @@
 package com.metoo.common;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.common.javautils.ClassChecker;
-import com.metoo.srvlink.answers.EventListAnswer;
 import com.metoo.srvlink.answers.MetooServerAnswer;
 import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.MetooServerRequest;
-import com.metoo.xmlparser.INodeSerializer;
 import com.metoo.xmlparser.PageParser;
-import com.metoo.xmlparser.TaggedDoc;
 
 /**
  * Статический объект, позволяющий осуществлять взаимодействие с сервером MeToo
@@ -23,8 +18,7 @@ import com.metoo.xmlparser.TaggedDoc;
  *
  */
 public final class MetooServices {
-    @SuppressWarnings("unused")
-	private static MetooServices INSTANCE;
+	private static MetooServices INSTANCE = new MetooServices();
 
     /**
      * Связь с сервером осуществляется через этот объект
@@ -38,10 +32,9 @@ public final class MetooServices {
 	/**
 	 * Инициализация сервисов Metoo
 	 */
-	public MetooServices() {
-		INSTANCE = new MetooServices();
-		connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
-		parser = new PageParser();
+	public static void Initialize() {
+		INSTANCE.connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
+		INSTANCE.parser = new PageParser();
 	}
 	
 	public static <T extends MetooServerAnswer>

@@ -5,6 +5,7 @@ import com.metoo.R;
 import android.os.Bundle;
 import android.view.Menu;
 import com.metoo.common.AppSettings;
+import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.ui.MainLayout;
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity {
     {
         super.onCreate(savedInstanceState);
         AppSettings.LoadFromDisk(services);
+        MetooServices.Initialize();
 
         if (AppSettings.GetEmulationMode()) {
         	

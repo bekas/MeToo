@@ -4,12 +4,20 @@
 package com.metoo.ui;
 
 import android.content.Intent;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabHost.TabContentFactory;
+import android.widget.TabHost.TabSpec;
+
 import com.metoo.R;
 import com.metoo.activities.NavActivity;
 import com.metoo.activities.SettingsActivity;
@@ -32,12 +40,14 @@ public class TestingLayout extends BaseLayout {
     private ServerRequest _initialRequest;
     
     // UI
-	WebView webView;
+	WebView webViewTest;
+	EditText teRawTextTest;
 	ProgressBar progrBar;
-	EditText editText;
 	Button btnTestSettings;
 	Button btnTestLogin;
 	Button btnTestMap;
+	TabHost tabHost;
+
 	
 	String loadResult;
 
@@ -55,12 +65,49 @@ public class TestingLayout extends BaseLayout {
 		activity.setContentView(R.layout.screen_test);
 
         // Get UI alias objects
-        webView = (WebView)activity.findViewById(R.id.webView1);
         progrBar = (ProgressBar)activity.findViewById(R.id.progressBar1);
-        editText = (EditText)activity.findViewById(R.id.editText1);
         btnTestSettings = (Button)activity.findViewById(R.id.btnTestSettings);
         btnTestLogin = (Button)activity.findViewById(R.id.btnTestLogin);
         btnTestMap = (Button)activity.findViewById(R.id.btnTestMap);
+        tabHost = (TabHost)activity.findViewById(R.id.tabHostTest);
+        
+        tabHost.setup();
+        
+ //       tabHost.removeAllViews();
+        
+        TabSpec tab1 = tabHost.newTabSpec("Рендер");
+        LayoutInflater.from(
+        		activity.getApplicationContext()).inflate(R.layout.tab_test_browser, (ViewGroup)activity.findViewById(R.id.tab1));
+        tab1.setContent(R.id.tab1);
+        tab1.setIndicator("Рендер");
+        
+        TabSpec tab2 = tabHost.newTabSpec("Исходник");
+        LayoutInflater.from(
+        		activity.getApplicationContext()).inflate(R.layout.tab_test_rawview, (ViewGroup)activity.findViewById(R.id.tab2));
+        tab2.setContent(R.id.tab2);
+        tab2.setIndicator("Исходник");
+        
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+        tabHost.setOnTabChangedListener(new OnTabChangeListener() {
+			boolean notEverSwitched = true;
+			@Override
+			/**
+			 * Грязный хак: если ответ очень большой (страница с исключением),
+			 * то он ооочень долго грузится в простой TextView
+			 */
+			public void onTabChanged(String tabId) {
+				if (notEverSwitched) {
+					teRawTextTest.setText(loadResult);
+					notEverSwitched = false;
+				}
+			}
+		});
+
+        webViewTest = (WebView)activity.findViewById(R.id.webViewTest);
+        teRawTextTest = (EditText)activity.findViewById(R.id.teRawTextTest);
+
+
 
         btnTestSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -83,13 +130,15 @@ public class TestingLayout extends BaseLayout {
             }
         });
 
+        
         // Ui initial tweaks
-        editText.setEnabled(false);
+        teRawTextTest.setEnabled(false);
         //editText.setInputType(InputType.TYPE_NULL); -- doesn't work, Android bug!! :(
         
-		webView.loadDataWithBaseURL("fakeURI", loadResult, "text/html", "utf-8", "");
-		editText.setText(loadResult);
-		progrBar.setVisibility(View.GONE);
+		webViewTest.loadDataWithBaseURL("fakeURI", loadResult, "text/html", "utf-8", "");
+//		progrBar.setVisibility(View.GONE);
+		
+
 	}
 
 	/**
