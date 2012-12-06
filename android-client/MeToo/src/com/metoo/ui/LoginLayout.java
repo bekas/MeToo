@@ -75,6 +75,10 @@ public class LoginLayout extends BaseLayout {
         pbLogin.setVisibility(View.GONE);
         lblLoginProblem.setVisibility(View.GONE);
 		lblLoginOk.setVisibility(View.GONE);
+		
+
+		etUsername.setText(AppSettings.GetLogin());
+		etPasswd.setText(AppSettings.GetPassword());
 	}
 
 	/**
@@ -129,6 +133,7 @@ public class LoginLayout extends BaseLayout {
 		
 		AppSettings.SetSessionId(session_id);
 		AppSettings.SetCreditials(etUsername.getText().toString(), etPasswd.getText().toString());
+		AppSettings.SaveOnDisk(activity.services);
 		//LayoutManager.SwitchImmediately(_previous);
 		
 		imgLoginLogo.setImageResource(R.drawable.button_ok);

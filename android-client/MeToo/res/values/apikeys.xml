@@ -2,5 +2,7 @@
 <resources>
     <string name="Flis_notebook_debug_apikey">0i1Gz1RsFg67ngFIVKNTrokvorsrJzouQmSF4Og</string>
     <string name="Flis_PC_debug_apikey">0i1Gz1RsFg66vxz_nCNe0If1YdApt9A6_-mBxjA</string>
+    <string name="Flis_notebook_linux_debug_apikey">0i1Gz1RsFg65wbROpbO_bY7LR-RSbi8SEmpDpqg</string>
+    
     
 </resources>

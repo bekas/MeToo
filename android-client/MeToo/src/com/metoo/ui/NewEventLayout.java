@@ -16,7 +16,6 @@ import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.answers.CreateEventAnswer;
 import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.CreateEventRequest;
-import com.metoo.srvlink.requests.MetooServerRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 

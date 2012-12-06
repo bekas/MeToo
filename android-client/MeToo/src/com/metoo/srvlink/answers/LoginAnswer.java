@@ -3,9 +3,6 @@
  */
 package com.metoo.srvlink.answers;
 
-import org.w3c.dom.NodeList;
-
-import com.metoo.model.EventList;
 import com.metoo.xmlparser.PageParser;
 
 /**

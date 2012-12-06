@@ -8,6 +8,7 @@ import com.metoo.common.AppSettings;
 import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.srvlink.requests.LoginRequest;
+import com.metoo.srvlink.requests.MetooServerRequest;
 import com.metoo.ui.MainLayout;
 import com.metoo.ui.MapLayout;
 import com.metoo.ui.SplashLayout;
@@ -37,9 +38,11 @@ public class MainActivity extends BaseActivity {
 
         if (AppSettings.GetEmulationMode()) {
         	
-			LoginRequest loginreq = new LoginRequest(AppSettings.GetLogin(), AppSettings.GetPassword());
+			//LoginRequest loginreq = new LoginRequest(AppSettings.GetLogin(), AppSettings.GetPassword());
+        	MetooServerRequest req = new MetooServerRequest();
+        	req.AddParam("APPSTART", "DEBUG");
             
-            screenTester = new TestingLayout(this, null, loginreq);
+            screenTester = new TestingLayout(this, null, req);
             screenSplash = new SplashLayout(this, screenTester, AppSettings.GetSplashDelay(), 3000);
             
             // Заставить устройство держать дисплей включённым и отключить на время
@@ -56,6 +59,12 @@ public class MainActivity extends BaseActivity {
         AndroidAppLog.I("Application started");
     }
 
+    @Override
+    public void onPause() {
+    	AppSettings.SaveOnDisk(services);
+    	super.onPause();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);

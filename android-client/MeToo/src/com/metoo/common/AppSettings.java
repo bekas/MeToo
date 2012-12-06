@@ -210,7 +210,7 @@ public final class AppSettings {
  * @author Theurgist
  */
 class StateData implements Serializable{
-	static final long serialVersionUID = 5L;
+	static final long serialVersionUID = 6L;
 	static final String DEF_STATE_SETTINGS_FILE = "appstate.ser";
 	String filePath;
 	
