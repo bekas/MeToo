@@ -25,7 +25,7 @@ public class LoginAnswer extends MetooServerAnswer {
 		if (error != null)
 			return;
 		
-		if (type != "auth") {
+		if (!type.equals("auth")) {
 			error = "LoginAnswer: wrong answer type (type == " + error + ")";
 		} else {
 			// Больше нечего пока вычленять...

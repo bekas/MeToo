@@ -2,36 +2,25 @@ package com.metoo.activities;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
 import com.metoo.R;
 import com.metoo.common.AppSettings;
 import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.AndroServices;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
-import com.metoo.gmap.overlay.MapItemsLayer;
 import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.model.Event;
-import com.metoo.model.EventList;
-import com.metoo.srvlink.XmlAnswer;
 import com.metoo.srvlink.answers.EventListAnswer;
-import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.GetEventsRequest;
 import com.metoo.ui.MapLayout;
 import com.metoo.ui.views.IMapViewPanListener;
 import com.metoo.ui.views.IOnLongPressListener;
-import com.metoo.xmlparser.PageParser;
-import com.metoo.xmlparser.TaggedDoc;
-import com.metoo.xmlparser.XmlDoc;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.webkit.WebIconDatabase.IconListener;
 
 public class NavActivity extends MapActivity 
 {

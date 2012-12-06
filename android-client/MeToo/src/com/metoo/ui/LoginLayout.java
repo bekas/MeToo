@@ -4,9 +4,7 @@ import com.metoo.R;
 import com.metoo.common.AppSettings;
 import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
-import com.metoo.srvlink.XmlAnswer;
 import com.metoo.srvlink.answers.LoginAnswer;
-import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -193,11 +191,14 @@ public class LoginLayout extends BaseLayout {
     class LoginRequestProceeder implements IAsyncTaskNotifyer<LoginAnswer, String, String>
     {
 		public void onSuccess(LoginAnswer Result) {
-			if (Result.GetSessionId() > 0) {
+			if (Result.GetError() != null)
+				proceedError("Ошибка чтения ответа сервера: " + Result.GetError());
+				
+			else if (Result.GetSessionId() > 0)
 				proceedOk(Result.GetSessionId());
-			}
+
 			else
-				proceedError("Во время аутентификации произошла ошибка");
+				proceedError("Ошибка аутентификации: " + Result.GetRequestResult().toString());
 		}
 
 		public void onError(String Reason) {

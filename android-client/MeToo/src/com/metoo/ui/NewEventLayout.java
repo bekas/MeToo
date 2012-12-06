@@ -11,9 +11,11 @@ import android.widget.EditText;
 import com.google.android.maps.GeoPoint;
 import com.metoo.R;
 import com.metoo.common.AppSettings;
+import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
-import com.metoo.srvlink.XmlAnswer;
+import com.metoo.srvlink.answers.CreateEventAnswer;
 import com.metoo.srvlink.base.Connector;
+import com.metoo.srvlink.requests.CreateEventRequest;
 import com.metoo.srvlink.requests.MetooServerRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
@@ -84,41 +86,36 @@ public class NewEventLayout extends BaseLayout {
 
 	// Listeners
 	class onSaveEvent implements View.OnClickListener { public void onClick(View arg0) {
-		MetooServerRequest req = new MetooServerRequest();
-		req.AddParam("type", "create_event");
-		req.AddParam("name", etNewEventName.getText().toString());
-		req.AddParam("description", etNewEventDescr.getText().toString());
-		req.AddParam("latitude", String.format("%.8f", locationOfNewEvent.getLatitudeE6()/1E6));
-		req.AddParam("longitude", String.format("%.8f", locationOfNewEvent.getLongitudeE6()/1E6));
+		CreateEventRequest req = new CreateEventRequest(
+				etNewEventName.getText().toString(),
+				etNewEventDescr.getText().toString(),
+				locationOfNewEvent.getLatitudeE6()/1E6,
+				locationOfNewEvent.getLongitudeE6()/1E6);
 		
 		try {
-			connect.SendSimpleRequest(req, new SaveEventAnswerReceiver());
+			MetooServices.Request(req, CreateEventAnswer.class, new SaveEventAnswerReceiver());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}}
 
 	
-	class SaveEventAnswerReceiver implements IAsyncTaskNotifyer<String, String, String> {
+	class SaveEventAnswerReceiver implements IAsyncTaskNotifyer<CreateEventAnswer, String, String> {
 
-		public void onSuccess(String Result) {
-			XmlAnswer ans = new XmlAnswer();
-			ans.ParseMessage(Result);
-			
-			
-			if (ans.type == "eventcreate") {
-				if (ans.result == 0) {
-					activity.services.ShowToast("Событие создано!");
-					onEventCreated();
-				}
-				else {
-					activity.services.ShowInfoAlert("Ошибка создания события", "Код ошибки: " + ans.result);
-					onEventNotCreated();
-				}
+		public void onSuccess(CreateEventAnswer Result) {
+
+			if (Result.GetError() != null)
+				onError("Ошибка чтения ответа сервера: " + Result.GetError());
+				
+			else if (Result.GetRequestResult() == 0) {
+				activity.services.ShowToast("Событие создано!");
+				onEventCreated();
 			}
-			else
-				activity.services.ShowInfoAlert("Ошибка", "SaveEventAnswerReceiver: пришел ответ типа" + ans.type);
-			
+
+			else {
+				activity.services.ShowInfoAlert("Ошибка создания события", "Код ошибки: " + Result.GetRequestResult());
+				onEventNotCreated();
+			}			
 			
 		}
 		public void onError(String Reason) {

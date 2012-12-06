@@ -5,10 +5,15 @@ import org.w3c.dom.NodeList;
 import com.metoo.model.EventList;
 import com.metoo.xmlparser.PageParser;
 
+/**
+ * Ответ на запрос получения событий
+ * @author theurgist
+ *
+ */
 public class EventListAnswer extends MetooServerAnswer {
 
 	/**
-	 * Список событий, переданный сервером
+	 * Список событий, полученный от сервера
 	 */
 	public final EventList GetEvents() {return events;}
 	protected EventList events = null;
@@ -18,7 +23,7 @@ public class EventListAnswer extends MetooServerAnswer {
 		if (error != null)
 			return;
 		
-		if (type != "events") {
+		if (!type.equals("events")) {
 			error = "EventListAnswer: wrong answer type (type == " + error + ")";
 		} else {
 

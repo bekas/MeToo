@@ -155,19 +155,24 @@ public final class MetooServices {
 						reloginWasAlreadyMade = true;
 						INSTANCE.connect.SendSimpleRequest(request, this);
 					}
+					else {
+						// Попытка перелогина потрачена - сообщаем об ошибке
+						onError("Недействительная пара логин-пароль");
+					}
 				}
 				else {
 					T answer = ParseAnswer(Result);
 					
 					// Если пришла нулевая сессия - значит наша недействительна.
-					if (answer.GetSessionId() == 0) {
+					if (answer.GetSessionId() <= 0) {
 						// Если попытка перелогинивания не была потрачена - отправляем запрос!
 						if (!reloginWasAlreadyMade) {
 							isRelogining = true;
-							INSTANCE.connect.SendSimpleRequest(request, this);
+							LoginRequest reloginReq = new LoginRequest(AppSettings.GetLogin(), AppSettings.GetPassword());
+							INSTANCE.connect.SendSimpleRequest(reloginReq, this);
 						} else {
 							// Попытка перелогина потрачена - сообщаем об ошибке
-							onError("Reauthorization failed!");
+							onError("Reauthorization failed! (this point shouldn't be ever reached)");
 						}
 					} else if (originalCallback != null) {
 						// Всё прошло удачно - отправляем пользователю результат
