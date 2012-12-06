@@ -122,7 +122,7 @@ public class LoginLayout extends BaseLayout {
 		etPasswd.setEnabled(true);
 		btnLogin.setVisibility(View.VISIBLE);
 	}
-	void proceedOk(String session_id) {
+	void proceedOk(Integer session_id) {
 		//_parent.services.showToastText("Success! Logged in with session_id=" + session_id);
 		lblLoginOk.setText("Success! Logged in with session_id=" + session_id);
 		lblLoginOk.setVisibility(View.VISIBLE);
@@ -143,8 +143,8 @@ public class LoginLayout extends BaseLayout {
 		pbLogin.setVisibility(View.VISIBLE);
 
 		try {
-			LoginRequest req = new LoginRequest(etUsername.getText().toString(), etPasswd.getText().toString());
-			MetooServices.Request(req, LoginAnswer.class, new LoginRequestProceeder());
+			AppSettings.SetCreditials(etUsername.getText().toString(), etPasswd.getText().toString());
+			MetooServices.Authorize(new LoginRequestProceeder());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -193,12 +193,8 @@ public class LoginLayout extends BaseLayout {
     class LoginRequestProceeder implements IAsyncTaskNotifyer<LoginAnswer, String, String>
     {
 		public void onSuccess(LoginAnswer Result) {
-			
-//			XmlAnswer ans = new XmlAnswer();
-//			ans.ParseMessage(Result);
-			
 			if (Result.GetSessionId() > 0) {
-				proceedOk(Result.GetSessionId().toString());
+				proceedOk(Result.GetSessionId());
 			}
 			else
 				proceedError("Во время аутентификации произошла ошибка");

@@ -1,7 +1,13 @@
 package com.metoo.srvlink.base;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.metoo.model.Event;
 
 /**
  * Объект запроса серверу
@@ -9,7 +15,8 @@ import java.util.List;
  *
  */
 public class ServerRequest {
-	private List<StringPair> _args;
+
+	Map<String, String> args;
 	private String _preamb;
 	/**
 	 * Флаг, является ли данный запрос get-запросом (если true), либо post-запросом (если false)
@@ -17,7 +24,7 @@ public class ServerRequest {
 	private boolean isGetRequest;
 	
 	public ServerRequest() {
-		_args = new ArrayList<StringPair>();
+		args = new LinkedHashMap<String, String>();
 		_preamb = "";
 		isGetRequest = true;
 	}
@@ -33,15 +40,16 @@ public class ServerRequest {
 	 * Добавить параметр запроса (формат: "key=value")
 	 * @param key Ключ параметра
 	 * @param value Значение параметра, сериализованное в строку
+	 * @return Предыдущее значение ключа, если было
 	 */
-	public void AddParam(String key, String value) {
-		_args.add(new StringPair(key, value));
+	public String AddParam(String key, String value) {
+		return args.put(key, value);
 	}
 	/**
 	 * Очистить все параметры запроса
 	 */
 	public void ClearParams() {
-		_args.clear();
+		args.clear();
 	}
 	/**
 	 * Построить на основе всех настроек запроса строку запроса, готовую к отправке на сервер
@@ -53,10 +61,12 @@ public class ServerRequest {
 		if (isGetRequest) {
 			// Конструируем get-запрос
 			result = "/" +_preamb + "?";
-			for(StringPair t : _args) {
-				result += t._key + "=" + t._value + "&";
+
+			for (Map.Entry<String, String> pair : args.entrySet()) {
+				result += pair.getKey() + "=" + pair.getValue() + "&";
 			}
-			if (_args.size() > 0)
+			// Отрезаем последний "&"
+			if (args.size() > 0)
 				result = result.substring(0, result.length() - 1);
 		
 		}
@@ -68,16 +78,4 @@ public class ServerRequest {
 		return result;
 	}
 	
-}
-
-/**
- * Строковая пара "ключ-значение"
- * @author theurgist
- */
-class StringPair {
-	public String _key, _value;
-	public StringPair(String key, String value) {
-		_key = key;
-		_value = value;
-	}
 }

@@ -4,25 +4,21 @@
 package com.metoo.ui;
 
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
 
 import com.metoo.R;
 import com.metoo.activities.NavActivity;
 import com.metoo.activities.SettingsActivity;
 import com.metoo.common.AppSettings;
-import com.metoo.common.androidutils.AndroServices;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.base.Connector;
@@ -136,7 +132,7 @@ public class TestingLayout extends BaseLayout {
         //editText.setInputType(InputType.TYPE_NULL); -- doesn't work, Android bug!! :(
         
 		webViewTest.loadDataWithBaseURL("fakeURI", loadResult, "text/html", "utf-8", "");
-//		progrBar.setVisibility(View.GONE);
+		progrBar.setVisibility(View.GONE);
 		
 
 	}
@@ -154,7 +150,6 @@ public class TestingLayout extends BaseLayout {
 	 */
 	@Override
 	protected Boolean preloadRoutine() {
-		//connect = new Connector( activity.getResources().getString(R.string.metoo_srv_base_uri));
 		connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
 		try {
 			connect.SendSimpleRequest(_initialRequest, new FirstTimeLoader());

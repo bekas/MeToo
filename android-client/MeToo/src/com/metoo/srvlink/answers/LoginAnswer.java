@@ -15,19 +15,6 @@ import com.metoo.xmlparser.PageParser;
  */
 public class LoginAnswer extends MetooServerAnswer {
 
-//	/**
-//	 * Имя пользователя
-//	 */
-//	public final String GetUsername() {return login;}
-//	protected String login = null;
-//	
-//	/**
-//	 * Пароль пользователя
-//	 */
-//	public String GetPassword() {return passwd;}
-//	protected String passwd;
-	
-
 	/**
 	 * Конструктор, определяющий наполнение данных 
 	 * @param source

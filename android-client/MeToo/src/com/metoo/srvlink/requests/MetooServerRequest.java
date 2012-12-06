@@ -1,5 +1,6 @@
 package com.metoo.srvlink.requests;
 
+import com.metoo.common.AppSettings;
 import com.metoo.srvlink.base.ServerRequest;
 
 /**
@@ -14,8 +15,10 @@ public class MetooServerRequest extends ServerRequest {
 	
 	/**
 	 * При создании автоматически в список параметров добавляется номер запроса
+	 * и Id сессии
 	 */
 	public MetooServerRequest() {
 		AddParam("request_id", (++req_counter).toString());
+		AddParam("session_id", AppSettings.GetSessionId().toString());
 	}
 }
