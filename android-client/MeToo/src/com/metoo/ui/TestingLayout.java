@@ -13,10 +13,10 @@ import android.widget.ProgressBar;
 import com.metoo.R;
 import com.metoo.activities.NavActivity;
 import com.metoo.activities.SettingsActivity;
-import com.metoo.common.AndroServices;
-import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
-import com.metoo.common.IAsyncTaskNotifyer;
+import com.metoo.common.androidutils.AndroServices;
+import com.metoo.common.androidutils.AndroidAppLog;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.base.ServerRequest;
 import com.metoo.ui.base.BaseActivity;
@@ -66,20 +66,20 @@ public class TestingLayout extends BaseLayout {
             public void onClick(View v) {
             	Intent myIntent = new Intent(activity, SettingsActivity.class);
            	 	activity.startActivity(myIntent);
-            	AppLog.W("'TestSettings' button pressed");
+            	AndroidAppLog.W("'TestSettings' button pressed");
             }
         });
         btnTestLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	activity.RequestSwitch(new LoginLayout(activity, TestingLayout.this));
-            	AppLog.W("'TestLogin' button pressed");
+            	AndroidAppLog.W("'TestLogin' button pressed");
             }
         });
         btnTestMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	Intent myIntent = new Intent(activity, NavActivity.class);
            	 	activity.startActivity(myIntent);
-            	AppLog.W("'TestMap' button pressed");
+            	AndroidAppLog.W("'TestMap' button pressed");
             }
         });
 

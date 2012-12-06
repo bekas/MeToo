@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import com.metoo.common.androidutils.AndroServices;
+
 import android.content.Context;
 
 

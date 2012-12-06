@@ -1,16 +1,11 @@
 package com.metoo.activities;
 
-import java.io.InputStream;
-
 import com.metoo.R;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
-import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
-import com.metoo.srvlink.base.ServerRequest;
+import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.ui.MainLayout;
 import com.metoo.ui.MapLayout;
@@ -19,7 +14,7 @@ import com.metoo.ui.TestingLayout;
 import com.metoo.ui.base.BaseActivity;
 
 /**
- * Startup activity
+ * Главная точка входа в приложение
  * @author Theurgist
  */
 public class MainActivity extends BaseActivity {
@@ -30,7 +25,7 @@ public class MainActivity extends BaseActivity {
 	static public MapLayout screenMap;
     
     /** 
-     * Called when the activity is first created. 
+     * Вызывается при холодном запуске приложения
      */
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -56,7 +51,7 @@ public class MainActivity extends BaseActivity {
         }
 
 	    switcher.SwitchImmediately(screenSplash);
-        AppLog.I("Application started");
+        AndroidAppLog.I("Application started");
     }
 
     @Override
@@ -65,23 +60,4 @@ public class MainActivity extends BaseActivity {
         return true;
     }  
         
-}
-
-
-
-class Helper {
-	public static String readRawTextFile(Context ctx, int resId)
-	{
-	    try {
-	        Resources res = ctx.getResources();
-	        InputStream in_s = res.openRawResource(resId);
-
-	        byte[] b = new byte[in_s.available()];
-	        in_s.read(b);
-	        return new String(b);
-	    } catch (Exception e) {
-	        // e.printStackTrace();
-	        return null;
-	    }
-	}
 }

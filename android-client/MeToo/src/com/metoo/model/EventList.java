@@ -69,6 +69,14 @@ public class EventList implements INodeSerializer {
 	}
 	
 	/**
+	 * Возвращает количество событий в данном списке
+	 * @return Количество объектов
+	 */
+	public int Length() {
+		return events.size();
+	}
+	
+	/**
 	 * Вливает в текущий список другой список (с обновлением)
 	 * @param with откуда добавляем
 	 * @return список добавленных элементов

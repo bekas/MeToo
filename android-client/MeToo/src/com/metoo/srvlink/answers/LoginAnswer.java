@@ -15,8 +15,19 @@ import com.metoo.xmlparser.PageParser;
  */
 public class LoginAnswer extends MetooServerAnswer {
 
-	public final String login;
-	public final String passwd;
+//	/**
+//	 * Имя пользователя
+//	 */
+//	public final String GetUsername() {return login;}
+//	protected String login = null;
+//	
+//	/**
+//	 * Пароль пользователя
+//	 */
+//	public String GetPassword() {return passwd;}
+//	protected String passwd;
+	
+
 	/**
 	 * Конструктор, определяющий наполнение данных 
 	 * @param source
@@ -24,23 +35,14 @@ public class LoginAnswer extends MetooServerAnswer {
 	 */
 	public LoginAnswer(String source, PageParser parser) {
 		super(source, parser);
+		if (error != null)
+			return;
 		
-//		if (type != "events") {
-//			if (error == null)
-//				error = "EventListAnswer: wrong answer type (type == " + error + ")";
-//			events = null;
-//		} else {
-//
-//			NodeList nl;
-//			nl = parser.XPath("/metoo", doc.getNode());
-//			if (nl != null) {
-//				events = new EventList();
-//				for(int i = 0; i < nl.getLength(); i++) {
-//					events.serialize(nl.item(i), parser);
-//				}
-//			}
-//			else events = null;
-//		}
+		if (type != "auth") {
+			error = "LoginAnswer: wrong answer type (type == " + error + ")";
+		} else {
+			// Больше нечего пока вычленять...
+		}
 	}
 
 }

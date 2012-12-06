@@ -10,15 +10,16 @@ public class EventListAnswer extends MetooServerAnswer {
 	/**
 	 * Список событий, переданный сервером
 	 */
-	public final EventList events;
+	public final EventList GetEvents() {return events;}
+	protected EventList events = null;
 	
 	public EventListAnswer(String source, PageParser parser) {
 		super(source, parser);
+		if (error != null)
+			return;
 		
 		if (type != "events") {
-			if (error == null)
-				error = "EventListAnswer: wrong answer type (type == " + error + ")";
-			events = null;
+			error = "EventListAnswer: wrong answer type (type == " + error + ")";
 		} else {
 
 			NodeList nl;
@@ -29,7 +30,6 @@ public class EventListAnswer extends MetooServerAnswer {
 					events.serialize(nl.item(i), parser);
 				}
 			}
-			else events = null;
 		}
 	}
 

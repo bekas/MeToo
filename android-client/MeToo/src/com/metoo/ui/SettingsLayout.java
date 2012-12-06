@@ -9,8 +9,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.metoo.R;
-import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
+import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -54,14 +54,14 @@ public class SettingsLayout extends BaseLayout {
             public void onClick(View v) {
             	AppSettings.ResetSettings(activity.services);
             	activity.services.ShowInfoAlert("Уведомление", "Все настрйки сброшены на настройки по-умолчанию");
-            	AppLog.W("Настройки сброшены");
+            	AndroidAppLog.W("Настройки сброшены");
             }
         });
         chbEmulationMode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	AppSettings.SetEmulationMode(chbEmulationMode.isChecked());
             	AppSettings.SaveOnDisk(activity.services);
-            	AppLog.W("'TestMode switched to' " + chbEmulationMode.isChecked());
+            	AndroidAppLog.W("'TestMode switched to' " + chbEmulationMode.isChecked());
             }
         });
         

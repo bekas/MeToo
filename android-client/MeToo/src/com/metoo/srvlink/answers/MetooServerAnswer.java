@@ -25,19 +25,24 @@ public abstract class MetooServerAnswer extends ServerAnswer {
 	/**
 	 * Параметр ответа: тип запроса
 	 */
-	public final String type;
+	public final String GetType() {return type;}
+	protected String type = null;
+	
 	/**
 	 * Параметр ответа: номер запроса, на который отправлен этот ответ
 	 */
-	public final Integer request_id;
+	public final Integer GetRequestId() {return request_id;}
+	protected Integer request_id = null;
 	/**
 	 * Параметр ответа: ID сессии пользователя
 	 */
-	public final Integer session_id;
+	public final Integer GetSessionId() {return session_id;}
+	protected Integer session_id = null;
 	/**
 	 * Параметр ответа: результат выполнения запроса
 	 */
-	public final Integer result;
+	public final Integer GetRequestResult() {return result;}
+	protected Integer result = null;
 	
 	/**
 	 * Конструктор, определяющий наполнение данных 
@@ -49,10 +54,6 @@ public abstract class MetooServerAnswer extends ServerAnswer {
 
 		if (!initParsedDocument()) {
 			error = "MetooServerAnswer: Can't preparse XML answer";
-			type = null;
-			request_id = null;
-			session_id = null;
-			result = null;
 		}
 		else {
 			NodeList nl;
@@ -61,24 +62,33 @@ public abstract class MetooServerAnswer extends ServerAnswer {
 			if ((nl != null) && (nl.getLength() > 0))
 				type = nl.item(0).getTextContent();
 			else {
-				type = null;
-				error = "MetooServerAnswer: Not valid MeToo server answer data";
+				error = "MetooServerAnswer: empty 'type' field";
+				return;
 			}
 			
 			nl = parser.XPath("/metoo/request_id", doc.getNode());
 			if ((nl != null) && (nl.getLength() > 0))
 				request_id = Integer.parseInt(nl.item(0).getTextContent());
-			else request_id = null;
+			else {
+				error = "MetooServerAnswer: empty 'request_id' field";
+				return;
+			}
 			
 			nl = parser.XPath("/metoo/session_id", doc.getNode());
 			if ((nl != null) && (nl.getLength() > 0))
 				session_id = Integer.parseInt(nl.item(0).getTextContent());
-			else session_id = null;
+			else {
+				error = "MetooServerAnswer: empty 'session_id' field";
+				return;
+			}
 			
 			nl = parser.XPath("/metoo/result", doc.getNode());
 			if ((nl != null) && (nl.getLength() > 0))
 				result = Integer.parseInt(nl.item(0).getTextContent());
-			else result = null;
+			else {
+				error = "MetooServerAnswer: empty 'result' field";
+				return;
+			}
 		}
 		
 	}

@@ -3,8 +3,6 @@
  */
 package com.metoo.srvlink.requests;
 
-import com.metoo.srvlink.XmlAnswer;
-
 /**
  * Запрос аутентификации на сервере
  * @author theurgist

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.google.android.maps.GeoPoint;
 import com.metoo.R;
 import com.metoo.common.AppSettings;
-import com.metoo.common.IAsyncTaskNotifyer;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.XmlAnswer;
 import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.MetooServerRequest;

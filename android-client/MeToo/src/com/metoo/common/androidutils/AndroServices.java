@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.metoo.common;
+package com.metoo.common.androidutils;
 
 import android.app.Activity;
 import android.app.AlertDialog;

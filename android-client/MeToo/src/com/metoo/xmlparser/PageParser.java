@@ -11,6 +11,8 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.metoo.common.javautils.ClassChecker;
+
 
 
 public class PageParser {	

@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.metoo.common;
+package com.metoo.common.androidutils;
 
 /**
+ * Сообщает о прогрессе выполнения асинхронных операций
  * @author Theurgist
- * Notifyes on layout preload result
  */
 public interface IAsyncTaskNotifyer<ResultType, ErrorMessageType, ProgressMessageType> {
 

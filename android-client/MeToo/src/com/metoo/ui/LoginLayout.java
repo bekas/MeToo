@@ -2,10 +2,10 @@ package com.metoo.ui;
 
 import com.metoo.R;
 import com.metoo.common.AppSettings;
-import com.metoo.common.IAsyncTaskNotifyer;
+import com.metoo.common.MetooServices;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.XmlAnswer;
-import com.metoo.srvlink.base.Connector;
-import com.metoo.srvlink.base.ServerRequest;
+import com.metoo.srvlink.answers.LoginAnswer;
 import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
@@ -34,8 +34,6 @@ public class LoginLayout extends BaseLayout {
 
 	LoginValidator loginValidator;
 	PasswdValidator passwdValidator;
-	
-	Connector connect;
 	
 	
 	public LoginLayout(BaseActivity parent, BaseLayout previous) {
@@ -146,9 +144,7 @@ public class LoginLayout extends BaseLayout {
 
 		try {
 			LoginRequest req = new LoginRequest(etUsername.getText().toString(), etPasswd.getText().toString());
-		    
-    		connect = new Connector("http", activity.getResources().getString(R.string.metoo_srv_base_uri));
-			connect.SendSimpleRequest(req, new LoginRequestProceeder());
+			MetooServices.Request(req, LoginAnswer.class, new LoginRequestProceeder());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -189,21 +185,20 @@ public class LoginLayout extends BaseLayout {
 		public void onTextChanged(CharSequence s, int start, int before, int count) { }
 	}
 
-	/**
+	/**выполнять
 	 * Notifyes about login request results
 	 * @author Theurgist
 	 *
 	 */
-    class LoginRequestProceeder implements IAsyncTaskNotifyer<String, String, String>
+    class LoginRequestProceeder implements IAsyncTaskNotifyer<LoginAnswer, String, String>
     {
-		public void onSuccess(String Result) {
-			XmlAnswer ans = new XmlAnswer();
-			ans.ParseMessage(Result);
+		public void onSuccess(LoginAnswer Result) {
 			
-			if (ans.session_id > 0) {
-				String t = new String();
-				ans.GetLastElementByTag(t, "session_id");
-				proceedOk(ans.session_id.toString());
+//			XmlAnswer ans = new XmlAnswer();
+//			ans.ParseMessage(Result);
+			
+			if (Result.GetSessionId() > 0) {
+				proceedOk(Result.GetSessionId().toString());
 			}
 			else
 				proceedError("Во время аутентификации произошла ошибка");
