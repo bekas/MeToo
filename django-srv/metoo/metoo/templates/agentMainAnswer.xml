@@ -29,7 +29,7 @@
 		  {% for event in events %}
     	  	<event>
     	  		<id>{{ event.id }}</id>
-          		<creator_id>{{ event.creatorId }}</creator_id>
+          		<creator_id>{{ event.creator_id }}</creator_id>
                 <name>{{ event.name}}</name>
                 <date>{{ event.date }}</date>
                 <description>{{ event.description }}</description>

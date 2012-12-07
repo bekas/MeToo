@@ -23,7 +23,7 @@ class EventManager:
 		'''
 		userId = SessionManager.getUser(sessionId)
 		eName = 'Noname event'
-		eTime = '2012-12-31'
+		eTime = '31-12-12'
 		eDescription = 'No defenition'
 		photo = Photo.objects.get(pk = 1)
 		eEventTypeId = 1
@@ -52,10 +52,10 @@ class EventManager:
 			eEventTypeId = eventArgs['eventTypeId']
 			
 		if eventArgs.has_key('longitude'):
-			eLatitude = eventArgs['longitude']
+			eLongitude = eventArgs['longitude']
 			
 		if eventArgs.has_key('latitude'):
-			eLongitude = eventArgs['latitude']	
+			eLatitude = eventArgs['latitude']	
 		
 		
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
@@ -82,12 +82,12 @@ class EventManager:
 			for event in events:
 				addEvent = {}			
 				addEvent['id'] = event.pk
-				addEvent['creator_id'] = event.creatorId
+				addEvent['creator_id'] = event.creatorId.pk
 				addEvent['name'] = event.name
-				addEvent['time'] = event.time
+				addEvent['date'] = event.time.strftime('%d-%m-%y %H:%M')
 				addEvent['description'] = event.description
 				addEvent['photo'] = event.photoId.photo
-				addEvent['type'] = event.eventTypeId.name
+				addEvent['type'] = event.eventTypeId.pk
 				addEvent['latitude'] = event.PlaceId.latitude
 				addEvent['longitude'] = event.PlaceId.longitude
 				eventList.append(addEvent)

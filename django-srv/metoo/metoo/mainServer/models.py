@@ -67,7 +67,7 @@ class Event(models.Model):
 	'''
 	creatorId = models.ForeignKey(User)    
 	name = models.CharField(max_length=256)
-	time = models.DateTimeField('date published')
+	time = models.DateTimeField()
 	description = models.TextField() 
  	photoId = models.ForeignKey(Photo)
 	eventTypeId = models.ForeignKey(EventType)

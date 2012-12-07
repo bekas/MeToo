@@ -5,6 +5,7 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
+from datetime import datetime, date, time
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -158,13 +159,13 @@ class MessageManager:
 		#User
 		'''
 		devcontext['type'] = 'auth'
-		devcontext['login'] = 'test'
-		devcontext['password'] = 'test'
+		devcontext['login'] = 'new_test_log'
+		devcontext['password'] = 'new_test_pass'
 		'''
 		'''
 		devcontext['type'] = 'registrate'
-		devcontext['login'] = 'new_test'
-		devcontext['password'] = 'new_test'
+		devcontext['login'] = 'new_test_log'
+		devcontext['password'] = 'new_test_pass'
 		'''
 		'''
 		devcontext['type'] = 'profile_modify'
@@ -175,19 +176,19 @@ class MessageManager:
 		devcontext['sn'] = [1,2]
 		devcontext['session_id'] = 90		
 		'''
-		
+		'''
 		devcontext['type'] = 'logout'
 		devcontext['session_id'] = 93
 		#devcontext['password'] = 'test'
-		
+		'''
 		#Event
-		'''
+		
 		devcontext['type'] = 'events'
-		devcontext['session_id'] = 15
-		devcontext['latitude'] = 55.6
-		devcontext['longitude'] = 37.5
-		devcontext['radius'] = 0.4
-		'''
+		devcontext['session_id'] = '94'
+		devcontext['longitude'] = '37.6'
+		devcontext['latitude'] = '55.6'
+		devcontext['radius'] = '0.3'
+		
 		'''
 		devcontext['type'] = 'event_modify'
 		devcontext['session_id'] = 15
@@ -198,15 +199,15 @@ class MessageManager:
 		'''
 		'''
 		devcontext['type'] = 'event_create'
-		devcontext['session_id'] = 15
+		devcontext['session_id'] = '94'
 		
-		devcontext['latitude'] = 55.5
-		devcontext['longitude'] = 37.5
-		devcontext['name'] = 'New Event'
-		devcontext['time'] = '2012-12-21'		
+		devcontext['latitude'] = '55.6'
+		devcontext['longitude'] = '37.6'
+		devcontext['name'] = 'New Event-2'
+		devcontext['time'] = '31-12-12 23:55'		
 		devcontext['description'] = 'Some words about..'	
 		devcontext['photo'] = 'new photo'	
-		devcontext['eventTypeId'] = 1			
+		devcontext['event_type_id'] = '1'			
 		'''
 		'''
 		devcontext['type'] = 'event_delete'
@@ -249,7 +250,7 @@ class MessageManager:
 		context = {}
 		context['type'] = 'logout'	
 		#sessionRes = 1
-		sessionRes = UserManager.disconnectUser(agentMessage['session_id'])
+		sessionRes = UserManager.disconnectUser(int(agentMessage['session_id']))
 		context['result'] = sessionRes
 		return context
 		
@@ -260,7 +261,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'registrate'
-		context['result'] = UserManager.createAccount(agentMessage['login'],agentMessage['login'])
+		context['result'] = UserManager.createAccount(agentMessage['login'],agentMessage['password'])
 		if int(context['result']) > 0:
 			context['session_id'] = context['result']
 		return context
@@ -272,8 +273,11 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'events'
-		agentMessage['session_id'] = 15
-		context['events'] = EventManager.getEvents(agentMessage['session_id'],agentMessage)
+		agentMessage['radius'] = float(agentMessage['radius'])
+		agentMessage['latitude'] = float(agentMessage['latitude'])
+		agentMessage['longitude'] = float(agentMessage['longitude'])
+		context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
+		context['count'] = len(context['events'])
 		return context
 	
 	@staticmethod
@@ -283,7 +287,11 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'event_create'
-		context['result'] = EventManager.createEvent(agentMessage['session_id'],agentMessage)
+		agentMessage['latitude'] = float(agentMessage['latitude'])
+		agentMessage['longitude'] = float(agentMessage['longitude'])
+		agentMessage['time'] = datetime.strptime(agentMessage['time'], "%d-%m-%y %H:%M")
+		
+		context['result'] = EventManager.createEvent(int(agentMessage['session_id']),agentMessage)
 		return context
 	
 	@staticmethod
@@ -293,7 +301,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'event_modify'
-		context['result'] = EventManager.modifyEvent(agentMessage['session_id'],agentMessage)
+		context['result'] = EventManager.modifyEvent(int(agentMessage['session_id']),agentMessage)
 		return context
 	
 	@staticmethod
@@ -303,7 +311,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'event_delete'
-		context['result'] = EventManager.deleteEvent(agentMessage['session_id'],agentMessage['eventid'])
+		context['result'] = EventManager.deleteEvent(int(agentMessage['session_id']),agentMessage['eventid'])
 		return context
 	
 	@staticmethod	
@@ -313,7 +321,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'profile_modify'
-		context['result'] = UserManager.editAccount(agentMessage['session_id'], agentMessage)
+		context['result'] = UserManager.editAccount(int(agentMessage['session_id']), agentMessage)
 		return context
 		
 	@staticmethod
@@ -333,7 +341,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'users'	
-		result = MeTooManager.getUsersbyEvent(agentMessage['session_id'], agentMessage['eventId'])
+		result = MeTooManager.getUsersbyEvent(int(agentMessage['session_id']), agentMessage['eventId'])
 		context['users'] = result['users']
 		context['count'] = len(context['events'])
 		context['result'] = result['result']
@@ -346,7 +354,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.meToo(agentMessage['session_id'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		result = MeTooManager.meToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metooType_id']))
 		context['result'] = result
 		return context		
 
@@ -357,7 +365,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.delMeToo(agentMessage['session_id'], agentMessage['eventId'])
+		result = MeTooManager.delMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']))
 		context['result'] = result
 		return context
 		
@@ -368,6 +376,6 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.modMeToo(agentMessage['session_id'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		result = MeTooManager.modMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metooType_id']))
 		context['result'] = result
 		return context
