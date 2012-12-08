@@ -23,7 +23,7 @@ class EventManager:
 		'''
 		userId = SessionManager.getUser(sessionId)
 		eName = 'Noname event'
-		eTime = '2012-12-31'
+		eTime = '31-12-12'
 		eDescription = 'No defenition'
 		photo = Photo.objects.get(pk = 1)
 		eEventTypeId = 1
@@ -48,14 +48,14 @@ class EventManager:
 		else:
 			photo = Photo.objects.get(pk = 1)
 			
-		if eventArgs.has_key('eventTypeId'):
-			eEventTypeId = eventArgs['eventTypeId']
+		if eventArgs.has_key('event_type_id'):
+			eEventTypeId = int(eventArgs['event_type_id'])
 			
 		if eventArgs.has_key('longitude'):
-			eLatitude = eventArgs['longitude']
+			eLongitude = float(eventArgs['longitude'])
 			
 		if eventArgs.has_key('latitude'):
-			eLongitude = eventArgs['latitude']	
+			eLatitude = float(eventArgs['latitude'])	
 		
 		
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
@@ -82,12 +82,12 @@ class EventManager:
 			for event in events:
 				addEvent = {}			
 				addEvent['id'] = event.pk
-				addEvent['creatorId'] = event.creatorId
+				addEvent['creator_id'] = event.creatorId.pk
 				addEvent['name'] = event.name
-				addEvent['time'] = event.time
+				addEvent['date'] = event.time.strftime('%d-%m-%y %H:%M')
 				addEvent['description'] = event.description
 				addEvent['photo'] = event.photoId.photo
-				addEvent['type'] = event.eventTypeId.name
+				addEvent['type'] = event.eventTypeId.pk
 				addEvent['latitude'] = event.PlaceId.latitude
 				addEvent['longitude'] = event.PlaceId.longitude
 				eventList.append(addEvent)
@@ -124,8 +124,8 @@ class EventManager:
 		#TODO: Подумать насчет изменений. Где они олжны происходить?
 		if eventArgs.has_key('photo'):
 			modEvent.photoId.photo = eventArgs['photo']
-		if eventArgs.has_key('eventTypeId'):
-			modEvent.eventTypeId_id = eventArgs['eventTypeId']
+		if eventArgs.has_key('event_type_id'):
+			modEvent.eventTypeId_id = eventArgs['event_type_id']
 		if eventArgs.has_key('longitude'):
 			modEvent.PlaceId.longitude = eventArgs['longitude']
 		if eventArgs.has_key('latitude'):

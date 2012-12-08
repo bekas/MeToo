@@ -3,7 +3,7 @@
 Модуль работы с пользователями
 '''
 from django.db import models
-from models import User, UserInterest, UserSocialNetwork, Friend
+from models import User, UserInterest,Interest, UserSocialNetwork,SocialNetwork, Friend
 from sessionManager import SessionManager
 
 # создание/редактирование/удаление аккаунта, логин/логаут юзера, добавление/удаление друзей, получение списка друзей
@@ -25,10 +25,10 @@ class UserManager:
 		'''
 		Метод для создания аккаунта
 		'''
-		if u.exists(login__iexact=login):
+		if User.objects.filter(login__iexact=new_login).exists():
 			msg_code = -201
 		else:
-			u = models.User.objects.create(login=new_login, password=new_password)
+			u = User.objects.create(login=new_login, password=new_password,avatarId_id = 1,rating = 0)
 		session_id = UserManager.connectUser(new_login, new_password)
 		if session_id == -101:
 			msg_code = -202
@@ -53,37 +53,46 @@ class UserManager:
 #        return msg_code # возвращает 200 или код ошибки
 
 	@staticmethod
-	def editAccount(userid, session_id, list_changes):
+	def editAccount(session_id, userArgs):
 		'''
 		Метод для редактирования аккаунта
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
-				try:
-					u = models.User.objects.get(pk=userid)
-					u.avatarId = list_changes[0]
-					u.gender = list_changes[1]
-					u.description = list_changes[2]
-					u.save()
-
-					ui = models.UserInterest.objects
-					ui.filter(userId=iserid).delete() # может не сработать
-					for interest in list_changes[3]:
-						new_ui = models.UserInterest(userId=userid, interestId=interest)
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			try:
+				u = User.objects.get(pk=userid)
+				if userArgs.has_key('avatar'):
+					u.avatarId.photo = userArgs['avatar']
+				
+				if userArgs.has_key('gender'):
+					u.gender = userArgs['gender']
+					
+				if userArgs.has_key('description'):
+					u.description = userArgs['description']
+				u.save()
+				
+				if userArgs.has_key('interest'):
+					UserInterest.objects.filter(userId__pk = userid).delete()
+					for interest in userArgs['interest']:
+						#Проверка на существование 
+						if Interest.objects.filter(name = interest).exists():
+							uinterest = Interest.objects.get(name = interest)
+						else:
+							uinterest = Interest(name = interest)
+							uinterest.save()
+						
+						new_ui = UserInterest(userId=User.objects.get(pk=userid), interestId=uinterest)
 						new_ui.save()
-
-					usn = models.UserSocialNetwork.objects
-					usn.filter(userId=iserid).delete() # может не сработать
-					for network in list_changes[4]:
-						new_usn = models.UserSocialNetwork(userId=userid, socialNetworkId=network)
+				if userArgs.has_key('sn'):
+					UserSocialNetwork.objects.filter(userId=userid).delete() 
+					for networkId in userArgs['sn']:
+						new_usn = UserSocialNetwork(userId=User.objects.get(pk=userid), socialNetworkId=SocialNetwork.objects.get(pk=networkId))
 						new_usn.save()
-
-					msg_code = 200
-				except:
-					msg_code = -205              
-			else:
-				msg_code = -204
+				msg_code = 200
+			except:
+				msg_code = -205              
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
 		return msg_code
@@ -109,88 +118,105 @@ class UserManager:
 		return msg_code # возвращает айди сессии или код ошибки
 
 	@staticmethod
-	def disconnectUser(userid, session_id):
+	def disconnectUser(session_id):
 		'''
 		Метод для отключения пользователя от сервера
 		'''
-		userid2 = SessionManager.freeSessionID(session_id) #заглушка для метода освобождения хэндла
+		userid2 = SessionManager.freeSession(session_id) 
 		if userid2 > 0:
-			if userid == userid2: # и не надо мне говорить, что такого быть не может
-				msg_code = userid2
-			else:
-				msg_code = -104
+			#if userid == userid2: # и не надо мне говорить, что такого быть не может
+			msg_code = userid2
+			#else:
+			#	msg_code = -104
 		else:
 			msg_code = -105
 		return msg_code # возвращает айди юзера или код ошибки
 
 	@staticmethod
-	def addFriends(userid, session_id, list_newfriends): # !не проверяет правильность id друзей
+	def addFriends(session_id, list_newfriends): # !не проверяет правильность id друзей
 		'''
 		Метод добавления друзей к пользователю
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			#if userid == userid2:
 				try:
-					f = models.Friend.objects.get(pk=userid)
-					friendline = f.friend
-					list_friends = list(set(friendline.split(";")) | set(list_newfriends))
-					friendline = ";".join(list_friends)
-
+					if(Friend.objects.filter(userId__pk = userid).exists()):
+						f = Friend.objects.get(userId__pk = userid)
+						list_friends = list(set(f.friend.split(";")) | set(list_newfriends.split(";")))
+						f.friend = ";".join(list_friends)
+					else:
+						f = Friend(userId_id = userid, friend = list_newfriends)
+					f.save()
 					msg_code = 200
 				except:
 					msg_code = -206
-			else:
-				msg_code = -204
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
 		return msg_code # возвращает 200 или код ошибки
 
 	@staticmethod
-	def deleteFriends(userid, session_id, list_exfriends):
+	def deleteFriends(session_id, list_exfriends):
 		'''
 		Метод удаления друзей у пользователя
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			#if userid == userid2:
 				try:
-					f = models.Friend.objects.get(pk=userid)
-					friendline = f.friend
-					list_friends = friendline.split(";")
-					list_friends = list(set(list_friends).difference(list_exfriends))
-					friendline = ";".join(list_friends)
-
-					msg_code = 200
+					if(Friend.objects.filter(userId__pk = userid).exists()):
+						f = Friend.objects.get(userId__pk=userid)
+						friendline = f.friend
+						list_friends = friendline.split(";")
+						list_friends = list(set(list_friends).difference(set(list_exfriends.split(";"))))
+						f.friend = ";".join(list_friends)
+						f.save()
+						msg_code = 200
+					else:
+						msg_code = -207
 				except:
 					msg_code = -206
-			else:
-				msg_code = -204
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
 		return msg_code  # возвращает 200 или код ошибки
 
 	@staticmethod
-	def getListFriends(userid, session_id):
+	def getListFriends(session_id):
 		'''
 		Метод получения списка друзей
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			#if userid == userid2:
 				try:
-					f = models.Friend.objects.get(pk=userid)
-					friendline = f.friend
-					if friendline != '':
-						list_friends = friendline.split(";")
+					if(Friend.objects.filter(userId__pk = userid).exists()):
+						f = Friend.objects.get(userId__pk=userid)
+						friendline = f.friend
+						if friendline != '':
+							listFriends = friendline.split(";")
+						else:
+							listFriends = []
 					else:
-						list_friends = list()
-                    
+						listFriends = []		            	
+					friendList = []
+					for strFriendId in listFriends:
+						friendId = int(strFriendId)
+						if(User.objects.filter(pk = friendId).exists()):
+							addFriend = {}			
+							addFriend['id'] = friendId
+							addFriend['login'] = User.objects.get(pk = friendId).login
+							addFriend['avatar'] = User.objects.get(pk = friendId).avatarId.photo
+							addFriend['rating'] = User.objects.get(pk = friendId).rating
+							friendList.append(addFriend)
 					msg_code = 200
 				except:
 					msg_code = -207
-			else:
-				msg_code = -204
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
-		return msg_code, list_friends # возвращает список id друзей, 200 или код ошибки
+		return msg_code, friendList # возвращает список id друзей, 200 или код ошибки

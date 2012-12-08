@@ -5,6 +5,8 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
+from MeTooManager import MeTooManager
+from datetime import datetime, date, time
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -18,6 +20,9 @@ class MessageManager:
 		'''
 		Метод для создания контекста для генерации ответных пакетов/страниц
 		'''
+		if not 'session_id' in agentMessage:
+			agentMessage['session_id'] = -1
+		
 		#ИМХО это решение не очень. Надо бы подумать ка лучше сделать
 		context = {		
 					'main':
@@ -47,28 +52,44 @@ class MessageManager:
 					'auth':
 						lambda x: 
 							MessageManager.authoriseContext(x),
-		
+					
+					'logout':
+						lambda x: 
+							MessageManager.logoutContext(x),				
+					
 					'registrate':
 						lambda x: 
 							MessageManager.registrateContext(x),
-		
+							
+					'friend_add':
+						lambda x: 
+							MessageManager.friendAddContext(x),
+
+					'friend_delete':
+						lambda x: 
+							MessageManager.friendDeleteContext(x),
+					
+					'friends':
+						lambda x: 
+							MessageManager.getFriendsContext(x),
+				
 					'events':
 						lambda x: 
 							MessageManager.eventsContext(x),
 		
-					'createEvent':
+					'event_create':
 						lambda x: 
 							MessageManager.createEventContext(x),
 							
-					'deleteEvent':
+					'event_delete':
 						lambda x: 
 							MessageManager.deleteEventContext(x),		
 			
-					'modifyEvent':
+					'event_modify':
 						lambda x: 
 							MessageManager.modifyEventContext(x),
 							
-					'modifyProfile':
+					'profile_modify':
 						lambda x: 
 							MessageManager.modifyProfileContext(x),
 					'test':
@@ -80,10 +101,10 @@ class MessageManager:
 					'metoo':
 						lambda x:
 							MessageManager.metooContext(x),
-					'modmetoo':
+					'metoo_modify':
 						lambda x:
 							MessageManager.modMetooContext(x),
-					'delmetoo':
+					'metoo_delete':
 						lambda x:
 							MessageManager.delMetooContext(x),						
 					}[agentMessage['type']](agentMessage)	
@@ -148,42 +169,100 @@ class MessageManager:
 	
 		
 		devcontext={}
-		
+		#User
 		'''
 		devcontext['type'] = 'auth'
-		devcontext['login'] = 'test'
-		devcontext['password'] = 'test'
+		devcontext['login'] = 'new_test_log'
+		devcontext['password'] = 'new_test_pass'
 		'''
+		'''
+		devcontext['type'] = 'registrate'
+		devcontext['login'] = 'new_test_log'
+		devcontext['password'] = 'new_test_pass'
+		'''
+		'''
+		devcontext['type'] = 'profile_modify'
+		devcontext['avatar'] = 'new_photo'
+		devcontext['gender'] = 'M'
+		devcontext['description'] = 'Test modify user'
+		devcontext['interest'] = ['girls','food']
+		devcontext['sn'] = [1,2]
+		devcontext['session_id'] = 90		
+		'''
+		'''
+		devcontext['type'] = 'logout'
+		devcontext['session_id'] = '93'
+		#devcontext['password'] = 'test'
+		'''
+		'''
+		devcontext['type'] = 'friend_add'
+		devcontext['session_id'] = '94'
+		devcontext['friends'] = '4;2;5;3;1;1'
+		'''
+		'''
+		devcontext['type'] = 'friend_delete'
+		devcontext['session_id'] = '94'
+		devcontext['friends'] = '1;5'
+		'''
+		'''
+		devcontext['type'] = 'friends'
+		devcontext['session_id'] = '94'
+		'''
+		#MeToo
+		
+		'''
+		devcontext['type'] = 'metoo'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '2'
+		devcontext['metoo_type_id'] = '1'
+		'''
+		'''
+		devcontext['type'] = 'metoo_delete'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '1'
+		'''
+		'''
+		devcontext['type'] = 'metoo_modify'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '2'	
+		devcontext['metoo_type_id'] = '2'
+		'''
+		devcontext['type'] = 'users'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '2'	
+	
+	
+		#Event
 		'''
 		devcontext['type'] = 'events'
-		devcontext['sessionid'] = 15
-		devcontext['latitude'] = 55.6
-		devcontext['longitude'] = 37.5
-		devcontext['radius'] = 0.4
+		devcontext['session_id'] = '94'
+		devcontext['longitude'] = '37.6'
+		devcontext['latitude'] = '55.6'
+		devcontext['radius'] = '0.3'
 		'''
 		'''
-		devcontext['type'] = 'modifyEvent'
-		devcontext['sessionid'] = 15
+		devcontext['type'] = 'event_modify'
+		devcontext['session_id'] = 15
 		devcontext['eventid'] = 8
 		devcontext['latitude'] = 55.0
 		devcontext['longitude'] = 37.0
 		devcontext['name'] = 'TEST_EVENT2'
 		'''
-		
-		devcontext['type'] = 'createEvent'
-		devcontext['sessionid'] = 15
-		
-		devcontext['latitude'] = 55.5
-		devcontext['longitude'] = 37.5
-		devcontext['name'] = 'New Event'
-		devcontext['time'] = '2012-12-21'		
-		devcontext['description'] = 'Some words about..'	
-		#devcontext['photo'] = 'new photo'	
-		devcontext['eventTypeId'] = 1			
-		
 		'''
-		devcontext['type'] = 'deleteEvent'
-		devcontext['sessionid'] = 15
+		devcontext['type'] = 'event_create'
+		devcontext['session_id'] = '94'
+		
+		devcontext['latitude'] = '55.6'
+		devcontext['longitude'] = '37.6'
+		devcontext['name'] = 'New Event-2'
+		devcontext['time'] = '31-12-12 23:55'		
+		devcontext['description'] = 'Some words about..'	
+		devcontext['photo'] = 'new photo'	
+		devcontext['event_type_id'] = '1'			
+		'''
+		'''
+		devcontext['type'] = 'event_delete'
+		devcontext['session_id'] = 15
 		devcontext['eventid'] = 10
 		'''
 		context['data'] = devcontext
@@ -211,8 +290,19 @@ class MessageManager:
 		#sessionRes = 1
 		sessionRes = UserManager.connectUser(agentMessage['login'], agentMessage['password'])
 		context['result'] = sessionRes
-		context['description'] = 'Nothing'
 		context['session_id'] = sessionRes
+		return context
+	
+	@staticmethod
+	def logoutContext(agentMessage):
+		'''
+		Контекст пакета отключения пользователя от сервера
+		'''
+		context = {}
+		context['type'] = 'logout'	
+		#sessionRes = 1
+		sessionRes = UserManager.disconnectUser(int(agentMessage['session_id']))
+		context['result'] = sessionRes
 		return context
 		
 	@staticmethod
@@ -222,8 +312,41 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'registrate'
+		context['result'] = UserManager.createAccount(agentMessage['login'],agentMessage['password'])
+		if int(context['result']) > 0:
+			context['session_id'] = context['result']
 		return context
-	
+	#################################################################################################3	
+	@staticmethod
+	def friendAddContext(agentMessage):
+		'''
+		Контекст пакета добавления друзей
+		'''
+		context = {}
+		context['type'] = 'friend_add'
+		context['result'] = UserManager.addFriends(int(agentMessage['session_id']),agentMessage['friends'])
+		return context
+		
+	@staticmethod
+	def friendDeleteContext(agentMessage):
+		'''
+		Контекст пакета удаления друзей
+		'''
+		context = {}
+		context['type'] = 'friend_delete'
+		context['result'] = UserManager.deleteFriends(int(agentMessage['session_id']),agentMessage['friends'])
+		return context
+				
+	@staticmethod
+	def getFriendsContext(agentMessage):
+		'''
+		Контекст пакета получения списка друзей
+		'''
+		context = {}
+		context['type'] = 'friends'
+		context['result'],context['friends'] = UserManager.getListFriends(int(agentMessage['session_id']))
+		return context
+	#########################################################################################################
 	@staticmethod	
 	def eventsContext(agentMessage):
 		'''
@@ -231,7 +354,11 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'events'
-		context['events'] = EventManager.getEvents(agentMessage['sessionid'],agentMessage)
+		agentMessage['radius'] = float(agentMessage['radius'])
+		agentMessage['latitude'] = float(agentMessage['latitude'])
+		agentMessage['longitude'] = float(agentMessage['longitude'])
+		context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
+		context['count'] = len(context['events'])
 		return context
 	
 	@staticmethod
@@ -240,8 +367,12 @@ class MessageManager:
 		Контекст пакета создания событий
 		'''
 		context = {}
-		context['type'] = 'eventcreate'
-		context['result'] = EventManager.createEvent(agentMessage['sessionid'],agentMessage)
+		context['type'] = 'event_create'
+		agentMessage['latitude'] = float(agentMessage['latitude'])
+		agentMessage['longitude'] = float(agentMessage['longitude'])
+		agentMessage['time'] = datetime.strptime(agentMessage['time'], "%d-%m-%y %H:%M")
+		
+		context['result'] = EventManager.createEvent(int(agentMessage['session_id']),agentMessage)
 		return context
 	
 	@staticmethod
@@ -250,8 +381,8 @@ class MessageManager:
 		Контекст пакета изменения событий
 		'''
 		context = {}
-		context['type'] = 'eventmodify'
-		context['result'] = EventManager.modifyEvent(agentMessage['sessionid'],agentMessage['eventid'],agentMessage)
+		context['type'] = 'event_modify'
+		context['result'] = EventManager.modifyEvent(int(agentMessage['session_id']),agentMessage)
 		return context
 	
 	@staticmethod
@@ -260,8 +391,8 @@ class MessageManager:
 		Контекст пакета удаления событий
 		'''
 		context = {}
-		context['type'] = 'eventdelete'
-		context['result'] = EventManager.deleteEvent(agentMessage['sessionid'],agentMessage['eventid'])
+		context['type'] = 'event_delete'
+		context['result'] = EventManager.deleteEvent(int(agentMessage['session_id']),agentMessage['event_id'])
 		return context
 	
 	@staticmethod	
@@ -270,7 +401,8 @@ class MessageManager:
 		Контекст пакета редактирования профиля
 		'''
 		context = {}
-		context['type'] = 'profilemodify'
+		context['type'] = 'profile_modify'
+		context['result'] = UserManager.editAccount(int(agentMessage['session_id']), agentMessage)
 		return context
 		
 	@staticmethod
@@ -290,9 +422,9 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'users'	
-		result = MeTooManager.getUsersbyEvent(agentMessage['sessionid'], agentMessage['eventId'])
+		result = MeTooManager.getUsersbyEvent(int(agentMessage['session_id']), agentMessage['event_id'])
 		context['users'] = result['users']
-		context['count'] = len(context['events'])
+		context['count'] = len(context['users'])
 		context['result'] = result['result']
 		return context		
 		
@@ -303,7 +435,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.meToo(agentMessage['sessionid'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		result = MeTooManager.meToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metoo_type_id']))
 		context['result'] = result
 		return context		
 
@@ -314,7 +446,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.delMeToo(agentMessage['sessionid'], agentMessage['eventId'])
+		result = MeTooManager.delMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']))
 		context['result'] = result
 		return context
 		
@@ -325,6 +457,6 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.modMeToo(agentMessage['sessionid'], agentMessage['eventId'], agentMessage['metooTypeId'])
+		result = MeTooManager.modMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metoo_type_id']))
 		context['result'] = result
 		return context
