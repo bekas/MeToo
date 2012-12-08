@@ -25,7 +25,7 @@
     
     {% if type == "events" %}
 	<!--Список событий-->
-		  <events N = "{{ count }}">
+		<events N = "{{ count }}">
 		  {% for event in events %}
     	  	<event>
     	  		<id>{{ event.id }}</id>
@@ -43,7 +43,7 @@
     {% endif %}
     
     {% if type == "users" %}
-    <!--Список список пользователей-->	
+    <!--Список пользователей-->	
 		<users N = "{{ count }}">
 		  {% for user in users %}
     	  	<user>  	
@@ -51,6 +51,20 @@
           		<login>{{ user.login }}</login>
           		<avatar>{{ user.avatar }}</avatar>
           		<rating>{{ user.rating }}</rating>
+          	</user>
+		  {% endfor %}
+       </users>
+    {% endif %}
+    
+    {% if type == "friends" %}
+    <!--Список друзей-->	
+		<users N = "{{ count }}">
+		  {% for friend in friends %}
+    	  	<user>  	
+    	  		<id>{{ friend.id }}</id>
+          		<login>{{ friend.login }}</login>
+          		<avatar>{{ friend.avatar }}</avatar>
+          		<rating>{{ friend.rating }}</rating>
           	</user>
 		  {% endfor %}
        </users>

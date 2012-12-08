@@ -48,14 +48,14 @@ class EventManager:
 		else:
 			photo = Photo.objects.get(pk = 1)
 			
-		if eventArgs.has_key('eventTypeId'):
-			eEventTypeId = eventArgs['eventTypeId']
+		if eventArgs.has_key('event_type_id'):
+			eEventTypeId = int(eventArgs['event_type_id'])
 			
 		if eventArgs.has_key('longitude'):
-			eLongitude = eventArgs['longitude']
+			eLongitude = float(eventArgs['longitude'])
 			
 		if eventArgs.has_key('latitude'):
-			eLatitude = eventArgs['latitude']	
+			eLatitude = float(eventArgs['latitude'])	
 		
 		
 		place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)

@@ -137,13 +137,16 @@ class UserManager:
 		'''
 		Метод добавления друзей к пользователю
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
 			#if userid == userid2:
 				try:
-					f = Friend.objects.get(pk=userid)
-					list_friends = list(set(f.friend.split(";")) | set(list_newfriends))
-					f.friend = ";".join(list_friends)
+					if(Friend.objects.filter(userId__pk = userid).exists()):
+						f = Friend.objects.get(userId__pk = userid)
+						list_friends = list(set(f.friend.split(";")) | set(list_newfriends.split(";")))
+						f.friend = ";".join(list_friends)
+					else:
+						f = Friend(userId_id = userid, friend = list_newfriends)
 					f.save()
 					msg_code = 200
 				except:
@@ -155,50 +158,65 @@ class UserManager:
 		return msg_code # возвращает 200 или код ошибки
 
 	@staticmethod
-	def deleteFriends(userid, session_id, list_exfriends):
+	def deleteFriends(session_id, list_exfriends):
 		'''
 		Метод удаления друзей у пользователя
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			#if userid == userid2:
 				try:
-					f = models.Friend.objects.get(pk=userid)
-					friendline = f.friend
-					list_friends = friendline.split(";")
-					list_friends = list(set(list_friends).difference(list_exfriends))
-					friendline = ";".join(list_friends)
-
-					msg_code = 200
+					if(Friend.objects.filter(userId__pk = userid).exists()):
+						f = Friend.objects.get(userId__pk=userid)
+						friendline = f.friend
+						list_friends = friendline.split(";")
+						list_friends = list(set(list_friends).difference(set(list_exfriends.split(";"))))
+						f.friend = ";".join(list_friends)
+						f.save()
+						msg_code = 200
+					else:
+						msg_code = -207
 				except:
 					msg_code = -206
-			else:
-				msg_code = -204
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
 		return msg_code  # возвращает 200 или код ошибки
 
 	@staticmethod
-	def getListFriends(userid, session_id):
+	def getListFriends(session_id):
 		'''
 		Метод получения списка друзей
 		'''
-		userid2 = SessionManager.getUserId(session_id)
-		if userid2 > 0:
-			if userid == userid2:
+		userid = SessionManager.getUserId(session_id)
+		if userid > 0:
+			#if userid == userid2:
 				try:
-					f = models.Friend.objects.get(pk=userid)
-					friendline = f.friend
-					if friendline != '':
-						list_friends = friendline.split(";")
+					if(Friend.objects.filter(userId__pk = userid).exists()):
+						f = Friend.objects.get(userId__pk=userid)
+						friendline = f.friend
+						if friendline != '':
+							listFriends = friendline.split(";")
+						else:
+							listFriends = []
 					else:
-						list_friends = list()
-                    
+						listFriends = []		            	
+					friendList = []
+					for strFriendId in listFriends:
+						friendId = int(strFriendId)
+						if(User.objects.filter(pk = friendId).exists()):
+							addFriend = {}			
+							addFriend['id'] = friendId
+							addFriend['login'] = User.objects.get(pk = friendId).login
+							addFriend['avatar'] = User.objects.get(pk = friendId).avatarId.photo
+							addFriend['rating'] = User.objects.get(pk = friendId).rating
+							friendList.append(addFriend)
 					msg_code = 200
 				except:
 					msg_code = -207
-			else:
-				msg_code = -204
+			#else:
+			#	msg_code = -204
 		else:
 			msg_code = -203
-		return msg_code, list_friends # возвращает список id друзей, 200 или код ошибки
+		return msg_code, friendList # возвращает список id друзей, 200 или код ошибки

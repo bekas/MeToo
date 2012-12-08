@@ -59,7 +59,19 @@ class MessageManager:
 					'registrate':
 						lambda x: 
 							MessageManager.registrateContext(x),
-		
+							
+					'friend_add':
+						lambda x: 
+							MessageManager.friendAddContext(x),
+
+					'friend_delete':
+						lambda x: 
+							MessageManager.friendDeleteContext(x),
+					
+					'friends':
+						lambda x: 
+							MessageManager.getFriendsContext(x),
+				
 					'events':
 						lambda x: 
 							MessageManager.eventsContext(x),
@@ -178,17 +190,32 @@ class MessageManager:
 		'''
 		'''
 		devcontext['type'] = 'logout'
-		devcontext['session_id'] = 93
+		devcontext['session_id'] = '93'
 		#devcontext['password'] = 'test'
 		'''
-		#Event
+		'''
+		devcontext['type'] = 'friend_add'
+		devcontext['session_id'] = '94'
+		devcontext['friends'] = '4;2;5;3;1;1'
+		'''
+		'''
+		devcontext['type'] = 'friend_delete'
+		devcontext['session_id'] = '94'
+		devcontext['friends'] = '1;5'
+		'''
 		
+		devcontext['type'] = 'friends'
+		devcontext['session_id'] = '94'
+	
+		
+		#Event
+		'''
 		devcontext['type'] = 'events'
 		devcontext['session_id'] = '94'
 		devcontext['longitude'] = '37.6'
 		devcontext['latitude'] = '55.6'
 		devcontext['radius'] = '0.3'
-		
+		'''
 		'''
 		devcontext['type'] = 'event_modify'
 		devcontext['session_id'] = 15
@@ -265,7 +292,37 @@ class MessageManager:
 		if int(context['result']) > 0:
 			context['session_id'] = context['result']
 		return context
-	
+	#################################################################################################3	
+	@staticmethod
+	def friendAddContext(agentMessage):
+		'''
+		Контекст пакета добавления друзей
+		'''
+		context = {}
+		context['type'] = 'friend_add'
+		context['result'] = UserManager.addFriends(int(agentMessage['session_id']),agentMessage['friends'])
+		return context
+		
+	@staticmethod
+	def friendDeleteContext(agentMessage):
+		'''
+		Контекст пакета удаления друзей
+		'''
+		context = {}
+		context['type'] = 'friend_delete'
+		context['result'] = UserManager.deleteFriends(int(agentMessage['session_id']),agentMessage['friends'])
+		return context
+				
+	@staticmethod
+	def getFriendsContext(agentMessage):
+		'''
+		Контекст пакета получения списка друзей
+		'''
+		context = {}
+		context['type'] = 'friends'
+		context['result'],context['friends'] = UserManager.getListFriends(int(agentMessage['session_id']))
+		return context
+	#########################################################################################################
 	@staticmethod	
 	def eventsContext(agentMessage):
 		'''
