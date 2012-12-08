@@ -11,11 +11,15 @@ import com.metoo.gmap.overlay.MapItemsLayer;
 import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.model.Event;
+import com.metoo.model.EventList;
 import com.metoo.srvlink.Connector;
 import com.metoo.srvlink.XmlAnswer;
 import com.metoo.srvlink.messages.GetEvents;
 import com.metoo.ui.MapLayout;
 import com.metoo.ui.views.MapViewListener;
+import com.metoo.xmlparser.PageParser;
+import com.metoo.xmlparser.TaggedDoc;
+import com.metoo.xmlparser.XmlDoc;
 
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -85,31 +89,31 @@ public class NavActivity extends MapActivity
 	private void emulatedSituation() {
 		com.metoo.model.Event meeting = new com.metoo.model.Event();
 		meeting.Name = "Тусовка на севере";
-		meeting.Information = "Дискотека на открытом воздухе";
+		meeting.Description = "Дискотека на открытом воздухе";
 		meeting.Latitude = 55.9;
 		meeting.Longitude = 37.8;
 		MeetingMapItem overlayitem = new MeetingMapItem(meeting);
 
 		Event meeting2 = new Event();
 		meeting2.Name = "Тусовка на юге";
-		meeting2.Information = "Будет весело!";
+		meeting2.Description = "Будет весело!";
 		meeting2.Latitude = 55.4;
 		meeting2.Longitude = 37.4;
 		MeetingMapItem overlayitem2 = new MeetingMapItem(meeting2);
 
 		Event meeting3 = new Event();
-		meeting2.Name = "Имя события";
-		meeting2.Information = "Тут что-то будет";
-		meeting2.Latitude = 55.6;
-		meeting2.Longitude = 37.45;
-		MeetingMapItem overlayitem3 = new MeetingMapItem(meeting2);
+		meeting3.Name = "Имя события";
+		meeting3.Description = "Тут что-то будет";
+		meeting3.Latitude = 55.6;
+		meeting3.Longitude = 37.45;
+		MeetingMapItem overlayitem3 = new MeetingMapItem(meeting3);
 
 		Event meeting4 = new Event();
-		meeting2.Name = "Тут что-то было";
-		meeting2.Information = "Всё закончилось";
-		meeting2.Latitude = 55.2;
-		meeting2.Longitude = 37.55;
-		MeetingMapItem overlayitem4 = new MeetingMapItem(meeting2);
+		meeting4.Name = "Тут что-то было";
+		meeting4.Description = "Всё закончилось";
+		meeting4.Latitude = 55.2;
+		meeting4.Longitude = 37.55;
+		MeetingMapItem overlayitem4 = new MeetingMapItem(meeting4);
 
 		meetingsCache.addOverlay(overlayitem);
 		meetingsCache.addOverlay(overlayitem2);
@@ -143,26 +147,26 @@ public class NavActivity extends MapActivity
 		
 		private void updateFromServer() {
 			GeoPoint center = layout.mapView.getMapCenter();
-			Location l0 = new Location("none");
-			Location l1 = new Location("none");
-			
-	        //Calculate scale bar size and units
-	        GeoPoint g0 = layout.mapView.getProjection().fromPixels(0, height/2);
-	        GeoPoint g1 = layout.mapView.getProjection().fromPixels(width, height/2);
-	        l0.setLatitude(g0.getLatitudeE6()/1E6);
-	        l0.setLongitude(g0.getLongitudeE6()/1E6);
-	        l1.setLatitude(g1.getLatitudeE6()/1E6);
-	        l1.setLongitude(g1.getLongitudeE6()/1E6);
-	        float distance = l0.distanceTo(l1);
+//			Location l0 = new Location("none");
+//			Location l1 = new Location("none");
+//			
+//	        //Calculate scale bar size and units
+//	        GeoPoint g0 = layout.mapView.getProjection().fromPixels(0, height/2);
+//	        GeoPoint g1 = layout.mapView.getProjection().fromPixels(width, height/2);
+//	        l0.setLatitude(g0.getLatitudeE6()/1E6);
+//	        l0.setLongitude(g0.getLongitudeE6()/1E6);
+//	        l1.setLatitude(g1.getLatitudeE6()/1E6);
+//	        l1.setLongitude(g1.getLongitudeE6()/1E6);
+//	        float distance = l0.distanceTo(l1);
 			
 	        
-//	        int maxSpan = Math.min( layout.mapView.getLatitudeSpan(), 
-//	        						layout.mapView.getLongitudeSpan());
+	        int maxSpan = Math.min( layout.mapView.getLatitudeSpan(), 
+	        						layout.mapView.getLongitudeSpan());
 	        
 			GetEvents req = new GetEvents(
 					(double)center.getLatitudeE6() / 1E6, 
 					(double)center.getLongitudeE6() / 1E6, 
-					distance*5);
+					maxSpan/1E6*5);
 			try {
 				connect.SendSimpleRequest(req, new MapDataReceiver());
 			} catch (Exception e) {
@@ -179,8 +183,23 @@ public class NavActivity extends MapActivity
 			ans.ParseMessage(Result);
 			
 			
+			if (ans.type == "events") {
+				XmlDoc page = new XmlDoc();
+				page.LoadFromString(Result, true);
+				TaggedDoc tagged = new TaggedDoc(page);
+				PageParser parser = new PageParser();
+				
+				EventList incoming = new EventList();
+				incoming.serialize(tagged.getNode(), parser);
+				meetingsCache.MergeNewEvents(incoming);
+			}
+			else
+				services.ShowAlert("Ошибка", "MapDataReceiver: пришел ответ типа" + ans.type);
+			
+			
 		}
 		public void onError(String Reason) {
+			services.ShowAlert("Ошибка", "MapDataReceiver: " + Reason);
 		}
 		public void onProgress(String Message) {
 		}

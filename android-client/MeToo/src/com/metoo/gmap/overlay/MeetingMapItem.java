@@ -21,7 +21,7 @@ public class MeetingMapItem extends BaseMapItem {
 	 */
 	public MeetingMapItem(Event meeting) {
 		super(	MapProvider.ConvertCoordinates(meeting.Latitude, meeting.Longitude),
-				meeting.Name, meeting.Information);
+				meeting.Name, meeting.Description);
 		this.meeting = meeting;
 	}
 
