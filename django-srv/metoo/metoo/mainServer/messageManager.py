@@ -5,6 +5,7 @@
 from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
+from MeTooManager import MeTooManager
 from datetime import datetime, date, time
 
 #Менедер пакетов - ответов сервера.
@@ -203,11 +204,34 @@ class MessageManager:
 		devcontext['session_id'] = '94'
 		devcontext['friends'] = '1;5'
 		'''
-		
+		'''
 		devcontext['type'] = 'friends'
 		devcontext['session_id'] = '94'
-	
+		'''
+		#MeToo
 		
+		'''
+		devcontext['type'] = 'metoo'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '2'
+		devcontext['metoo_type_id'] = '1'
+		'''
+		'''
+		devcontext['type'] = 'metoo_delete'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '1'
+		'''
+		'''
+		devcontext['type'] = 'metoo_modify'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '2'	
+		devcontext['metoo_type_id'] = '2'
+		'''
+		devcontext['type'] = 'users'
+		devcontext['session_id'] = '94'
+		devcontext['event_id'] = '2'	
+	
+	
 		#Event
 		'''
 		devcontext['type'] = 'events'
@@ -368,7 +392,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'event_delete'
-		context['result'] = EventManager.deleteEvent(int(agentMessage['session_id']),agentMessage['eventid'])
+		context['result'] = EventManager.deleteEvent(int(agentMessage['session_id']),agentMessage['event_id'])
 		return context
 	
 	@staticmethod	
@@ -398,9 +422,9 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'users'	
-		result = MeTooManager.getUsersbyEvent(int(agentMessage['session_id']), agentMessage['eventId'])
+		result = MeTooManager.getUsersbyEvent(int(agentMessage['session_id']), agentMessage['event_id'])
 		context['users'] = result['users']
-		context['count'] = len(context['events'])
+		context['count'] = len(context['users'])
 		context['result'] = result['result']
 		return context		
 		
@@ -411,7 +435,7 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.meToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metooType_id']))
+		result = MeTooManager.meToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metoo_type_id']))
 		context['result'] = result
 		return context		
 
@@ -433,6 +457,6 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'metoo'	
-		result = MeTooManager.modMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metooType_id']))
+		result = MeTooManager.modMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metoo_type_id']))
 		context['result'] = result
 		return context
