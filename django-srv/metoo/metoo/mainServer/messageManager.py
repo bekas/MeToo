@@ -40,6 +40,10 @@ class MessageManager:
 					'dev':
 						lambda x:
 							MessageManager.devContext(x),
+							
+					'stat':
+						lambda x:
+							MessageManager.statContext(x),							
 
 					'download':
 						lambda x:
@@ -156,6 +160,17 @@ class MessageManager:
 		context['title'] = 'Download MeToo there!'
 		context['type'] = 'download'
 		context['data'] = 'You can download Android-client there.'
+		return context	
+	
+	@staticmethod	
+	def statContext(agentMessage):
+		'''
+		Контекст cтраницы сайта "What is it?"
+		'''
+		context = {}
+		context['title'] = 'Statistic'
+		context['type'] = 'stat'
+		context['data'] = 'On this page you can see different statistic information about our service.'
 		return context	
 	
 	@staticmethod	
