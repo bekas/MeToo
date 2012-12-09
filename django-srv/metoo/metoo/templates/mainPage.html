@@ -42,6 +42,37 @@
 		<h1 align="center"><a href="" class="button orange glossy" data-icon="✈">Download for Android</a> </h1>
 		{% endif %}
 		
+		{% if type == "stat" %}
+			<h1> Registrate: {{ users.count }} !</h1>
+			<h1> Online: {{ users.count_online }} !</h1>
+			  <ul>
+			  {% for user in users.users %}
+			  	<h3>[{{ user.id }}] {{ user.login}}</h3>
+			  	<p> Description: {{ user.description }}</p>
+			  	<p> Rating: {{ user.rating }}</p>
+				{% if user.online %}
+					<h2>Online<h2>
+				{% endif %}
+
+			  {% endfor %}
+		      </ul>
+		
+		  
+			<h1> {{ events.count }} Events !</h1>
+			  <ul>
+			  {% for event in events.events %}
+			  	<h2>[{{ event.id }}] {{ event.name}}</h2>
+			  	<p> Author: {{ event.creator_name }}</p>
+			  	<p> Time: {{ event.date }}</p>
+			  	<p> Type: {{ event.type_name }}</p>
+  				<p> Description: {{ event.description }}</p>
+			  {% endfor %}
+		      </ul>
+
+		
+		
+		{% endif %}
+		
 		
 	</body>
 </html>
