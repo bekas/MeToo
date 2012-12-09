@@ -286,7 +286,7 @@ class EventTest(TestCase):
 		'''
 		Тест получения событий - некорректные условия
 		'''
-		# подобрать события для предварительной заливки в базу
+		# не пройдут, т.к. проверка на стороне клиента и вообще я их радиус не понимаю
 		conditionals1 = {}
 		conditionals2 = {'latitude': -1, 'longtitude': 0, 'radius': 0}
 		conditionals3 = {'latitude': 0, 'longtitude': -2, 'radius': 0}
