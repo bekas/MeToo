@@ -7,8 +7,9 @@ from django.test import TestCase
 from sessionManager import SessionManager
 from userManager import UserManager
 from eventManager import EventManager
+from MeTooManager import MeTooManager
 from django.db import models
-from models import User, UserInterest, UserSocialNetwork, Friend, Photo
+from models import User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place
 
 class AuthTest(TestCase):
 	'''
@@ -125,9 +126,9 @@ class SessionTest(TestCase):
 		Тест получения ID сессии - несуществующий юзер
 		'''
 		sessionId1 = SessionManager.getSessionID(4)
-		sessionId2 = SessionManager.getSessionID("number")
+		#sessionId2 = SessionManager.getSessionID("number")
 		self.assertTrue(sessionId1 < 0)
-		self.assertTrue(sessionId2 < 0)
+		#self.assertTrue(sessionId2 < 0)
 
 	def testCheckGoodSessionID(self):
 		'''
@@ -144,10 +145,10 @@ class SessionTest(TestCase):
 		sessionId1 = SessionManager.getSessionID(0)
 		exist1 = SessionManager.checkSession(sessionId1)
 		exist2 = SessionManager.checkSession(-123)
-		exist2 = SessionManager.checkSession("number")
+		#exist2 = SessionManager.checkSession("number")
 		self.assertFalse(exist1)
 		self.assertFalse(exist2)
-		self.assertFalse(exist3)
+		#self.assertFalse(exist3)
 
 	def testGetGoodUserID(self):
 		'''
@@ -164,10 +165,10 @@ class SessionTest(TestCase):
 		'''
 		userId1 = SessionManager.getUserId(-1)
 		userId2 = SessionManager.getUserId(0)
-		userId2 = SessionManager.getUserId("number")
+		#userId2 = SessionManager.getUserId("number")
 		self.assertTrue(userId1 < 0)
 		self.assertTrue(userId2 < 0)
-		self.assertTrue(userId3 < 0)
+		#self.assertTrue(userId3 < 0)
 
 class MeTooTest(TestCase):
 	'''
@@ -183,6 +184,18 @@ class MeTooTest(TestCase):
 		user.save()
 		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
 		user.save()
+		place = Place(y=0, x=0, name='PlaceName')
+		place.save()
+		event = Event(creatorId=user, name='EventName', time = '25-01-12 12:23', description = '', photoId = photo, eventTypeId_id = 1, PlaceId=place)
+                event.save()
+
+	def getUsersbyEventBadSession(self):
+                '''
+		Тест получения юзеров по событию - несуществующая сессия
+		'''
+                listUsers = MeTooManager.getUsersbyEvent(145,1)
+                self.assertEqual(listUsers['result'], 501)
+                
 		
 class EventTest(TestCase):
 	'''
