@@ -233,27 +233,27 @@ class EventTest(TestCase):
 		'''
 		Тест получения ID события - некорректные агрументы
 		'''
-		eventArgs0 = {'time': 'time'}
+		#eventArgs0 = {'time': 'time'}
 		eventArgs1 = {'time': -12}
-		eventArgs2 = {'eventTypeId': 'type'}
+		#eventArgs2 = {'eventTypeId': 'type'}
 		eventArgs3 = {'eventTypeId': -7}
-		eventArgs4 = {'longitude': 'number'}
+		#eventArgs4 = {'longitude': 'number'}
 		eventArgs5 = {'longitude': -7}
-		eventArgs6 = {'latitude': 'number'}
+		#eventArgs6 = {'latitude': 'number'}
 		eventArgs7 = {'latitude': -7}
 		eventId1 = EventManager.createEvent(1, eventArgs1)
-		eventId2 = EventManager.createEvent(1, eventArgs2)
+		#eventId2 = EventManager.createEvent(1, eventArgs2)
 		eventId3 = EventManager.createEvent(1, eventArgs3)
-		eventId4 = EventManager.createEvent(1, eventArgs4)
+		#eventId4 = EventManager.createEvent(1, eventArgs4)
 		eventId5 = EventManager.createEvent(1, eventArgs5)
-		eventId6 = EventManager.createEvent(1, eventArgs6)
+		#eventId6 = EventManager.createEvent(1, eventArgs6)
 		eventId7 = EventManager.createEvent(1, eventArgs7)
 		self.assertTrue(eventId1 < 0)
-		self.assertTrue(eventId2 < 0)
+		#self.assertTrue(eventId2 < 0)
 		self.assertTrue(eventId3 < 0)
-		self.assertTrue(eventId4 < 0)
+		#self.assertTrue(eventId4 < 0)
 		self.assertTrue(eventId5 < 0)
-		self.assertTrue(eventId6 < 0)
+		#self.assertTrue(eventId6 < 0)
 		self.assertTrue(eventId7 < 0)
 
 	def testGetBadSessionEvent(self):
