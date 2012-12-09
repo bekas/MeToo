@@ -12,15 +12,23 @@ class CheckSessionWorker(Worker):
 	Класс, переодически подчиющий таблицу сессий
 	'''
 	test = 0
+	
+	def __init__(self):
+		self.doWork(ConfigurationManager.loopDeleteSessionInterval())
+	
 	def work(self):
 		'''
 		Вызываемый по таймеру метод
 		'''
 		currentTime = TimeManager.getTime()
 		deleteInterval = ConfigurationManager.sessionDeleteInterval()
-		time = currentTime + deleteInterval
+		time = currentTime - deleteInterval
 		Session.objects.filter(referenceTime__lt = time).delete()
-		self.test = self.test + 1
+		#Session.objects.filter().delete()
+		self.test = self.test + 3
+		#s = Session(userId_id = 1, referenceTime = TimeManager.getTime())
+		#s.save()
+		print("Session delete works")
 		
 class SessionManager:	
 	'''
@@ -37,6 +45,8 @@ class SessionManager:
 		'''
 		Конструктор.Запускает очистку сессий.
 		'''
+		s = Session(userId_id = 1, referenceTime = TimeManager.getTime())
+		s.save()
 		SessionManager.checkSessionWorker.doWork(ConfigurationManager.loopDeleteSessionInterval())
 
 	@staticmethod
@@ -72,6 +82,8 @@ class SessionManager:
 		'''
 		Метод для проверки существования сессии 
 		'''
+		if Session.objects.filter(pk = sessionId).exists():
+			Session.objects.filter(pk = sessionId).referenceTime = TimeManager.getTime()
 		return Session.objects.filter(pk = sessionId).exists()
 	
 	@staticmethod

@@ -191,16 +191,16 @@ class MessageManager:
 		
 		devcontext={}
 		#User
-		'''
+		
 		devcontext['type'] = 'auth'
 		devcontext['login'] = 'new_test_log'
 		devcontext['password'] = 'new_test_pass'
-		'''
 		
+		'''
 		devcontext['type'] = 'registrate'
 		devcontext['login'] = 'new_test_log2'
 		devcontext['password'] = 'new_test_pass'
-		
+		'''
 		'''
 		devcontext['type'] = 'profile_modify'
 		devcontext['avatar'] = 'new_photo'
