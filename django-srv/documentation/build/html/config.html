@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 9 Служебные модули &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="prev" title="CHAPTER 8 MeToo manager" href="MeTooManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MeTooManager.html" title="CHAPTER 8 MeToo manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-9">
+<h1>CHAPTER 9 Служебные модули<a class="headerlink" href="#chapter-9" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-mainServer.configurationManager">
+<span id="id1"></span><h2>Конфигурационные настройки сервера<a class="headerlink" href="#module-mainServer.configurationManager" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mainServer.configurationManager.ConfigurationManager">
+<em class="property">class </em><tt class="descclassname">mainServer.configurationManager.</tt><tt class="descname">ConfigurationManager</tt><a class="headerlink" href="#mainServer.configurationManager.ConfigurationManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс конфигурационных настроек сервера</p>
+<dl class="staticmethod">
+<dt id="mainServer.configurationManager.ConfigurationManager.loopDeleteSessionInterval">
+<em class="property">static </em><tt class="descname">loopDeleteSessionInterval</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.configurationManager.ConfigurationManager.loopDeleteSessionInterval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий таймаут цикла удаления старых сессий</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.configurationManager.ConfigurationManager.serverVersion">
+<em class="property">static </em><tt class="descname">serverVersion</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.configurationManager.ConfigurationManager.serverVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий версию сервера</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.configurationManager.ConfigurationManager.sessionDeleteInterval">
+<em class="property">static </em><tt class="descname">sessionDeleteInterval</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.configurationManager.ConfigurationManager.sessionDeleteInterval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий таймаут удаления старых сессий</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mainServer.timeManager">
+<span id="id2"></span><h2>Подсистема управления временем сервера<a class="headerlink" href="#module-mainServer.timeManager" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mainServer.timeManager.TimeManager">
+<em class="property">class </em><tt class="descclassname">mainServer.timeManager.</tt><tt class="descname">TimeManager</tt><a class="headerlink" href="#mainServer.timeManager.TimeManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс, предоставляющий методы для работы со временем</p>
+<dl class="staticmethod">
+<dt id="mainServer.timeManager.TimeManager.getTime">
+<em class="property">static </em><tt class="descname">getTime</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.timeManager.TimeManager.getTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для получения текущего времени</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mainServer.timeManager.Worker">
+<em class="property">class </em><tt class="descclassname">mainServer.timeManager.</tt><tt class="descname">Worker</tt><a class="headerlink" href="#mainServer.timeManager.Worker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Базовый класс для выполнения переодических действий</p>
+<dl class="method">
+<dt id="mainServer.timeManager.Worker.doWork">
+<tt class="descname">doWork</tt><big>(</big><em>delay</em><big>)</big><a class="headerlink" href="#mainServer.timeManager.Worker.doWork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, вызываемый переодически и запускающий метод выполняемого действия</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.timeManager.Worker.work">
+<tt class="descname">work</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.timeManager.Worker.work" title="Permalink to this definition">¶</a></dt>
+<dd><p>Абстрактный метод переодически выполняемого действия</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mainServer.errorManager">
+<span id="id3"></span><h2>Подсистема управления ошибками<a class="headerlink" href="#module-mainServer.errorManager" title="Permalink to this headline">¶</a></h2>
+<p>Модуль, отвечающий за работу с ошибками.</p>
+<dl class="class">
+<dt id="mainServer.errorManager.ErrorManager">
+<em class="property">class </em><tt class="descclassname">mainServer.errorManager.</tt><tt class="descname">ErrorManager</tt><a class="headerlink" href="#mainServer.errorManager.ErrorManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс работы с ошибками</p>
+<dl class="staticmethod">
+<dt id="mainServer.errorManager.ErrorManager.getErrorCode">
+<em class="property">static </em><tt class="descname">getErrorCode</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.errorManager.ErrorManager.getErrorCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод получения кода ошибки</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 9 Служебные модули</a><ul>
+<li><a class="reference internal" href="#module-mainServer.configurationManager">Конфигурационные настройки сервера</a></li>
+<li><a class="reference internal" href="#module-mainServer.timeManager">Подсистема управления временем сервера</a></li>
+<li><a class="reference internal" href="#module-mainServer.errorManager">Подсистема управления ошибками</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="MeTooManager.html"
+                        title="previous chapter">CHAPTER 8 MeToo manager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/config.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MeTooManager.html" title="CHAPTER 8 MeToo manager"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

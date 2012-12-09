@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 3 Представление (View) &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="next" title="CHAPTER 4 Message manager" href="messageManager.html" />
+    <link rel="prev" title="CHAPTER 2 Модель данных приложения" href="models.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="messageManager.html" title="CHAPTER 4 Message manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="CHAPTER 2 Модель данных приложения"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-3-view">
+<h1>CHAPTER 3 Представление (View)<a class="headerlink" href="#chapter-3-view" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Представление<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-mainServer.views"></span><p>Модуль работы с представлениями.</p>
+<dl class="function">
+<dt id="mainServer.views.aboutPage">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">aboutPage</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#mainServer.views.aboutPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий страницу сайта &#8220;About&#8221;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.devPage">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">devPage</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#mainServer.views.devPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий страницу сайта &#8220;Developer page&#8221; для отладки</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.downloadPage">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">downloadPage</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#mainServer.views.downloadPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий страницу сайта &#8220;Download&#8221;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.getAgentVersion">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">getAgentVersion</tt><big>(</big><em>userAgent</em><big>)</big><a class="headerlink" href="#mainServer.views.getAgentVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод - заглушка, возвращающий версию агента</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.mainPage">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">mainPage</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#mainServer.views.mainPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий основную страницу сайта</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.processAgent">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">processAgent</tt><big>(</big><em>userAgent</em><big>)</big><a class="headerlink" href="#mainServer.views.processAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод анализирующий агента</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.processRequest">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">processRequest</tt><big>(</big><em>request</em>, <em>typePacket</em><big>)</big><a class="headerlink" href="#mainServer.views.processRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод обработки запроса</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.render">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">render</tt><big>(</big><em>context</em>, <em>packet</em>, <em>mode=False</em><big>)</big><a class="headerlink" href="#mainServer.views.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод выполняющий рендер страницы</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mainServer.views.whatPage">
+<tt class="descclassname">mainServer.views.</tt><tt class="descname">whatPage</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#mainServer.views.whatPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод, возвращающий страницу сайта &#8220;What is it&#8221;</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 3 Представление (View)</a><ul>
+<li><a class="reference internal" href="#id1">Представление</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="models.html"
+                        title="previous chapter">CHAPTER 2 Модель данных приложения</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="messageManager.html"
+                        title="next chapter">CHAPTER 4 Message manager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/view.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="messageManager.html" title="CHAPTER 4 Message manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="CHAPTER 2 Модель данных приложения"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

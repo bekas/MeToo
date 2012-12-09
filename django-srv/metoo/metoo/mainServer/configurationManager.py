@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time,datetime
 '''
 Модуль конфигурации
@@ -25,4 +26,4 @@ class ConfigurationManager:
 		'''
 		Метод, возвращающий таймаут цикла удаления старых сессий
 		'''
-		return 5
+		return 60.0

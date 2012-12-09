@@ -1,5 +1,16 @@
-/android-client/gen
-/android-client/bin
-/android-client/MeTooTest/gen
-/android-client/MeTooTest/assets
-/android-client/MeTooTest/bin
+gen/
+bin/
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+
+*.pyc
+*~
+=======
+.*
+~*
+>>>>>>> c06e79d89fe5358aa8bd474f3f3b921505f4ee35
+=======
+.*
+~*
+>>>>>>> c06e79d89fe5358aa8bd474f3f3b921505f4ee35

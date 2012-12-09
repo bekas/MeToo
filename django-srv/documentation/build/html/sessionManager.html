@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 5 Session manager &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="next" title="CHAPTER 6 User manager" href="userManager.html" />
+    <link rel="prev" title="CHAPTER 4 Message manager" href="messageManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="userManager.html" title="CHAPTER 6 User manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="messageManager.html" title="CHAPTER 4 Message manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-5-session-manager">
+<h1>CHAPTER 5 Session manager<a class="headerlink" href="#chapter-5-session-manager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Система управления сессиями<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-mainServer.sessionManager"></span><p>Модуль работы с сессиями</p>
+<dl class="class">
+<dt id="mainServer.sessionManager.CheckSessionWorker">
+<em class="property">class </em><tt class="descclassname">mainServer.sessionManager.</tt><tt class="descname">CheckSessionWorker</tt><a class="headerlink" href="#mainServer.sessionManager.CheckSessionWorker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс, переодически подчиющий таблицу сессий</p>
+<dl class="method">
+<dt id="mainServer.sessionManager.CheckSessionWorker.work">
+<tt class="descname">work</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.sessionManager.CheckSessionWorker.work" title="Permalink to this definition">¶</a></dt>
+<dd><p>Вызываемый по таймеру метод</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mainServer.sessionManager.SessionManager">
+<em class="property">class </em><tt class="descclassname">mainServer.sessionManager.</tt><tt class="descname">SessionManager</tt><a class="headerlink" href="#mainServer.sessionManager.SessionManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс для работы с сессиями.Позволяет:</p>
+<ul class="simple">
+<li>Получить сессию для указанного пользователя</li>
+<li>Создать сессию для пользователя</li>
+<li>Проверить, существует ли сессия</li>
+<li>Получить userId по сессии</li>
+</ul>
+<dl class="staticmethod">
+<dt id="mainServer.sessionManager.SessionManager.checkSession">
+<em class="property">static </em><tt class="descname">checkSession</tt><big>(</big><em>sessionId</em><big>)</big><a class="headerlink" href="#mainServer.sessionManager.SessionManager.checkSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для проверки существования сессии</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.sessionManager.SessionManager.createSession">
+<em class="property">static </em><tt class="descname">createSession</tt><big>(</big><em>user</em><big>)</big><a class="headerlink" href="#mainServer.sessionManager.SessionManager.createSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для создания сессии для пользователя</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.sessionManager.SessionManager.getSessionID">
+<em class="property">static </em><tt class="descname">getSessionID</tt><big>(</big><em>userId</em><big>)</big><a class="headerlink" href="#mainServer.sessionManager.SessionManager.getSessionID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для получения id сессии по id пользователя</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.sessionManager.SessionManager.getUser">
+<em class="property">static </em><tt class="descname">getUser</tt><big>(</big><em>sessionId</em><big>)</big><a class="headerlink" href="#mainServer.sessionManager.SessionManager.getUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для получения user по sessionId</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.sessionManager.SessionManager.getUserId">
+<em class="property">static </em><tt class="descname">getUserId</tt><big>(</big><em>sessionId</em><big>)</big><a class="headerlink" href="#mainServer.sessionManager.SessionManager.getUserId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод для получения userId по sessionId</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 5 Session manager</a><ul>
+<li><a class="reference internal" href="#id1">Система управления сессиями</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="messageManager.html"
+                        title="previous chapter">CHAPTER 4 Message manager</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="userManager.html"
+                        title="next chapter">CHAPTER 6 User manager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sessionManager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="userManager.html" title="CHAPTER 6 User manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="messageManager.html" title="CHAPTER 4 Message manager"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
