@@ -9,7 +9,7 @@ from userManager import UserManager
 from eventManager import EventManager
 from MeTooManager import MeTooManager
 from django.db import models
-from models import User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place
+from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place
 
 class AuthTest(TestCase):
 	'''
@@ -188,6 +188,8 @@ class MeTooTest(TestCase):
 		place.save()
 		event = Event(creatorId=user, name='EventName', time = '25-01-12 12:23', description = '', photoId = photo, eventTypeId_id = 1, PlaceId=place)
                 event.save()
+                metoo = Metoo(userId=user,eventId_id = event, metooTypeId_id = 1)
+		metoo.save()
 
 	def getUsersbyEventBadSession(self):
                 '''
@@ -195,6 +197,22 @@ class MeTooTest(TestCase):
 		'''
                 listUsers = MeTooManager.getUsersbyEvent(145,1)
                 self.assertEqual(listUsers['result'], 501)
+
+        def getUsersbyBadEvent(self):
+                '''
+		Тест получения юзеров по событию - несуществующее событие
+		'''
+                sessionId = SessionManager.createSessionID(1)
+                listUsers = MeTooManager.getUsersbyEvent(sessionId,14)
+                self.assertEqual(listUsers['result'], 502)
+
+        def getUsersbyEventPositive(self):
+                '''
+		Тест получения юзеров по событию - позитивный тест
+		'''
+                sessionId = SessionManager.createSessionID(1)
+                listUsers = MeTooManager.getUsersbyEvent(sessionId,1)
+                self.assertEqual(listUsers['result'], 500)
                 
 		
 class EventTest(TestCase):
