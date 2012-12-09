@@ -391,7 +391,7 @@ class MessageManager:
 		if agentMessage.has_key('session_id'):	
 			agentMessage['session_id'] = int(agentMessage['session_id'])
 		else:
-			agentMessage['session_id'] = 15 #no a magic number =) only a created session...=) bad idea, i know it
+			agentMessage['session_id'] = 0 #no a magic number =) only a created session...=) bad idea, i know it
 			
 		context['result'], context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
 		context['count'] = len(context['events'])
