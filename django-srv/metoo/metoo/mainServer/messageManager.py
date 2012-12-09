@@ -40,6 +40,10 @@ class MessageManager:
 					'dev':
 						lambda x:
 							MessageManager.devContext(x),
+							
+					'stat':
+						lambda x:
+							MessageManager.statContext(x),							
 
 					'download':
 						lambda x:
@@ -156,6 +160,19 @@ class MessageManager:
 		context['title'] = 'Download MeToo there!'
 		context['type'] = 'download'
 		context['data'] = 'You can download Android-client there.'
+		return context	
+	
+	@staticmethod	
+	def statContext(agentMessage):
+		'''
+		Контекст cтраницы сайта "What is it?"
+		'''
+		context = {}
+		context['title'] = 'Statistic'
+		context['type'] = 'stat'
+		context['data'] = 'On this page you can see different statistic information about our service.'
+		context['users'] = UserManager.getUserStat()
+		context['events'] = MessageManager.eventsContext()
 		return context	
 	
 	@staticmethod	
@@ -348,15 +365,33 @@ class MessageManager:
 		return context
 	#########################################################################################################
 	@staticmethod	
-	def eventsContext(agentMessage):
+	def eventsContext(agentMessage = {}):
 		'''
 		Контекст пакета запроса событий
 		'''
 		context = {}
 		context['type'] = 'events'
-		agentMessage['radius'] = float(agentMessage['radius'])
-		agentMessage['latitude'] = float(agentMessage['latitude'])
-		agentMessage['longitude'] = float(agentMessage['longitude'])
+		
+		if agentMessage.has_key('radius'):
+			agentMessage['radius'] = float(agentMessage['radius'])
+		else:
+			agentMessage['radius'] = 360
+		
+		if agentMessage.has_key('latitude'):
+			agentMessage['latitude'] = float(agentMessage['latitude'])
+		else:
+			agentMessage['latitude'] = 0
+		
+		if agentMessage.has_key('longitude'):	
+			agentMessage['longitude'] = float(agentMessage['longitude'])
+		else:
+			agentMessage['longitude'] = 0
+		
+		if agentMessage.has_key('session_id'):	
+			agentMessage['session_id'] = int(agentMessage['session_id'])
+		else:
+			agentMessage['session_id'] = 15 #no a magic number =) only a created session...=) bad idea, i know it
+			
 		context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
 		context['count'] = len(context['events'])
 		return context

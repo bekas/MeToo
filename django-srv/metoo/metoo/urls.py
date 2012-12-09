@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^about/', 'metoo.mainServer.views.aboutPage'), 
     url(r'^download/', 'metoo.mainServer.views.downloadPage'), 
     url(r'^dev/', 'metoo.mainServer.views.devPage'), 
+    url(r'^stat/', 'metoo.mainServer.views.statPage'), 
     
     # Examples:
     # url(r'^$', 'metoo.views.home', name='home'),

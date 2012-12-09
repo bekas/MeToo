@@ -50,7 +50,13 @@ def devPage(request):
 	context['data'] = render(MessageManager.createContext(context['data']),packet,True)
 	return render(context,packet)
 
-
+def statPage(request):
+	'''
+	Метод, возвращающий страницу сайта "Statistic"
+	'''
+	packet = processRequest(request,'stat')
+	context = MessageManager.createContext(packet['get'])
+	return render(context,packet)
 # Service functions
 
 

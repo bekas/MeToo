@@ -220,3 +220,29 @@ class UserManager:
 		else:
 			msg_code = -203
 		return msg_code, friendList # возвращает список id друзей, 200 или код ошибки
+		
+	@staticmethod
+	def getUserStat():
+		users = User.objects.filter()
+		userStatList = []
+		for user in users:
+			userStat = {}
+			userStat['id'] = user.pk
+			userStat['login'] = user.login
+			userStat['rating'] = user.rating
+			userStat['description'] = user.description
+			userStat['avatar'] = user.avatarId.photo
+			userStat['online'] = SessionManager.isUserOnline(user)
+			userStatList.append(userStat)
+		result = {}
+		result['users'] = userStatList
+		result['count'] = len(userStatList)
+		result['count_online'] = len([user for user in userStatList if user['online']])
+		return result
+		
+		
+		
+		
+		
+		
+		

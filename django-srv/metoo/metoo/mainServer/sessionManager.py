@@ -102,5 +102,22 @@ class SessionManager:
 			user = reqSession.userId
 		return user
 		
+	@staticmethod	
+	def	isUserOnline(user):
+		'''
+		Метод для проверки находится ли пользователь онлайн
+		'''
+		return Session.objects.filter(userId = user).exists()
+
+	@staticmethod
+	def	isUserIdOnline(userId):
+		'''
+		Метод для проверки находится ли пользователь онлайн по id
+		'''
+		return Session.objects.filter(userId_id = userId).exists()
+
+
+
+
 		
 	

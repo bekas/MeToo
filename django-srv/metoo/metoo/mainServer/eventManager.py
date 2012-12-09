@@ -83,11 +83,13 @@ class EventManager:
 				addEvent = {}			
 				addEvent['id'] = event.pk
 				addEvent['creator_id'] = event.creatorId.pk
+				addEvent['creator_name'] = event.creatorId.login
 				addEvent['name'] = event.name
 				addEvent['date'] = event.time.strftime('%d-%m-%y %H:%M')
 				addEvent['description'] = event.description
 				addEvent['photo'] = event.photoId.photo
 				addEvent['type'] = event.eventTypeId.pk
+				addEvent['type_name'] = event.eventTypeId.name
 				addEvent['latitude'] = event.PlaceId.latitude
 				addEvent['longitude'] = event.PlaceId.longitude
 				eventList.append(addEvent)
