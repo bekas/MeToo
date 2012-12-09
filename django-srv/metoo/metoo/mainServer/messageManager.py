@@ -6,7 +6,9 @@ from eventManager import EventManager
 from sessionManager import SessionManager
 from userManager import UserManager
 from MeTooManager import MeTooManager
+from errorManager import ErrorManager
 from datetime import datetime, date, time
+
 
 #Менедер пакетов - ответов сервера.
 class MessageManager:	
@@ -115,6 +117,8 @@ class MessageManager:
 		
 		if 'request_id' in agentMessage:
 			context['request_id'] = agentMessage['request_id'] 
+		if context.has_key('result'):
+			context['result_mess'] = ErrorManager.getError(context['result'])
 		return context
 	
 	
@@ -192,11 +196,11 @@ class MessageManager:
 		devcontext['login'] = 'new_test_log'
 		devcontext['password'] = 'new_test_pass'
 		'''
-		'''
+		
 		devcontext['type'] = 'registrate'
-		devcontext['login'] = 'new_test_log'
+		devcontext['login'] = 'new_test_log2'
 		devcontext['password'] = 'new_test_pass'
-		'''
+		
 		'''
 		devcontext['type'] = 'profile_modify'
 		devcontext['avatar'] = 'new_photo'
@@ -244,10 +248,11 @@ class MessageManager:
 		devcontext['event_id'] = '2'	
 		devcontext['metoo_type_id'] = '2'
 		'''
+		'''
 		devcontext['type'] = 'users'
 		devcontext['session_id'] = '94'
 		devcontext['event_id'] = '2'	
-	
+	    '''
 	
 		#Event
 		'''
@@ -268,7 +273,6 @@ class MessageManager:
 		'''
 		devcontext['type'] = 'event_create'
 		devcontext['session_id'] = '94'
-		
 		devcontext['latitude'] = '55.6'
 		devcontext['longitude'] = '37.6'
 		devcontext['name'] = 'New Event-2'
@@ -305,9 +309,7 @@ class MessageManager:
 		context = {}
 		context['type'] = 'auth'	
 		#sessionRes = 1
-		sessionRes = UserManager.connectUser(agentMessage['login'], agentMessage['password'])
-		context['result'] = sessionRes
-		context['session_id'] = sessionRes
+		context['result'], context['session_id']  = UserManager.connectUser(agentMessage['login'], agentMessage['password'])
 		return context
 	
 	@staticmethod
@@ -329,9 +331,8 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'registrate'
-		context['result'] = UserManager.createAccount(agentMessage['login'],agentMessage['password'])
-		if int(context['result']) > 0:
-			context['session_id'] = context['result']
+		context['result'],context['session_id'] = UserManager.createAccount(agentMessage['login'],agentMessage['password'])
+
 		return context
 	#################################################################################################3	
 	@staticmethod
@@ -392,7 +393,7 @@ class MessageManager:
 		else:
 			agentMessage['session_id'] = 15 #no a magic number =) only a created session...=) bad idea, i know it
 			
-		context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
+		context['result'], context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
 		context['count'] = len(context['events'])
 		return context
 	
@@ -403,11 +404,23 @@ class MessageManager:
 		'''
 		context = {}
 		context['type'] = 'event_create'
-		agentMessage['latitude'] = float(agentMessage['latitude'])
-		agentMessage['longitude'] = float(agentMessage['longitude'])
-		agentMessage['time'] = datetime.strptime(agentMessage['time'], "%d-%m-%y %H:%M")
+		if agentMessage.has_key('longitude'):	
+			agentMessage['longitude'] = float(agentMessage['longitude'])
+		else:
+			agentMessage['longitude'] = 0
+
+		if agentMessage.has_key('latitude'):
+			agentMessage['latitude'] = float(agentMessage['latitude'])
+		else:
+			agentMessage['latitude'] = 0
 		
-		context['result'] = EventManager.createEvent(int(agentMessage['session_id']),agentMessage)
+		if agentMessage.has_key('time'):
+			agentMessage['time'] = datetime.strptime(agentMessage['time'], "%d-%m-%y %H:%M")
+		else:
+			agentMessage['time'] = datetime.now()
+			
+		
+		context['result'],context['event_id'] = EventManager.createEvent(int(agentMessage['session_id']),agentMessage)
 		return context
 	
 	@staticmethod
