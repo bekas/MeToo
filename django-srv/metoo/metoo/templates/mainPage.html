@@ -12,6 +12,66 @@
   		<link rel="stylesheet" type="text/css" href="/static/css/reset-min.css"/>    
     	<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
     	<link rel="stylesheet" type="text/css" href="/static/css/sweet.css"/>
+    	<!--<link rel="stylesheet" type="text/css" href="/static/css/boxStyle.css"/>-->
+    	
+    	 <style type="text/css">
+		   DIV.outline {
+			border: 10px solid #bbb;
+			padding: 10px 20px;
+			margin: 10px;
+			
+			border-bottom:none; 
+			border-top:none; 
+			width:230px; 
+			background-color:#f6f6f6
+	
+			-moz-border-radius: 120px;
+			-webkit-border-radius: 120px;
+			
+			-webkit-transition:all 1s ease-in-out;
+			-moz-transition:all 1s ease-in-out;
+			-o-transition:all 1s ease-in-out;
+			-ms-transition:all 1s ease-in-out;
+			
+		   }
+		   		   	.scale:hover {
+				-webkit-transform:scale(1.5);
+				-moz-transform:scale(1.5);
+				-o-transform:scale(1.5);
+				-ms-transform:scale(1.5);
+
+       			 background: #7EC0EE;
+       			 opacity: 0.95;
+
+				}
+	   		   	.scale2:hover {
+				-webkit-transform:scale(1.5);
+				-moz-transform:scale(1.5);
+				-o-transform:scale(1.5);
+				-ms-transform:scale(1.5);
+
+       			 background: #FFA54F;
+       			 opacity: 0.95;
+
+				}
+		   
+		   DIV.bigOutline {
+			border: 10px solid #bbb;
+			padding: 40px 20px;
+			margin: 10px;
+			
+			border-bottom:none; 
+			border-top:none; 
+
+			background-color:#f6f6f6
+	
+			-moz-border-radius: 120px;
+			-webkit-border-radius: 120px;
+			
+			float:left; 
+			
+		   }
+		 </style>
 	</head>
 	
     <body>
@@ -43,31 +103,41 @@
 		{% endif %}
 		
 		{% if type == "stat" %}
-			<h1> Registrate: {{ users.count }} !</h1>
-			<h1> Online: {{ users.count_online }} !</h1>
-			  <ul>
+			<div class="bigOutline" align="center">
+			<h1 align="center"> Registrate: {{ users.count }}</h1>
+			<h1 align="center"> Online: {{ users.count_online }}</h1>
+			 
 			  {% for user in users.users %}
-			  	<h3>[{{ user.id }}] {{ user.login}}</h3>
-			  	<p> Description: {{ user.description }}</p>
-			  	<p> Rating: {{ user.rating }}</p>
-				{% if user.online %}
-					<h2>Online<h2>
-				{% endif %}
-
+			  	<div class="outline scale2">
+			  		<div> {{ user.id }}</div>			  	
+				  	{% if user.online %}
+				  	<h3 style="color:green;font-size:20px;">{{ user.login}}</h3>
+				  	<p style="color:green;font-size:15px;"> <strong>Description:</strong> {{ user.description }}<br>
+				  	<strong>Rating:</strong> {{ user.rating }}</p>
+				  	{% else %}
+				  	<h3 style="font-size:20px;">{{ user.login}}</h3>		
+				  	<p style="font-size:15px;"> <strong>Description:</strong> {{ user.description }}<br>
+				  	<strong>Rating:</strong> {{ user.rating }}</p>	  	
+				  	{% endif %}
+					
+				</div>
 			  {% endfor %}
-		      </ul>
+		    </div>
 		
-		  
-			<h1> {{ events.count }} Events !</h1>
-			  <ul>
+		  <div class="bigOutline" align="center">
+			<h1 align="center"> Events: {{ events.count }} </h1>
+			  			  		
 			  {% for event in events.events %}
-			  	<h2>[{{ event.id }}] {{ event.name}}</h2>
-			  	<p> Author: {{ event.creator_name }}</p>
-			  	<p> Time: {{ event.date }}</p>
-			  	<p> Type: {{ event.type_name }}</p>
-  				<p> Description: {{ event.description }}</p>
+			  	<div class="outline scale">
+			  	<div> {{ event.id }}</div>
+			  	<h3 style="font-size:20px;">{{ event.name}}</h3>
+			  	<p style="font-size:15px;"> <strong>Author:</strong> {{ event.creator_name }}<br>
+			  	    <strong>Time:</strong> {{ event.date }}<br>
+			  	    <strong>Type:</strong> {{ event.type_name }}<br>
+  				    <strong>Description:</strong> {{ event.description }}</p>
+  				</div>
 			  {% endfor %}
-		      </ul>
+		      </div>
 
 		
 		
