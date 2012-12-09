@@ -80,7 +80,10 @@ class EventManager:
 		Метод для запроса событий (по сессии и запросу)
 		'''
 		eventList = []
-		userId = SessionManager.getUserId(sessionId)
+		if sessionId > 0:
+			userId = SessionManager.getUserId(sessionId)
+		else:
+			userId = 1
 		result = ErrorManager.Success
 		#TODO Обработка user-a;
 		if userId > 0:
