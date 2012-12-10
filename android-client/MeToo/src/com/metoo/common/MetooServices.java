@@ -162,9 +162,13 @@ public final class MetooServices {
 				}
 				else {
 					T answer = ParseAnswer(Result);
+					if (answer.GetError() != null) {
+						// Не смогли нормально распарсить
+						onError(answer.GetError());
+					}
 					
 					// Если пришла нулевая сессия - значит наша недействительна.
-					if (answer.GetSessionId() <= 0) {
+					else if (answer.GetSessionId() <= 0) {
 						// Если попытка перелогинивания не была потрачена - отправляем запрос!
 						if (!reloginWasAlreadyMade) {
 							isRelogining = true;

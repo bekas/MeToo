@@ -40,7 +40,7 @@ body:before {
     width: 140px;
     height: 300px;
     top: 0;
-    left: 0;
+    left: -100;
     background: url(boy.png) no-repeat;
 }
 

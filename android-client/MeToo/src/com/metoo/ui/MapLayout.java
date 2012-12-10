@@ -6,22 +6,17 @@ package com.metoo.ui;
 import java.util.List;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.metoo.R;
 import com.metoo.activities.CreateEventActivity;
 import com.metoo.activities.NavActivity;
-import com.metoo.activities.SettingsActivity;
 import com.metoo.common.androidutils.AndroidAppLog;
-import com.metoo.gmap.MapProvider;
 import com.metoo.gmap.overlay.MapItemsLayer;
-import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.ui.views.IOnLongPressListener;
 import com.metoo.ui.views.MapViewEx;
 import com.metoo.ui.views.IMapViewPanListener;
@@ -33,7 +28,6 @@ import com.metoo.ui.views.IMapViewPanListener;
 public class MapLayout {
 
 	public MapViewEx mapView;
-	private MapProvider mapProv;
 	private NavActivity activity;
 	
 	List<Overlay> mapOverlays;
@@ -46,7 +40,6 @@ public class MapLayout {
         activity.setContentView(R.layout.screen_map);
         mapView = (MapViewEx)activity.findViewById(R.id.mapview);
         mapView.setMapViewPanListener(hook);
-		mapProv = new MapProvider(mapView);
 		mapOverlays = mapView.getOverlays();
 		
 		mapView.setLongPressListener(new IOnLongPressListener() {

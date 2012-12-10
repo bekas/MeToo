@@ -12,15 +12,23 @@ class CheckSessionWorker(Worker):
 	Класс, переодически подчиющий таблицу сессий
 	'''
 	test = 0
+	
+	def __init__(self):
+		self.doWork(ConfigurationManager.loopDeleteSessionInterval())
+	
 	def work(self):
 		'''
 		Вызываемый по таймеру метод
 		'''
 		currentTime = TimeManager.getTime()
 		deleteInterval = ConfigurationManager.sessionDeleteInterval()
-		time = currentTime + deleteInterval
+		time = currentTime - deleteInterval
 		Session.objects.filter(referenceTime__lt = time).delete()
-		self.test = self.test + 1
+		#Session.objects.filter().delete()
+		self.test = self.test + 3
+		#s = Session(userId_id = 1, referenceTime = TimeManager.getTime())
+		#s.save()
+		print("Session delete works")
 		
 class SessionManager:	
 	'''
@@ -37,6 +45,8 @@ class SessionManager:
 		'''
 		Конструктор.Запускает очистку сессий.
 		'''
+		s = Session(userId_id = 1, referenceTime = TimeManager.getTime())
+		s.save()
 		SessionManager.checkSessionWorker.doWork(ConfigurationManager.loopDeleteSessionInterval())
 
 	@staticmethod
@@ -59,12 +69,21 @@ class SessionManager:
 		except:
 			sessionId = -1
 		return sessionId
-
+	
+	@staticmethod 
+	def freeSession(sessionId):
+		userId = SessionManager.getUserId(sessionId)
+		if userId > 0:
+			Session.objects.filter(pk = sessionId).delete()
+		return userId
+		
 	@staticmethod
 	def checkSession(sessionId):
 		'''
 		Метод для проверки существования сессии 
 		'''
+		if Session.objects.filter(pk = sessionId).exists():
+			Session.objects.filter(pk = sessionId).referenceTime = TimeManager.getTime()
 		return Session.objects.filter(pk = sessionId).exists()
 	
 	@staticmethod
@@ -95,5 +114,22 @@ class SessionManager:
 			user = reqSession.userId
 		return user
 		
+	@staticmethod	
+	def	isUserOnline(user):
+		'''
+		Метод для проверки находится ли пользователь онлайн
+		'''
+		return Session.objects.filter(userId = user).exists()
+
+	@staticmethod
+	def	isUserIdOnline(userId):
+		'''
+		Метод для проверки находится ли пользователь онлайн по id
+		'''
+		return Session.objects.filter(userId_id = userId).exists()
+
+
+
+
 		
 	
