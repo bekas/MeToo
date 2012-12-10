@@ -30,5 +30,6 @@ Waiting for answer..
     <string name="input_password_one_more_time">Введите пароль ещё раз</string>
     <string name="registrate">Зарегистрироваться</string>
     <string name="title_activity_user_registration">Регистрация пользователя</string>
+    <string name="passwords_not_match">Пароли не совпадают</string>
 
 </resources>

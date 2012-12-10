@@ -8,9 +8,11 @@ import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.common.javautils.ClassChecker;
 import com.metoo.srvlink.answers.LoginAnswer;
 import com.metoo.srvlink.answers.MetooServerAnswer;
+import com.metoo.srvlink.answers.UserRegistrationAnswer;
 import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.srvlink.requests.MetooServerRequest;
+import com.metoo.srvlink.requests.UserRegistrationRequest;
 import com.metoo.xmlparser.PageParser;
 
 /**
@@ -68,6 +70,27 @@ public final class MetooServices {
 		AppSettings.SetIsLoggedIn(true);
 
 		DataReceiverHook<LoginAnswer> hookCallback = INSTANCE.new DataReceiverHook<LoginAnswer>(request, callback, LoginAnswer.class);
+		hookCallback.SendRequest();
+		
+		return true;
+	}
+
+	/**
+	 * Запускает регистрацию пользователя. Имя и пароль берутся из настроек.
+	 * @param callback Обратная связь
+	 * @return True, если запрос отправлен, либо False, если логин-пароль пусты
+	 */
+	public static boolean Registrate(IAsyncTaskNotifyer<UserRegistrationAnswer, String, String> callback) {
+		if (AppSettings.GetLogin().isEmpty() || AppSettings.GetPassword().isEmpty()) {
+			if (callback != null)
+				callback.onError("Credentials are empty!");
+			return false;
+		}
+		
+		UserRegistrationRequest request = new UserRegistrationRequest(AppSettings.GetLogin(), AppSettings.GetPassword());
+		AppSettings.SetIsLoggedIn(true);
+
+		DataReceiverHook<UserRegistrationAnswer> hookCallback = INSTANCE.new DataReceiverHook<UserRegistrationAnswer>(request, callback, UserRegistrationAnswer.class);
 		hookCallback.SendRequest();
 		
 		return true;
@@ -282,5 +305,53 @@ class LoginHook implements IAsyncTaskNotifyer<LoginAnswer, String, String> {
 		if (originalCallback != null)
 			originalCallback.onProgress(Message);
 	}
-	
 }
+	
+
+
+/**
+ * Перехватчик авторизации. При успехе записывает номер текущей сессии в память
+ * @author theurgist
+ *
+ */
+class RegistrationHook implements IAsyncTaskNotifyer<UserRegistrationAnswer, String, String> {
+	
+	/**
+	 * Переданный пользователем объект обратной связи
+	 */
+	IAsyncTaskNotifyer<UserRegistrationAnswer, String, String> originalCallback;
+	
+	/**
+	 * Создание объекта-крючка
+	 * @param originalCallback Обратная связь с пользовательским кодом
+	 */
+	RegistrationHook(IAsyncTaskNotifyer<UserRegistrationAnswer, String, String> originalCallback) {
+		this.originalCallback = originalCallback;
+	}
+	
+	@Override
+	public void onSuccess(UserRegistrationAnswer Result) {
+		if (Result.GetError() == null) {
+			AppSettings.SetSessionId(Result.GetSessionId());
+
+			if (originalCallback != null)
+				originalCallback.onSuccess(Result);
+		}
+		else
+			onError(Result.GetError());
+
+	}
+
+	@Override
+	public void onError(String Reason) {
+		if (originalCallback != null)
+			originalCallback.onError(Reason);
+	}
+
+	@Override
+	public void onProgress(String Message) {
+		if (originalCallback != null)
+			originalCallback.onProgress(Message);
+	}
+}
+	

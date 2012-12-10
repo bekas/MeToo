@@ -71,8 +71,8 @@ public class TestingLayout extends BaseLayout {
         tabHost = (TabHost)activity.findViewById(R.id.tabHostTest);
         
         tabHost.setup();
-        
- //       tabHost.removeAllViews();
+
+
         
         TabSpec tab1 = tabHost.newTabSpec("Рендер");
         LayoutInflater.from(

@@ -4,7 +4,6 @@
 package com.metoo.ui.validators;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 
 /**
  * Валидация правильности ввода пароля

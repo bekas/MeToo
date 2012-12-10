@@ -1,7 +1,7 @@
 package com.metoo.activities;
 
 import com.metoo.R;
-import com.metoo.ui.UserRegistralionLayout;
+import com.metoo.ui.UserRegistrationLayout;
 import com.metoo.ui.base.BaseActivity;
 
 import android.os.Bundle;
@@ -9,14 +9,14 @@ import android.view.Menu;
 
 public class UserRegistrationActivity extends BaseActivity {
 	
-	UserRegistralionLayout layout;
+	UserRegistrationLayout layout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.screen_registration);
 		
-		layout = new UserRegistralionLayout(this, null); 
+		layout = new UserRegistrationLayout(this, null); 
+		layout.Activate();
 	}
 
 	@Override

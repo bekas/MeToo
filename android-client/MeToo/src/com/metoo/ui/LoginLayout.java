@@ -7,11 +7,10 @@ import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.answers.LoginAnswer;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
+import com.metoo.ui.validators.BaseValidator;
 import com.metoo.ui.validators.PasswordValidator;
 import com.metoo.ui.validators.UsernameValidator;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,8 +59,11 @@ public class LoginLayout extends BaseLayout {
         lblLoginOk = (TextView)activity.findViewById(R.id.lblLoginOk);
         imgLoginLogo = (ImageView)activity.findViewById(R.id.imgLoginLogo);
         
+        Validator validator = new Validator();
         usernameValidator = new UsernameValidator();
+        usernameValidator.SetOnContentChangedListener(validator);
         passwdValidator = new PasswordValidator();
+        passwdValidator.SetOnContentChangedListener(validator);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	sendLoginData();
@@ -102,19 +104,6 @@ public class LoginLayout extends BaseLayout {
 	protected Boolean preloadRoutine() {
 		_isPreloaded = true;
 		return true;
-	}
-	
-	/**
-	 * Вызывается валидатором при изменении полей
-	 */
-	void ValidateInput() {
-		lblLoginProblem.setVisibility(View.GONE);
-		if (usernameValidator.IsValid() && passwdValidator.IsValid()) {
-			btnLogin.setVisibility(View.VISIBLE);
-		}
-		else {
-			btnLogin.setVisibility(View.GONE);
-		}
 	}
 	
 	void proceedError(String msg) {
@@ -158,10 +147,9 @@ public class LoginLayout extends BaseLayout {
 	
 	
 
-	/**выполнять
-	 * Notifyes about login request results
+	/**
+	 * Сообщает о результатах авторизации
 	 * @author Theurgist
-	 *
 	 */
     class LoginRequestProceeder implements IAsyncTaskNotifyer<LoginAnswer, String, String>
     {
@@ -183,4 +171,23 @@ public class LoginLayout extends BaseLayout {
 		public void onProgress(String Message) { }
     	
     }
+
+
+	/**
+	 * Вызывается валидатором при изменении полей
+	 */
+	private class Validator implements BaseValidator.IOnContentChanged {
+
+		@Override
+		public void onContentChanged() {
+			lblLoginProblem.setVisibility(View.GONE);
+			if (usernameValidator.IsValid() && passwdValidator.IsValid()) {
+				btnLogin.setVisibility(View.VISIBLE);
+			}
+			else {
+				btnLogin.setVisibility(View.GONE);
+			}
+		}
+		
+	}
 }

@@ -24,24 +24,28 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings" />
+            android:text="Настройки" />
 
+        <Button
+            android:id="@+id/btnRegister"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Регистрация" />
 
         <Button
             android:id="@+id/btnTestLogin"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LogIn" />
-
-
+            android:text="Войти" />
 
         <Button
             android:id="@+id/btnTestMap"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Map" />
+            android:text="Карта" />
 
     </LinearLayout>
 
