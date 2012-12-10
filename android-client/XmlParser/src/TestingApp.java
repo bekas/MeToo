@@ -31,7 +31,7 @@ public class TestingApp {
 
 		XmlDoc page = new XmlDoc();
 		try {
-			page.LoadFromFile("res/testevents.xml", true);
+			page.LoadFromFile("res/srv_events.xml", true);
 			TaggedDoc tagged = new TaggedDoc(page);
 			PageParser pageParser = new PageParser();
 			

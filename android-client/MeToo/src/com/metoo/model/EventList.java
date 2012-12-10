@@ -106,7 +106,7 @@ public class EventList implements INodeSerializer {
 		
 		List<Event> events = new ArrayList<Event>();
 		
-		NodeList nl = parser.XPath("/events", node);
+		NodeList nl = parser.XPath("/metoo/events/event", node);
 		
 		// Читаем список событий
 		for(int i = 0; i < nl.getLength(); i++) {

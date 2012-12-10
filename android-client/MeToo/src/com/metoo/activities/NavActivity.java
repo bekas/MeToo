@@ -86,6 +86,9 @@ public class NavActivity extends MapActivity
 	 * Добавить несколько фейковых встреч в целях тестирования
 	 */
 	private void emulatedSituation() {
+		if (true)
+			return;
+		
 		com.metoo.model.Event meeting1 = new com.metoo.model.Event();
 		meeting1.Id = 999991;
 		meeting1.Name = "Тусовка на севере";

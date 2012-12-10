@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metoo>
+	<!--Общие поля для всех пакетов-->
+	<type>events</type>
+	<request_id>2</request_id> 
+	<result>100</result>
+	<result_mess>Все ок!</result_mess>
+	
+	
+	
+	
+    
+   	
+    
+    
+    
+    
+	<!--Список событий-->
+		<events N = "5">
+		  
+    	  	<event>
+    	  		<id>1</id>
+          		<creator_id>1</creator_id>
+          	    <creator_name>q</creator_name>
+                <name>Rammstein performance</name>
+                <time>10-12-12 00:00</time>
+                <description>Moskau!</description>
+                <photo>qweqweqwewqewqeqweq</photo>
+                <latitude>55.45</latitude>
+                <longitude>37.7</longitude>
+             	<type_id>1</type_id>      
+             	<type_name>Flashmob</type_name>          
+             </event>
+		  
+    	  	<event>
+    	  		<id>2</id>
+          		<creator_id>1</creator_id>
+          	    <creator_name>q</creator_name>
+                <name>q</name>
+                <time>10-12-12 12:32</time>
+                <description>q</description>
+                <photo>qweqweqwewqewqeqweq</photo>
+                <latitude>55.799091</latitude>
+                <longitude>37.35056</longitude>
+             	<type_id>1</type_id>      
+             	<type_name>Flashmob</type_name>          
+             </event>
+		  
+    	  	<event>
+    	  		<id>3</id>
+          		<creator_id>1</creator_id>
+          	    <creator_name>q</creator_name>
+                <name>q</name>
+                <time>10-12-12 12:50</time>
+                <description>q</description>
+                <photo>qweqweqwewqewqeqweq</photo>
+                <latitude>55.800635</latitude>
+                <longitude>37.430211</longitude>
+             	<type_id>1</type_id>      
+             	<type_name>Flashmob</type_name>          
+             </event>
+		  
+    	  	<event>
+    	  		<id>4</id>
+          		<creator_id>1</creator_id>
+          	    <creator_name>q</creator_name>
+                <name>q</name>
+                <time>10-12-12 12:52</time>
+                <description>q</description>
+                <photo>qweqweqwewqewqeqweq</photo>
+                <latitude>55.785194</latitude>
+                <longitude>37.290135</longitude>
+             	<type_id>1</type_id>      
+             	<type_name>Flashmob</type_name>          
+             </event>
+		  
+    	  	<event>
+    	  		<id>5</id>
+          		<creator_id>1</creator_id>
+          	    <creator_name>q</creator_name>
+                <name>qwe</name>
+                <time>10-12-12 12:53</time>
+                <description>qwe</description>
+                <photo>qweqweqwewqewqeqweq</photo>
+                <latitude>55.687776</latitude>
+                <longitude>38.405239</longitude>
+             	<type_id>1</type_id>      
+             	<type_name>Flashmob</type_name>          
+             </event>
+		  
+       </events>
+    
+    
+    
+    
+    
+</metoo>

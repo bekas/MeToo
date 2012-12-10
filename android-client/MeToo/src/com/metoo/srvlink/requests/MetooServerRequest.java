@@ -21,4 +21,11 @@ public class MetooServerRequest extends ServerRequest {
 		AddParam("request_id", (++req_counter).toString());
 		AddParam("session_id", AppSettings.GetSessionId().toString());
 	}
+
+
+
+	
+	protected String ReplaceCommasWithDots(String source) {
+		return source.replaceAll(",", ".");
+	}
 }
