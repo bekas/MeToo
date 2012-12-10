@@ -54,7 +54,8 @@ public class CreateEventLayout extends BaseLayout {
 	
 	
 	private void onEventCreated() {
-		
+		activity.services.ShowToast("Событие создано!");
+		activity.finish();
 	}
 	
 	private void onEventNotCreated() {
@@ -106,19 +107,16 @@ public class CreateEventLayout extends BaseLayout {
 			if (Result.GetError() != null)
 				onError("Ошибка чтения ответа сервера: " + Result.GetError());
 				
-			else if (Result.GetRequestResult() == 0) {
-				activity.services.ShowToast("Событие создано!");
+			else if (Result.GetRequestResult() == 0)
 				onEventCreated();
-			}
 
-			else {
-				activity.services.ShowInfoAlert("Ошибка создания события", "Код ошибки: " + Result.GetRequestResult());
-				onEventNotCreated();
-			}			
+			else
+				onError("Событие не создано! Код ошибки: " + Result.GetRequestResult());
 			
 		}
 		public void onError(String Reason) {
-			activity.services.ShowToast("Ошибка в модуле MapDataReceiver: " + Reason);
+			activity.services.ShowErrorAlert("Ошибка", Reason);
+			onEventNotCreated();
 		}
 		public void onProgress(String Message) {
 		}
