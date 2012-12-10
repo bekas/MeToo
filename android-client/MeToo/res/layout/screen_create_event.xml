@@ -18,7 +18,7 @@
         android:ems="10"
         android:hint="@string/create_event_hint_descr"
         android:inputType="textMultiLine"
-        android:minLines="3" >
+        android:minLines="4" >
 
         <requestFocus />
     </EditText>
@@ -33,6 +33,6 @@
         android:id="@+id/btnCreateEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/create_event_btn_create" />
 
 </LinearLayout>

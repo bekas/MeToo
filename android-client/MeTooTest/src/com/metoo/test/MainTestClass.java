@@ -4,7 +4,6 @@ package com.metoo.test;
 import android.test.ActivityUnitTestCase;
 
 import com.metoo.activities.MainActivity;
-import com.metoo.srvlink.XmlAnswer;
 
 // Should try ActivityInstrumentationTestCase2
 public class MainTestClass extends ActivityUnitTestCase<MainActivity> {

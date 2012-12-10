@@ -24,7 +24,7 @@ public class MapViewEx extends MapView {
     private GeoPoint mOldBottomRight;
     private int mOldZoomLevel = -1;
 
-    static final int LONGPRESS_THRESHOLD = 500;
+    static final int LONGPRESS_THRESHOLD = 5000;
     private Timer longpressTimer = new Timer();
     /**
      * Для проверки, перемещалась ли за время долгого нажатия карта

@@ -26,6 +26,8 @@ public class CreateEventRequest extends MetooServerRequest {
 		AddParam("description", eventDesrc);
 		AddParam("latitude", String.format("%.8f", latitude));
 		AddParam("longitude", String.format("%.8f", longitude));
+		//AddParam("latitude", "55,4");
+		//AddParam("longitude", "33,5");
 	}
 
 }
