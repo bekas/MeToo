@@ -1,19 +1,34 @@
 package com.metoo.activities;
 
+import com.google.android.maps.GeoPoint;
 import com.metoo.R;
-import com.metoo.R.layout;
-import com.metoo.R.menu;
+import com.metoo.ui.CreateEventLayout;
+import com.metoo.ui.base.BaseActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 
-public class CreateEventActivity extends Activity {
+public class CreateEventActivity extends BaseActivity {
+	
+	CreateEventLayout layout;
+	GeoPoint crd;
+	
 
+	/**
+	 * Создание активити для создания события в определённой точке
+	 * В Intent необходимо передать параметры 'lat' и 'lng'!!!
+	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.screen_create_event);
+		Intent intent = getIntent();
+		int latitude = intent.getIntExtra("lat", 0);
+		int longitude = intent.getIntExtra("lng", 0);
+        crd = new GeoPoint(latitude, longitude);
+
+        layout = new CreateEventLayout(this, null, crd);
+        SetLayoutAndActivate(layout);
 	}
 
 	@Override

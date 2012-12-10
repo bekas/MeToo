@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="protected" author="true" classpath="/home/theurgist/.android-sdk-linux/tools/support/annotations.jar:/home/theurgist/.android-sdk-linux/add-ons/addon-google_apis-google-10/libs/maps.jar:libs/android-support-v4.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.metoo.common.androidutils,com.metoo.model,com.metoo.gmap.overlay,com.metoo.ui.base,com.metoo.activities,com.metoo.ui,com.metoo.srvlink.answers,com.metoo.srvlink,com.metoo.ui.views,com.metoo.gmap,com.metoo.srvlink.requests,com.metoo.common.javautils,com.metoo.gmap.location,com.metoo.srvlink.base,com.metoo.common,com.metoo.xmlparser" source="1.6" sourcepath="src:gen" splitindex="true" use="true" version="true">
+            <link href="http://developer.android.com/reference/"/>
+            <link href="file:/data/MeToo/android-client/MeToo/doc/"/>
+        </javadoc>
+    </target>
+</project>

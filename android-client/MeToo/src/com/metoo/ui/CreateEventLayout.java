@@ -23,7 +23,7 @@ import com.metoo.ui.base.BaseLayout;
  * Модель окна создания события
  * @author theurgist
  */
-public class NewEventLayout extends BaseLayout {
+public class CreateEventLayout extends BaseLayout {
 	EditText etNewEventName;
 	EditText etNewEventDescr;
 	Button btnCreateEvent;
@@ -37,7 +37,7 @@ public class NewEventLayout extends BaseLayout {
 	 * @param parent
 	 * @param previous
 	 */
-	public NewEventLayout(BaseActivity parent, BaseLayout previous, GeoPoint crd) {
+	public CreateEventLayout(BaseActivity parent, BaseLayout previous, GeoPoint crd) {
 		super(parent, previous);
 		locationOfNewEvent = crd;
 		

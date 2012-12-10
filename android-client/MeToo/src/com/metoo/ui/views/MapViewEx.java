@@ -24,7 +24,7 @@ public class MapViewEx extends MapView {
     private GeoPoint mOldBottomRight;
     private int mOldZoomLevel = -1;
 
-    static final int LONGPRESS_THRESHOLD = 5000;
+    static int longpressDelay = 1000;
     private Timer longpressTimer = new Timer();
     /**
      * Для проверки, перемещалась ли за время долгого нажатия карта
@@ -67,8 +67,12 @@ public class MapViewEx extends MapView {
     	mapviewpanListener = listener;
     }
     public IOnLongPressListener getLongPressListener() {return longpressListener; }
-    public void setLongPressListener(IOnLongPressListener listener) {
+    public void setLongPressListener(IOnLongPressListener listener, int delay) {
     	longpressListener = listener;
+    	longpressDelay = delay;
+    }
+    public void setLongPressListener(IOnLongPressListener listener) {
+    	setLongPressListener(listener, longpressDelay);
     }
  
     /**
@@ -203,9 +207,10 @@ public class MapViewEx extends MapView {
                     GeoPoint longpressLocation = getProjection().fromPixels((int)event.getX(), 
                             (int)event.getY());
                     // Вызываем подписчика
-                    longpressListener.onLongpress(longpressLocation);
+                    if (longpressListener != null)
+                    	longpressListener.onLongpress(longpressLocation);
                 }
-            }, LONGPRESS_THRESHOLD);
+            }, longpressDelay);
              
             longPressMapCenter = getMapCenter();
         }
