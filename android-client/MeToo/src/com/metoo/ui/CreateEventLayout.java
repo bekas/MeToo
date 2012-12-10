@@ -10,11 +10,9 @@ import android.widget.EditText;
 
 import com.google.android.maps.GeoPoint;
 import com.metoo.R;
-import com.metoo.common.AppSettings;
 import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.answers.CreateEventAnswer;
-import com.metoo.srvlink.base.Connector;
 import com.metoo.srvlink.requests.CreateEventRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
@@ -28,8 +26,6 @@ public class CreateEventLayout extends BaseLayout {
 	EditText etNewEventDescr;
 	Button btnCreateEvent;
 	CheckBox chbIsNewEventPrivate;
-
-	Connector connect;
 	
 	GeoPoint locationOfNewEvent;
 
@@ -40,8 +36,6 @@ public class CreateEventLayout extends BaseLayout {
 	public CreateEventLayout(BaseActivity parent, BaseLayout previous, GeoPoint crd) {
 		super(parent, previous);
 		locationOfNewEvent = crd;
-		
-		connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
 	}
 
 
@@ -107,7 +101,7 @@ public class CreateEventLayout extends BaseLayout {
 			if (Result.GetError() != null)
 				onError("Ошибка чтения ответа сервера: " + Result.GetError());
 				
-			else if (Result.GetRequestResult() == 0)
+			else if (Result.GetRequestResult() == 100)
 				onEventCreated();
 
 			else

@@ -27,5 +27,9 @@ Waiting for answer..
     <string name="test_tab_webkitview">Рендер</string>
     <string name="test_rawview">Исходник</string>
     <string name="create_event_btn_create">Создать!</string>
+    <string name="input_password_one_more_time">Введите пароль ещё раз</string>
+    <string name="registrate">Зарегистрироваться</string>
+    <string name="title_activity_user_registration">Регистрация пользователя</string>
+    <string name="passwords_not_match">Пароли не совпадают</string>
 
 </resources>
