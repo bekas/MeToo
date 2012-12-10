@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
+'''
 Модуль с тестами для проекта
-"""
+'''
 
 from django.test import TestCase
 from sessionManager import SessionManager
@@ -10,8 +10,65 @@ from eventManager import EventManager
 from MeTooManager import MeTooManager
 from errorManager import ErrorManager
 from django.db import models
-from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place
+from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place, City, Country, EventType, MetooType
+from datetime import datetime, date, time
 
+
+class MetooTest(TestCase):
+	'''
+	Класс тестов работы с подпиской на событие
+	'''
+	def setUp(self):
+		'''
+		Метод начальной инициализации
+		'''
+		print("I`m SetUp and i know it")
+		photo = Photo(photo = 'this is a photo, believe me ;)')
+		photo.save()
+		user = User(login='test',password='test',avatarId = photo, rating = 0)
+		user.save()
+		self.userId = user.pk
+		country = Country(name = "Russia")
+		country.save()
+		city = City(name = "Moscow")
+		city.save()
+		place = Place(longitude=0, latitude=0, name='PlaceName',cityId = city,countryId = country)
+		place.save()
+		eventType = EventType(name = "meeting",description = "")
+		eventType.save()
+		event = Event(creatorId=user, name='EventName', time = datetime.now(), description = '', photoId = photo, eventTypeId = eventType, PlaceId=place)
+		event.save()
+		self.eventId = event.pk
+		metooType = MetooType(name = "go")
+		metooType.save()
+		metoo = Metoo(userId=user,eventId = event, metooTypeId = metooType)
+		metoo.save()
+		self.metooId = metoo.pk
+		SessionManager.stopTimer()
+		
+	def getUsersbyEventBadSession(self):
+		'''
+		Тест получения юзеров по событию - несуществующая сессия
+		'''
+		listUsers = MeTooManager.getUsersbyEvent(-1,self.eventId)
+		self.assertEqual(listUsers['result'], 501)
+		
+	def getUsersbyBadEvent(self):
+		'''
+		Тест получения юзеров по событию - несуществующее событие
+		'''
+		sessionId = SessionManager.getSessionID(self.userId)
+		listUsers = MeTooManager.getUsersbyEvent(sessionId,self.eventId+1)
+		self.assertEqual(listUsers['result'], 502)
+		
+	def getUsersbyEventPositive(self):
+		'''
+		Тест получения юзеров по событию - позитивный тест
+		'''
+		sessionId = SessionManager.getSessionID(self.userId)
+		listUsers = MeTooManager.getUsersbyEvent(sessionId,self.eventId)
+		self.assertEqual(listUsers['result'], 500)
+		
 class AuthTest(TestCase):
 	'''
 	Класс тестов авторизации пользователя
@@ -179,54 +236,7 @@ class SessionTest(TestCase):
 		self.assertTrue(userId1 < 0)
 		self.assertTrue(userId2 < 0)
 		#self.assertTrue(userId3 < 0)	
-
-class MeTooTest(TestCase):
-	'''
-	Класс тестов работы с событиями
-	'''
-	def setUp(self):
-		'''
-		Метод начальной инициализации
-		'''
-		print("I`m SetUp and i know it")
-		photo = Photo(photo = 'this is a photo, believe me ;)')
-		photo.save()
-		user = User(login='test',password='test',avatarId = photo, rating = 0)
-		user.save()
-		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
-		user.save()
-		place = Place(y=0, x=0, name='PlaceName')
-		place.save()
-		event = Event(creatorId=user, name='EventName', time = '25-01-12 12:23', description = '', photoId = photo, eventTypeId_id = 1, PlaceId=place)
-		event.save()
-		metoo = Metoo(userId=user,eventId_id = event, metooTypeId_id = 1)
-		metoo.save()
-		SessionManager.stopTimer()
-
-	def getUsersbyEventBadSession(self):
-		'''
-		Тест получения юзеров по событию - несуществующая сессия
-		'''
-		listUsers = MeTooManager.getUsersbyEvent(145,1)
-		self.assertEqual(listUsers['result'], 501)
-
-	def getUsersbyBadEvent(self):
-		'''
-		Тест получения юзеров по событию - несуществующее событие
-		'''
-		sessionId = SessionManager.createSessionID(1)
-		listUsers = MeTooManager.getUsersbyEvent(sessionId,14)
-		self.assertEqual(listUsers['result'], 502)
-		
-	def getUsersbyEventPositive(self):
-		'''
-		Тест получения юзеров по событию - позитивный тест
-		'''
-		sessionId = SessionManager.createSessionID(1)
-		listUsers = MeTooManager.getUsersbyEvent(sessionId,1)
-		self.assertEqual(listUsers['result'], 500)
-                
-		
+                	
 class EventTest(TestCase):
 	'''
 	Класс тестов работы с событиями
