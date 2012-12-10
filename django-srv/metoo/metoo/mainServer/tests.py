@@ -14,7 +14,7 @@ from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, 
 from datetime import datetime, date, time
 
 
-class MetooTest(TestCase):
+class GoTest(TestCase):
 	'''
 	Класс тестов работы с подпиской на событие
 	'''
