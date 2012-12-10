@@ -2,7 +2,7 @@ package com.metoo.ui.base;
 
 import android.view.KeyEvent;
 
-import com.metoo.common.IAsyncTaskNotifyer;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 
 public abstract class BaseLayout implements IAsyncTaskNotifyer<String, String, String>
 {	

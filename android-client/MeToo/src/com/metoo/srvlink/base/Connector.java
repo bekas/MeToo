@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.metoo.srvlink;
+package com.metoo.srvlink.base;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +15,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.metoo.common.AppLog;
-import com.metoo.common.IAsyncTaskNotifyer;
+import com.metoo.common.androidutils.AndroidAppLog;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 
 import android.os.AsyncTask;
 
@@ -50,7 +50,7 @@ public class Connector
 	/*
 	 * Request is only a shortened URI, without basis which is provided on object construction
 	 */
-	public boolean SendSimpleRequest(GetRequest request, IAsyncTaskNotifyer<String, String, String> callback)
+	public boolean SendSimpleRequest(ServerRequest request, IAsyncTaskNotifyer<String, String, String> callback)
 	{
 		try {
 			if ((onAir == null) || allowMultiple) {
@@ -111,12 +111,12 @@ public class Connector
 	            HttpGet request = new HttpGet();
 	            request.setURI(new URI(urls[0]));
 	            
-	            AppLog.W("Request '" + urls[0] + "' - trying to connect");
+	            AndroidAppLog.W("Request '" + urls[0] + "' - trying to connect");
 	            HttpResponse response = client.execute(request);
 	            
 	            in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 	
-	            AppLog.W("Request '" + urls[0] + "' - got content");
+	            AndroidAppLog.W("Request '" + urls[0] + "' - got content");
 	            StringBuffer sb = new StringBuffer("");
 	            String line = "";
 	            String NL = System.getProperty("line.separator");
@@ -128,7 +128,7 @@ public class Connector
 	            in.close();
 	            
 	            result = sb.toString();
-	            AppLog.W("Request '" + urls[0] + "' - completed");
+	            AndroidAppLog.W("Request '" + urls[0] + "' - completed");
 	        } 
 	        catch (URISyntaxException e) {
 	        	result = e.toString();

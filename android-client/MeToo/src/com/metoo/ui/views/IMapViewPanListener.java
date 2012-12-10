@@ -9,7 +9,7 @@ import com.google.android.maps.GeoPoint;
  * Интерфейс для отслеживания панорамирования карты
  * @author Theurgist
  */
-public interface MapViewListener {
+public interface IMapViewPanListener {
     void onPan(GeoPoint oldTopLeft,
                GeoPoint oldCenter,
                GeoPoint oldBottomRight,

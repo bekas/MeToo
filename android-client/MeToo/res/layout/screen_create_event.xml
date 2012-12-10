@@ -3,36 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <EditText
-        android:id="@+id/EditText02"
+        android:id="@+id/etNewEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/create_event_hint_name" />
-
+
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/etNewEventDescr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/create_event_hint_descr"
         android:inputType="textMultiLine"
-        android:minLines="3" >
+        android:minLines="4" >
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_event_btn_change_point" />
-
+
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/chbIsNewEventPrivate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create_event_chb_private" />
+
+    <Button
+        android:id="@+id/btnCreateEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_event_btn_create" />
 
 </LinearLayout>

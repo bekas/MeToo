@@ -69,6 +69,14 @@ public class EventList implements INodeSerializer {
 	}
 	
 	/**
+	 * Возвращает количество событий в данном списке
+	 * @return Количество объектов
+	 */
+	public int Length() {
+		return events.size();
+	}
+	
+	/**
 	 * Вливает в текущий список другой список (с обновлением)
 	 * @param with откуда добавляем
 	 * @return список добавленных элементов
@@ -86,7 +94,9 @@ public class EventList implements INodeSerializer {
 	}
 
 	/**
-	 * 
+	 * Получает на вход документ, содержащий тег "events""
+	 * Сериализация аддитивная, не разрущающая: каждая новая сериализация
+	 * будет добавлять новые данные к уже имеющимся
 	 */
 	public boolean serialize(Node node, PageParser parser) {
 		XmlDoc page = new XmlDoc();
@@ -96,7 +106,7 @@ public class EventList implements INodeSerializer {
 		
 		List<Event> events = new ArrayList<Event>();
 		
-		NodeList nl = parser.XPath("/metoo/events", node);
+		NodeList nl = parser.XPath("/events", node);
 		
 		// Читаем список событий
 		for(int i = 0; i < nl.getLength(); i++) {
@@ -105,12 +115,11 @@ public class EventList implements INodeSerializer {
 			events.add(ev);
 		}
 		
-		// Мержим с существующим
+		// Слияние с существующим
 		for(Event ev: events) {
 			Modify(ev);
 		}
 
-		
 		return true;
 	}
 

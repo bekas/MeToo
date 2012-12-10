@@ -2,10 +2,9 @@ package com.metoo.ui;
 
 import com.metoo.R;
 import com.metoo.common.AppSettings;
-import com.metoo.common.IAsyncTaskNotifyer;
-import com.metoo.srvlink.Connector;
-import com.metoo.srvlink.GetRequest;
-import com.metoo.srvlink.XmlAnswer;
+import com.metoo.common.MetooServices;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
+import com.metoo.srvlink.answers.LoginAnswer;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
@@ -33,8 +32,6 @@ public class LoginLayout extends BaseLayout {
 
 	LoginValidator loginValidator;
 	PasswdValidator passwdValidator;
-	
-	Connector connect;
 	
 	
 	public LoginLayout(BaseActivity parent, BaseLayout previous) {
@@ -78,6 +75,10 @@ public class LoginLayout extends BaseLayout {
         pbLogin.setVisibility(View.GONE);
         lblLoginProblem.setVisibility(View.GONE);
 		lblLoginOk.setVisibility(View.GONE);
+		
+
+		etUsername.setText(AppSettings.GetLogin());
+		etPasswd.setText(AppSettings.GetPassword());
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class LoginLayout extends BaseLayout {
 		etPasswd.setEnabled(true);
 		btnLogin.setVisibility(View.VISIBLE);
 	}
-	void proceedOk(String session_id) {
+	void proceedOk(Integer session_id) {
 		//_parent.services.showToastText("Success! Logged in with session_id=" + session_id);
 		lblLoginOk.setText("Success! Logged in with session_id=" + session_id);
 		lblLoginOk.setVisibility(View.VISIBLE);
@@ -132,6 +133,7 @@ public class LoginLayout extends BaseLayout {
 		
 		AppSettings.SetSessionId(session_id);
 		AppSettings.SetCreditials(etUsername.getText().toString(), etPasswd.getText().toString());
+		AppSettings.SaveOnDisk(activity.services);
 		//LayoutManager.SwitchImmediately(_previous);
 		
 		imgLoginLogo.setImageResource(R.drawable.button_ok);
@@ -144,14 +146,8 @@ public class LoginLayout extends BaseLayout {
 		pbLogin.setVisibility(View.VISIBLE);
 
 		try {
-		    GetRequest req = new GetRequest();
-		    //req.SetPreambula("q");
-		    req.AddParam("type", "auth");
-		    req.AddParam("login", etUsername.getText().toString());
-		    req.AddParam("password", etPasswd.getText().toString());
-		    
-    		connect = new Connector("http", activity.getResources().getString(R.string.metoo_srv_base_uri));
-			connect.SendSimpleRequest(req, new LoginRequestProceeder());
+			AppSettings.SetCreditials(etUsername.getText().toString(), etPasswd.getText().toString());
+			MetooServices.Authorize(new LoginRequestProceeder());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,24 +188,22 @@ public class LoginLayout extends BaseLayout {
 		public void onTextChanged(CharSequence s, int start, int before, int count) { }
 	}
 
-	/**
+	/**выполнять
 	 * Notifyes about login request results
 	 * @author Theurgist
 	 *
 	 */
-    class LoginRequestProceeder implements IAsyncTaskNotifyer<String, String, String>
+    class LoginRequestProceeder implements IAsyncTaskNotifyer<LoginAnswer, String, String>
     {
-		public void onSuccess(String Result) {
-			XmlAnswer ans = new XmlAnswer();
-			ans.ParseMessage(Result);
-			
-			if (ans.session_id > 0) {
-				String t = new String();
-				ans.GetLastElementByTag(t, "session_id");
-				proceedOk(ans.session_id.toString());
-			}
+		public void onSuccess(LoginAnswer Result) {
+			if (Result.GetError() != null)
+				proceedError("Ошибка чтения ответа сервера: " + Result.GetError());
+				
+			else if (Result.GetSessionId() > 0)
+				proceedOk(Result.GetSessionId());
+
 			else
-				proceedError("Во время аутентификации произошла ошибка");
+				proceedError("Ошибка аутентификации: " + Result.GetRequestResult().toString());
 		}
 
 		public void onError(String Reason) {

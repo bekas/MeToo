@@ -1,16 +1,14 @@
 package com.metoo.activities;
 
-import java.io.InputStream;
-
 import com.metoo.R;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
-import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
-import com.metoo.srvlink.GetRequest;
+import com.metoo.common.MetooServices;
+import com.metoo.common.androidutils.AndroidAppLog;
+import com.metoo.srvlink.requests.LoginRequest;
+import com.metoo.srvlink.requests.MetooServerRequest;
 import com.metoo.ui.MainLayout;
 import com.metoo.ui.MapLayout;
 import com.metoo.ui.SplashLayout;
@@ -18,7 +16,7 @@ import com.metoo.ui.TestingLayout;
 import com.metoo.ui.base.BaseActivity;
 
 /**
- * Startup activity
+ * Главная точка входа в приложение
  * @author Theurgist
  */
 public class MainActivity extends BaseActivity {
@@ -29,31 +27,26 @@ public class MainActivity extends BaseActivity {
 	static public MapLayout screenMap;
     
     /** 
-     * Called when the activity is first created. 
+     * Вызывается при холодном запуске приложения
      */
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         AppSettings.LoadFromDisk(services);
+        MetooServices.Initialize();
 
         if (AppSettings.GetEmulationMode()) {
         	
-//    		XmlAnswer parser = new XmlAnswer();
-//    		String error = parser.ParseMessage(
-//    				Helper.readRawTextFile(getApplicationContext(), 
-//    				R.raw.fake_auth));
-        	
-            //PostRequest testRequest = new PostRequest(getResources().getString(R.string.metoo_srv_base_uri));
-            GetRequest testRequest = new GetRequest();
-            //testRequest.AddParam("q", "HELLO");
+			//LoginRequest loginreq = new LoginRequest(AppSettings.GetLogin(), AppSettings.GetPassword());
+        	MetooServerRequest req = new MetooServerRequest();
+        	req.AddParam("APPSTART", "DEBUG");
             
-            screenTester = new TestingLayout(this, null, testRequest);
+            screenTester = new TestingLayout(this, null, req);
             screenSplash = new SplashLayout(this, screenTester, AppSettings.GetSplashDelay(), 3000);
-            //screenMap = new MapLayout(this, screenTester);
             
-	        // Force device to power on display and to disable keyguard - 
-	        // it makes testing more comfortable
+            // Заставить устройство держать дисплей включённым и отключить на время
+            // работы приложения блокировщик клавиатуры - так удобнее тестировать
 	       services.SetWakePolicy(this.getWindow(), true);
 	       services.SetKeygPolicy(this.getWindow(), true);
         }
@@ -63,32 +56,19 @@ public class MainActivity extends BaseActivity {
         }
 
 	    switcher.SwitchImmediately(screenSplash);
-        AppLog.I("Application started");
+        AndroidAppLog.I("Application started");
     }
 
+    @Override
+    public void onPause() {
+    	AppSettings.SaveOnDisk(services);
+    	super.onPause();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }  
         
-}
-
-
-
-class Helper {
-	public static String readRawTextFile(Context ctx, int resId)
-	{
-	    try {
-	        Resources res = ctx.getResources();
-	        InputStream in_s = res.openRawResource(resId);
-
-	        byte[] b = new byte[in_s.available()];
-	        in_s.read(b);
-	        return new String(b);
-	    } catch (Exception e) {
-	        // e.printStackTrace();
-	        return null;
-	    }
-	}
 }

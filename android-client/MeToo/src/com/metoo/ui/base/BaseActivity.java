@@ -3,7 +3,7 @@
  */
 package com.metoo.ui.base;
 
-import com.metoo.common.AndroServices;
+import com.metoo.common.androidutils.AndroServices;
 
 import android.app.Activity;
 import android.os.Bundle;

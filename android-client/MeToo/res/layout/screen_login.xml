@@ -4,14 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
+
     <ImageView
         android:id="@+id/imgLoginLogo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/logo_description"
         android:src="@drawable/metoo" />
-
+
+
+
+
+
+
+
     <TextView
         android:id="@+id/lblLoginProblem"
         android:layout_width="wrap_content"
@@ -21,7 +28,9 @@
         android:text="@string/wrong_login_passwd"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/error_color" />
-
+
+
+
     <TextView
         android:id="@+id/lblLoginOk"
         android:layout_width="wrap_content"
@@ -30,7 +39,9 @@
         android:text="@string/wrong_login_passwd"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/ok_color" />
-
+
+
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
@@ -39,13 +50,19 @@
         android:gravity="center"
         android:text="@string/input_username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text" >
+
+        <requestFocus />
+
+    </EditText>
 
     <TextView
         android:id="@+id/TextView01"
@@ -55,17 +72,23 @@
         android:gravity="center"
         android:text="@string/input_password"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
+
+
     <EditText
         android:id="@+id/etPasswd"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" >
-
-        <requestFocus />
     </EditText>
-
+
+
+
+
+
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="fill_parent"
@@ -73,7 +96,11 @@
         android:paddingTop="@dimen/button_top_padding"
         android:text="@string/login"
         android:visibility="visible" />
-
+
+
+
+
+
     <ProgressBar
         android:id="@+id/pbLogin"
         style="?android:attr/progressBarStyleLarge"

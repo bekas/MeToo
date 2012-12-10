@@ -1,7 +1,12 @@
-package com.metoo.xmlparser;
+package com.metoo.common.javautils;
 
 import java.lang.reflect.Type;
 
+/**
+ * Проверка взаимоотношений между классами
+ * @author theurgist
+ *
+ */
 public class ClassChecker {
 	
 	/**

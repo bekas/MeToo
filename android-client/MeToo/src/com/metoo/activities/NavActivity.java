@@ -3,26 +3,21 @@ package com.metoo.activities;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.metoo.R;
-import com.metoo.common.AndroServices;
-import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
-import com.metoo.common.IAsyncTaskNotifyer;
-import com.metoo.gmap.overlay.MapItemsLayer;
+import com.metoo.common.MetooServices;
+import com.metoo.common.androidutils.AndroServices;
+import com.metoo.common.androidutils.AndroidAppLog;
+import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
 import com.metoo.model.Event;
-import com.metoo.model.EventList;
-import com.metoo.srvlink.Connector;
-import com.metoo.srvlink.XmlAnswer;
-import com.metoo.srvlink.messages.GetEvents;
+import com.metoo.srvlink.answers.EventListAnswer;
+import com.metoo.srvlink.requests.GetEventsRequest;
 import com.metoo.ui.MapLayout;
-import com.metoo.ui.views.MapViewListener;
-import com.metoo.xmlparser.PageParser;
-import com.metoo.xmlparser.TaggedDoc;
-import com.metoo.xmlparser.XmlDoc;
-
+import com.metoo.ui.views.IMapViewPanListener;
+import com.metoo.ui.views.IOnLongPressListener;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -32,18 +27,17 @@ public class NavActivity extends MapActivity
 	private MapLayout layout;
 	private MeetingsMapLayer meetingsCache;
 	private AndroServices services;
-	
-	Connector connect;
+
 
 	// Параметры экрана
-	private float ds;
-	private int width, height;
+//	private float ds;
+//	private int width, height;
 	GeoPoint cachedBottomLeft, cachedTopRight;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppLog.I("NavActivity started");
+        AndroidAppLog.I("NavActivity started");
         services = new AndroServices(this);
         layout = new MapLayout(this);
         layout.Activate(new MapViewHook());
@@ -53,19 +47,21 @@ public class NavActivity extends MapActivity
 		if (AppSettings.GetEmulationMode())
 			emulatedSituation();
 		
-		ds = getApplicationContext().getResources().getDisplayMetrics().density;
-	    width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
-	    height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+//		ds = getApplicationContext().getResources().getDisplayMetrics().density;
+//	    width = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+//	    height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
 		
 		int[][] bounds = layout.mapView.getBounds();
 		cachedBottomLeft = new GeoPoint(bounds[0][0], bounds[0][1]);
 		cachedTopRight = new GeoPoint(bounds[1][0], bounds[1][1]);
 
-		connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
     }
+    /**
+     * Инициализация слоя встреч на карте (с созданием значка встречи по умолчанию)
+     */
     private void initMeetingsOverlay() {
 		Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.token_orange);
-    	meetingsCache = new MeetingsMapLayer(drawable, services);
+    	meetingsCache = new MeetingsMapLayer(drawable, services, layout.mapView);
     }
 
     @Override
@@ -86,15 +82,20 @@ public class NavActivity extends MapActivity
 	
 	
 
+	/**
+	 * Добавить несколько фейковых встреч в целях тестирования
+	 */
 	private void emulatedSituation() {
-		com.metoo.model.Event meeting = new com.metoo.model.Event();
-		meeting.Name = "Тусовка на севере";
-		meeting.Description = "Дискотека на открытом воздухе";
-		meeting.Latitude = 55.9;
-		meeting.Longitude = 37.8;
-		MeetingMapItem overlayitem = new MeetingMapItem(meeting);
+		com.metoo.model.Event meeting1 = new com.metoo.model.Event();
+		meeting1.Id = 999991;
+		meeting1.Name = "Тусовка на севере";
+		meeting1.Description = "Дискотека на открытом воздухе";
+		meeting1.Latitude = 55.9;
+		meeting1.Longitude = 37.8;
+		MeetingMapItem overlayitem = new MeetingMapItem(meeting1);
 
 		Event meeting2 = new Event();
+		meeting2.Id = 999992;
 		meeting2.Name = "Тусовка на юге";
 		meeting2.Description = "Будет весело!";
 		meeting2.Latitude = 55.4;
@@ -102,6 +103,7 @@ public class NavActivity extends MapActivity
 		MeetingMapItem overlayitem2 = new MeetingMapItem(meeting2);
 
 		Event meeting3 = new Event();
+		meeting3.Id = 999993;
 		meeting3.Name = "Имя события";
 		meeting3.Description = "Тут что-то будет";
 		meeting3.Latitude = 55.6;
@@ -109,6 +111,7 @@ public class NavActivity extends MapActivity
 		MeetingMapItem overlayitem3 = new MeetingMapItem(meeting3);
 
 		Event meeting4 = new Event();
+		meeting4.Id = 999994;
 		meeting4.Name = "Тут что-то было";
 		meeting4.Description = "Всё закончилось";
 		meeting4.Latitude = 55.2;
@@ -124,7 +127,13 @@ public class NavActivity extends MapActivity
 	}
 	
 	
-	class MapViewHook implements MapViewListener {
+	/**
+	 * Перехватчик панорамирования и зуммирования карты. При возникновении этих событий 
+	 * вычисляется новый координатный охват отображаемой карты и отправляется запрос
+	 * на сервер для получения событий в этом охвате
+	 * @author theurgist
+	 */
+	class MapViewHook implements IMapViewPanListener {
 
 		public void onPan(GeoPoint oldTopLeft, GeoPoint oldCenter,
 				GeoPoint oldBottomRight, GeoPoint newTopLeft,
@@ -163,12 +172,12 @@ public class NavActivity extends MapActivity
 	        int maxSpan = Math.min( layout.mapView.getLatitudeSpan(), 
 	        						layout.mapView.getLongitudeSpan());
 	        
-			GetEvents req = new GetEvents(
+			GetEventsRequest req = new GetEventsRequest(
 					(double)center.getLatitudeE6() / 1E6, 
 					(double)center.getLongitudeE6() / 1E6, 
 					maxSpan/1E6*5);
 			try {
-				connect.SendSimpleRequest(req, new MapDataReceiver());
+				MetooServices.Request(req, EventListAnswer.class, new MapDataReceiver());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -176,32 +185,46 @@ public class NavActivity extends MapActivity
 		
 	}
 	
-	class MapDataReceiver implements IAsyncTaskNotifyer<String, String, String> {
+	
+	/**
+	 * Внутренний объект-получатель ответа с сервера со списком событий в
+	 * запрошенном радиусе
+	 * @author theurgist
+	 */
+	class MapDataReceiver implements IAsyncTaskNotifyer<EventListAnswer, String, String> {
 
-		public void onSuccess(String Result) {
-			XmlAnswer ans = new XmlAnswer();
-			ans.ParseMessage(Result);
+		public void onSuccess(EventListAnswer Result) {
+
+//			PageParser parser = new PageParser();
+//			EventListAnswer answ = new EventListAnswer(Result, parser);
 			
-			
-			if (ans.type == "events") {
-				XmlDoc page = new XmlDoc();
-				page.LoadFromString(Result, true);
-				TaggedDoc tagged = new TaggedDoc(page);
-				PageParser parser = new PageParser();
-				
-				EventList incoming = new EventList();
-				incoming.serialize(tagged.getNode(), parser);
-				meetingsCache.MergeNewEvents(incoming);
+			if (Result.GetError() != null) {
+				services.ShowInfoAlert("Ошибка", Result.GetError());
+			} else {
+				meetingsCache.MergeNewEvents(Result.GetEvents());
 			}
-			else
-				services.ShowAlert("Ошибка", "MapDataReceiver: пришел ответ типа" + ans.type);
-			
-			
 		}
 		public void onError(String Reason) {
-			services.ShowAlert("Ошибка", "MapDataReceiver: " + Reason);
+			services.ShowToast("Ошибка в модуле MapDataReceiver: " + Reason);
 		}
 		public void onProgress(String Message) {
 		}
+	}
+
+	/**
+	 * Перехватчик
+	 * @author theurgist
+	 *
+	 */
+	class LongTapOnMap implements IOnLongPressListener {
+
+		@Override
+		public void onLongpress(GeoPoint longpressLocation) {
+
+        	Intent myIntent = new Intent(NavActivity.this, CreateEventActivity.class);
+       	 	startActivity(myIntent);
+        	AndroidAppLog.E("Launching activity for event creating");
+		}
+		
 	}
 }

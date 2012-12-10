@@ -9,14 +9,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.metoo.R;
-import com.metoo.common.AppLog;
 import com.metoo.common.AppSettings;
+import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
 
 /**
+ * Модель окна настроек
  * @author Theurgist
- *
  */
 public class SettingsLayout extends BaseLayout {
 	Button btnSettingsResetCred;
@@ -53,15 +53,15 @@ public class SettingsLayout extends BaseLayout {
         btnResetSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	AppSettings.ResetSettings(activity.services);
-            	activity.services.ShowAlert("Уведомление", "Все настрйки сброшены на настройки по-умолчанию");
-            	AppLog.W("Настройки сброшены");
+            	activity.services.ShowInfoAlert("Уведомление", "Все настрйки сброшены на настройки по-умолчанию");
+            	AndroidAppLog.W("Настройки сброшены");
             }
         });
         chbEmulationMode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	AppSettings.SetEmulationMode(chbEmulationMode.isChecked());
             	AppSettings.SaveOnDisk(activity.services);
-            	AppLog.W("'TestMode switched to' " + chbEmulationMode.isChecked());
+            	AndroidAppLog.W("'TestMode switched to' " + chbEmulationMode.isChecked());
             }
         });
         
