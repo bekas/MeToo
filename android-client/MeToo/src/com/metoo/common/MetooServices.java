@@ -167,8 +167,9 @@ public final class MetooServices {
 						onError(answer.GetError());
 					}
 					
-					// Если пришла нулевая сессия - значит наша недействительна.
-					else if (answer.GetSessionId() <= 0) {
+					else if (answer.GetRequestResult() == 110) {
+						// Ошибка: сессия недействительна
+						
 						// Если попытка перелогинивания не была потрачена - отправляем запрос!
 						if (!reloginWasAlreadyMade) {
 							isRelogining = true;
