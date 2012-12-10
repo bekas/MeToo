@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
+'''
 Модуль с тестами для проекта
-"""
-
+'''
 from django.test import TestCase
 from sessionManager import SessionManager
 from userManager import UserManager
@@ -10,8 +9,9 @@ from eventManager import EventManager
 from MeTooManager import MeTooManager
 from errorManager import ErrorManager
 from django.db import models
-from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place
-
+from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place, City, Country, EventType, MetooType
+from datetime import datetime, date, time
+	
 class AuthTest(TestCase):
 	'''
 	Класс тестов авторизации пользователя
@@ -26,6 +26,7 @@ class AuthTest(TestCase):
 		user.save()
 		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
 		user.save()
+		SessionManager.stopTimer()
 		
 	def testGoodData(self):
 		'''
@@ -117,6 +118,7 @@ class SessionTest(TestCase):
 		user.save()
 		self.userId2 = user.pk
 		#print("User2=",user.pk)
+		SessionManager.stopTimer()
 
 	def testGetGoodSessionID(self):
 		'''
@@ -125,7 +127,7 @@ class SessionTest(TestCase):
 		sessionId1 = SessionManager.getSessionID(self.userId1)
 		sessionId2 = SessionManager.getSessionID(self.userId2)
 		
-		print("sesID=",sessionId1)
+		#print("sesID=",sessionId1)
 		self.assertTrue(sessionId1 > 0)
 		self.assertTrue(sessionId2 > 0)
 
@@ -167,7 +169,7 @@ class SessionTest(TestCase):
 		userId = SessionManager.getUserId(sessionId)
 		self.assertEqual(userId, goodUserID)
 		
-        def testGetBadUserID(self):
+	def testGetBadUserID(self):
 		'''
 		Тест получения ID юзера - несуществующая сессия
 		'''
@@ -176,53 +178,64 @@ class SessionTest(TestCase):
 		#userId2 = SessionManager.getUserId("number")
 		self.assertTrue(userId1 < 0)
 		self.assertTrue(userId2 < 0)
-		#self.assertTrue(userId3 < 0)
+		#self.assertTrue(userId3 < 0)	
 
-class MeTooTest(TestCase):
+class MetooManagerTest(TestCase):
 	'''
-	Класс тестов работы с событиями
+	Класс тестов похода на события
 	'''
 	def setUp(self):
 		'''
 		Метод начальной инициализации
 		'''
+		#print("I`m SetUp and i know it")
 		photo = Photo(photo = 'this is a photo, believe me ;)')
 		photo.save()
 		user = User(login='test',password='test',avatarId = photo, rating = 0)
 		user.save()
-		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
-		user.save()
-		place = Place(y=0, x=0, name='PlaceName')
+		self.userId = user.pk
+		country = Country(name = "Russia")
+		country.save()
+		city = City(name = "Moscow")
+		city.save()
+		place = Place(longitude=0, latitude=0, name='PlaceName',cityId = city,countryId = country)
 		place.save()
-		event = Event(creatorId=user, name='EventName', time = '25-01-12 12:23', description = '', photoId = photo, eventTypeId_id = 1, PlaceId=place)
-                event.save()
-                metoo = Metoo(userId=user,eventId_id = event, metooTypeId_id = 1)
+		eventType = EventType(name = "meeting",description = "")
+		eventType.save()
+		event = Event(creatorId=user, name='EventName', time = datetime.now(), description = '', photoId = photo, eventTypeId = eventType, PlaceId=place)
+		event.save()
+		self.eventId = event.pk
+		metooType = MetooType(name = "go")
+		metooType.save()
+		metoo = Metoo(userId=user,eventId = event, metooTypeId = metooType)
 		metoo.save()
+		self.metooId = metoo.pk
+		SessionManager.stopTimer()
 
-	def getUsersbyEventBadSession(self):
-                '''
+	def testGetUsersbyEventBadSession(self):
+		'''
 		Тест получения юзеров по событию - несуществующая сессия
 		'''
-                listUsers = MeTooManager.getUsersbyEvent(145,1)
-                self.assertEqual(listUsers['result'], 501)
+		listUsers = MeTooManager.getUsersbyEvent(-1,self.eventId)
+		self.assertEqual(listUsers['result'], 501)
 
-        def getUsersbyBadEvent(self):
-                '''
+	def testGetUsersbyBadEvent(self):
+		'''
 		Тест получения юзеров по событию - несуществующее событие
 		'''
-                sessionId = SessionManager.createSessionID(1)
-                listUsers = MeTooManager.getUsersbyEvent(sessionId,14)
-                self.assertEqual(listUsers['result'], 502)
+		sessionId = SessionManager.getSessionID(self.userId)
+		listUsers = MeTooManager.getUsersbyEvent(sessionId,self.eventId+1)
+		self.assertEqual(listUsers['result'], 502)
 
-        def getUsersbyEventPositive(self):
-                '''
+	def testGetUsersbyEventPositive(self):
+		'''
 		Тест получения юзеров по событию - позитивный тест
 		'''
-                sessionId = SessionManager.createSessionID(1)
-                listUsers = MeTooManager.getUsersbyEvent(sessionId,1)
-                self.assertEqual(listUsers['result'], 500)
-                
-		
+		sessionId = SessionManager.getSessionID(self.userId)
+		listUsers = MeTooManager.getUsersbyEvent(sessionId,self.eventId)
+		self.assertEqual(listUsers['result'], 500)
+
+                	
 class EventTest(TestCase):
 	'''
 	Класс тестов работы с событиями
@@ -237,14 +250,15 @@ class EventTest(TestCase):
 		user.save()
 		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
 		user.save()
-		sessionId = SessionManager.createSessionID(1)
+		self.sessionId = SessionManager.getSessionID(1)
+		SessionManager.stopTimer()
 
 	def testCreateGoodEvent(self):
 		'''
 		Тест получения ID события - корректные данные
 		'''
 		eventArgs = {'name': 'testName', 'description': 'testDescription'}
-		eventId = EventManager.createEvent(1, eventArgs)
+		eventId = EventManager.createEvent(self.sessionId, eventArgs)
 		self.assertTrue(eventId > 0)
 
 	def testCreateBadSessionEvent(self):
@@ -252,8 +266,8 @@ class EventTest(TestCase):
 		Тест получения ID события - несуществующая сессия
 		'''
 		eventArgs = {'name': 'testName', 'description': 'testDescription'}
-		eventId = EventManager.createEvent(17, eventArgs)
-		self.assertTrue(eventId < 0)
+		res, eventId = EventManager.createEvent(self.sessionId+1, eventArgs)
+		self.assertTrue(res == ErrorManager.AuthNothing)
 
 	def testCreateBadArgsEvent(self):
 		'''
@@ -267,30 +281,30 @@ class EventTest(TestCase):
 		eventArgs5 = {'longitude': -7}
 		#eventArgs6 = {'latitude': 'number'}
 		eventArgs7 = {'latitude': -7}
-		eventId1 = EventManager.createEvent(1, eventArgs1)
+		res1,eventId1 = EventManager.createEvent(self.sessionId, eventArgs1)
 		#eventId2 = EventManager.createEvent(1, eventArgs2)
-		eventId3 = EventManager.createEvent(1, eventArgs3)
+		res2,eventId3 = EventManager.createEvent(self.sessionId, eventArgs3)
 		#eventId4 = EventManager.createEvent(1, eventArgs4)
-		eventId5 = EventManager.createEvent(1, eventArgs5)
+		res3,eventId5 = EventManager.createEvent(self.sessionId, eventArgs5)
 		#eventId6 = EventManager.createEvent(1, eventArgs6)
-		eventId7 = EventManager.createEvent(1, eventArgs7)
-		self.assertTrue(eventId1 < 0)
+		res4,eventId7 = EventManager.createEvent(self.sessionId, eventArgs7)
+		self.assertTrue(res1 != ErrorManager.Success)
 		#self.assertTrue(eventId2 < 0)
-		self.assertTrue(eventId3 < 0)
+		self.assertTrue(res2 != ErrorManager.Success)
 		#self.assertTrue(eventId4 < 0)
-		self.assertTrue(eventId5 < 0)
+		self.assertTrue(res3 != ErrorManager.Success)
 		#self.assertTrue(eventId6 < 0)
-		self.assertTrue(eventId7 < 0)
+		self.assertTrue(res4 != ErrorManager.Success)
 
 	def testGetBadSessionEvent(self):
 		'''
 		Тест получения событий - несуществующая сессия
 		'''
 		conditionals = {'latitude': 0, 'longtitude': 0, 'radius': 0}
-		eventList = EventManager.createEvent(111, conditionals)
-		self.assertTrue(eventList == [])
+		res, eventList = EventManager.createEvent(self.sessionId + 1, conditionals)
+		self.assertTrue(res == ErrorManager.AuthNothing)
 		
-        def testGetBadArgsEvent(self):
+	def testGetBadArgsEvent(self):
 		'''
 		Тест получения событий - некорректные условия
 		'''
@@ -299,11 +313,11 @@ class EventTest(TestCase):
 		conditionals2 = {'latitude': -1, 'longtitude': 0, 'radius': 0}
 		conditionals3 = {'latitude': 0, 'longtitude': -2, 'radius': 0}
 		conditionals4 = {'latitude': 0, 'longtitude': 0, 'radius': -5}
-		eventList1 = EventManager.createEvent(1, conditionals1)
-		eventList2 = EventManager.createEvent(1, conditionals2)
-		eventList3 = EventManager.createEvent(1, conditionals3)
-		eventList4 = EventManager.createEvent(1, conditionals4)
-		self.assertTrue(eventList1 == [])
-		self.assertTrue(eventList2 == [])
-		self.assertTrue(eventList3 == [])
-		self.assertTrue(eventList4 == [])
+		res1, eventList1 = EventManager.createEvent(self.sessionId, conditionals1)
+		res2, eventList2 = EventManager.createEvent(self.sessionId, conditionals2)
+		res3, eventList3 = EventManager.createEvent(self.sessionId, conditionals3)
+		res4, eventList4 = EventManager.createEvent(self.sessionId, conditionals4)
+		self.assertTrue(res1 != ErrorManager.Success)
+		self.assertTrue(res2 != ErrorManager.Success)
+		self.assertTrue(res3 != ErrorManager.Success)
+		self.assertTrue(res4 != ErrorManager.Success)

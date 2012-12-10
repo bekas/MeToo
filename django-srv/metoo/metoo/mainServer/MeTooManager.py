@@ -9,6 +9,7 @@ from configurationManager import ConfigurationManager
 from sessionManager import SessionManager
 from eventManager import EventManager
 
+
 class MeTooManager:
 	'''
 	Класс, позволяющий узнать, кто идет на конкретное событие,\n
@@ -21,7 +22,7 @@ class MeTooManager:
 		'''
 		result = {}
 		userId = SessionManager.getUser(sessionId)
-		if(userId != -1):
+		if(userId != None):
 			if(Metoo.objects.filter(userId=userId,eventId = eventId).exists()):
 				metoo = Metoo.objects.filter(eventId = eventId)
 				result['users'] = []
