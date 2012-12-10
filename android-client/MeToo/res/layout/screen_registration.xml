@@ -5,6 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/ImageView02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/metoo" />
+
+    <ImageView
+        android:id="@+id/ImageView01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/metoo" />
 
     <ImageView
         android:id="@+id/imgLoginLogo"
@@ -13,14 +26,8 @@
         android:contentDescription="@string/logo_description"
         android:src="@drawable/metoo" />
 
-
-
-
-
-
-
     <TextView
-        android:id="@+id/lblLoginProblem"
+        android:id="@+id/lblError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -28,17 +35,6 @@
         android:text="@string/wrong_login_passwd"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/error_color" />
-
-
-
-    <TextView
-        android:id="@+id/lblLoginOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/wrong_login_passwd"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/ok_color" />
 
 
 
@@ -84,17 +80,19 @@
         android:inputType="textPassword" >
     </EditText>
 
-
-
-
-
+    <EditText
+        android:id="@+id/etConfirmPasswd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/button_top_padding"
-        android:text="@string/login"
+        android:text="@string/registrate"
         android:visibility="visible" />
 
 

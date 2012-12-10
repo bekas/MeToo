@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--uses-permission android:name="android.permission.DEVICE_POWER" /-->
+    <!-- uses-permission android:name="android.permission.DEVICE_POWER" / -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -53,6 +53,10 @@
         <activity
             android:name="com.metoo.activities.CreateEventActivity"
             android:label="@string/title_activity_create_event" >
+        </activity>
+        <activity
+            android:name="com.metoo.activities.UserRegistrationActivity"
+            android:label="@string/title_activity_user_registration" >
         </activity>
     </application>
 

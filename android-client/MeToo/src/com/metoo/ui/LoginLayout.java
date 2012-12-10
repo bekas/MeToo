@@ -7,6 +7,8 @@ import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.srvlink.answers.LoginAnswer;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
+import com.metoo.ui.validators.PasswordValidator;
+import com.metoo.ui.validators.UsernameValidator;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,8 +32,8 @@ public class LoginLayout extends BaseLayout {
 	TextView lblLoginOk;
 	ImageView imgLoginLogo;
 
-	LoginValidator loginValidator;
-	PasswdValidator passwdValidator;
+	UsernameValidator usernameValidator;
+	PasswordValidator passwdValidator;
 	
 	
 	public LoginLayout(BaseActivity parent, BaseLayout previous) {
@@ -58,15 +60,15 @@ public class LoginLayout extends BaseLayout {
         lblLoginOk = (TextView)activity.findViewById(R.id.lblLoginOk);
         imgLoginLogo = (ImageView)activity.findViewById(R.id.imgLoginLogo);
         
-        loginValidator = new LoginValidator();
-        passwdValidator = new PasswdValidator();
+        usernameValidator = new UsernameValidator();
+        passwdValidator = new PasswordValidator();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	sendLoginData();
             }
         });
 
-        etUsername.addTextChangedListener(loginValidator);
+        etUsername.addTextChangedListener(usernameValidator);
 		etUsername.setEnabled(true);
         etPasswd.addTextChangedListener(passwdValidator);
 		etPasswd.setEnabled(true);
@@ -86,7 +88,7 @@ public class LoginLayout extends BaseLayout {
 	 */
 	@Override
 	public void Deactivate() {
-		etUsername.removeTextChangedListener(loginValidator);
+		etUsername.removeTextChangedListener(usernameValidator);
 		etPasswd.removeTextChangedListener(passwdValidator);
 
         btnLogin.setVisibility(View.GONE);
@@ -103,17 +105,18 @@ public class LoginLayout extends BaseLayout {
 	}
 	
 	/**
-	 * Is called by validators after inputs change
+	 * Вызывается валидатором при изменении полей
 	 */
 	void ValidateInput() {
 		lblLoginProblem.setVisibility(View.GONE);
-		if (loginValidator.IsValid() && passwdValidator.IsValid()) {
+		if (usernameValidator.IsValid() && passwdValidator.IsValid()) {
 			btnLogin.setVisibility(View.VISIBLE);
 		}
 		else {
 			btnLogin.setVisibility(View.GONE);
 		}
 	}
+	
 	void proceedError(String msg) {
 		lblLoginProblem.setText(msg);
 		lblLoginProblem.setVisibility(View.VISIBLE);
@@ -154,39 +157,6 @@ public class LoginLayout extends BaseLayout {
 	}
 	
 	
-	/**
-	 * Validates username field
-	 * @author Theurgist
-	 *
-	 */
-	class LoginValidator implements TextWatcher {
-		private boolean _isValid = false;
-		public boolean IsValid() { return _isValid; }
-		
-		public void afterTextChanged(Editable arg0) {
-			_isValid = arg0.length() > 0;
-			ValidateInput();
-		}
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-		public void onTextChanged(CharSequence s, int start, int before, int count) { }
-	}
-
-	/**
-	 * Validates password field
-	 * @author Theurgist
-	 *
-	 */
-	class PasswdValidator implements TextWatcher {
-		private boolean _isValid = false;
-		public boolean IsValid() { return _isValid; }
-		
-		public void afterTextChanged(Editable arg0) {
-			_isValid = arg0.length() > 0;
-			ValidateInput();
-		}
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-		public void onTextChanged(CharSequence s, int start, int before, int count) { }
-	}
 
 	/**выполнять
 	 * Notifyes about login request results

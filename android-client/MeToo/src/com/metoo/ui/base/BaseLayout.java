@@ -4,20 +4,33 @@ import android.view.KeyEvent;
 
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 
+/**
+ * Базовый класс модели вида. Потомки инкапсулируют всю логику работы интерфейса.
+ * @author theurgist
+ *
+ */
 public abstract class BaseLayout implements IAsyncTaskNotifyer<String, String, String>
 {	
 	protected BaseActivity activity = null;
 	protected BaseLayout _previous = null;
 	
-	protected boolean _isPreloaded = false;
 	public boolean IsPreloaded() {return _isPreloaded;}
+	protected boolean _isPreloaded = false;
 	
-	// Is called to launch rendering sequence
+	/**
+	 * Запускается при переходе вида в активный режим
+	 */
 	public abstract void Activate();
-	// Is called to stop any rendering routines
+	/**
+	 * Вызывается для остановки всех процессов, не нужных в фоновом режиме
+	 */
 	public abstract void Deactivate();
-	// Contains all preloading logic
+	/**
+	 * Содержит всю логику предзагрузки
+	 * @return Успешность предзагрузки
+	 */
 	protected abstract Boolean preloadRoutine();
+	
 	
 	public BaseLayout(BaseActivity parent, BaseLayout previous) {
 		activity = parent;
