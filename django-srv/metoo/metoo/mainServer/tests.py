@@ -26,6 +26,7 @@ class AuthTest(TestCase):
 		user.save()
 		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
 		user.save()
+		SessionManager.stopTimer()
 		
 	def testGoodData(self):
 		'''
@@ -117,6 +118,7 @@ class SessionTest(TestCase):
 		user.save()
 		self.userId2 = user.pk
 		#print("User2=",user.pk)
+		SessionManager.stopTimer()
 
 	def testGetGoodSessionID(self):
 		'''
@@ -176,8 +178,8 @@ class SessionTest(TestCase):
 		#userId2 = SessionManager.getUserId("number")
 		self.assertTrue(userId1 < 0)
 		self.assertTrue(userId2 < 0)
-		#self.assertTrue(userId3 < 0)
-		
+		#self.assertTrue(userId3 < 0)	
+
 class MeTooTest(TestCase):
 	'''
 	Класс тестов работы с событиями
@@ -186,6 +188,7 @@ class MeTooTest(TestCase):
 		'''
 		Метод начальной инициализации
 		'''
+		print("I`m SetUp and i know it")
 		photo = Photo(photo = 'this is a photo, believe me ;)')
 		photo.save()
 		user = User(login='test',password='test',avatarId = photo, rating = 0)
@@ -198,6 +201,7 @@ class MeTooTest(TestCase):
 		event.save()
 		metoo = Metoo(userId=user,eventId_id = event, metooTypeId_id = 1)
 		metoo.save()
+		SessionManager.stopTimer()
 
 	def getUsersbyEventBadSession(self):
 		'''
