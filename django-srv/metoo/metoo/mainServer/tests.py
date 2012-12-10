@@ -195,32 +195,32 @@ class MeTooTest(TestCase):
 		place = Place(y=0, x=0, name='PlaceName')
 		place.save()
 		event = Event(creatorId=user, name='EventName', time = '25-01-12 12:23', description = '', photoId = photo, eventTypeId_id = 1, PlaceId=place)
-                event.save()
-                metoo = Metoo(userId=user,eventId_id = event, metooTypeId_id = 1)
+		event.save()
+		metoo = Metoo(userId=user,eventId_id = event, metooTypeId_id = 1)
 		metoo.save()
 
 	def getUsersbyEventBadSession(self):
-                '''
+		'''
 		Тест получения юзеров по событию - несуществующая сессия
 		'''
-                listUsers = MeTooManager.getUsersbyEvent(145,1)
-                self.assertEqual(listUsers['result'], 501)
+		listUsers = MeTooManager.getUsersbyEvent(145,1)
+		self.assertEqual(listUsers['result'], 501)
 
-        def getUsersbyBadEvent(self):
-                '''
+	def getUsersbyBadEvent(self):
+		'''
 		Тест получения юзеров по событию - несуществующее событие
 		'''
-                sessionId = SessionManager.createSessionID(1)
-                listUsers = MeTooManager.getUsersbyEvent(sessionId,14)
-                self.assertEqual(listUsers['result'], 502)
+		sessionId = SessionManager.createSessionID(1)
+		listUsers = MeTooManager.getUsersbyEvent(sessionId,14)
+		self.assertEqual(listUsers['result'], 502)
 
-        def getUsersbyEventPositive(self):
-                '''
+	def getUsersbyEventPositive(self):
+		'''
 		Тест получения юзеров по событию - позитивный тест
 		'''
-                sessionId = SessionManager.createSessionID(1)
-                listUsers = MeTooManager.getUsersbyEvent(sessionId,1)
-                self.assertEqual(listUsers['result'], 500)
+		sessionId = SessionManager.createSessionID(1)
+		listUsers = MeTooManager.getUsersbyEvent(sessionId,1)
+		self.assertEqual(listUsers['result'], 500)
                 
 		
 class EventTest(TestCase):
