@@ -14,7 +14,8 @@ class CheckSessionWorker(Worker):
 	test = 0
 	
 	def __init__(self):
-		self.doWork(ConfigurationManager.loopDeleteSessionInterval())
+		a = 1+1
+		#self.doWork(ConfigurationManager.loopDeleteSessionInterval())
 	
 	def work(self):
 		'''
@@ -40,6 +41,8 @@ class SessionManager:
 	'''
 	checkSessionWorker = CheckSessionWorker()
 	
+	timerWorks = False
+	
 	@staticmethod
 	def stopTimer():
 		SessionManager.checkSessionWorker.stop()
@@ -47,6 +50,12 @@ class SessionManager:
 	@staticmethod
 	def startTimer(delay):
 		SessionManager.checkSessionWorker.start(delay)
+	
+	@staticmethod
+	def startTimerIfNot():
+		if not timerWorks:
+			timerWorks = True
+			startTimer(ConfigurationManager.loopDeleteSessionInterval())	
 	
 	@staticmethod
 	def __init__():
@@ -62,6 +71,7 @@ class SessionManager:
 		'''
 		Метод для получения id сессии по id пользователя
 		'''
+		SessionManager.startTimerIfNot()
 		if(User.objects.filter(pk = userId).exists()):
 			#print("Exists")
 			return SessionManager.createSession(User.objects.get(pk = userId)) 

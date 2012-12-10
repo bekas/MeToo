@@ -56,9 +56,9 @@
             
   <div class="section" id="chapter-4-message-manager">
 <h1>CHAPTER 4 Message manager<a class="headerlink" href="#chapter-4-message-manager" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>Система управления пакетами и сообщениями<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-mainServer.messageManager"></span><p>Модуль, отвечающий за работу с событиями.</p>
+<div class="section" id="module-mainServer.messageManager">
+<span id="id1"></span><h2>Система управления пакетами и сообщениями<a class="headerlink" href="#module-mainServer.messageManager" title="Permalink to this headline">¶</a></h2>
+<p>Модуль, отвечающий за работу с событиями.</p>
 <dl class="class">
 <dt id="mainServer.messageManager.MessageManager">
 <em class="property">class </em><tt class="descclassname">mainServer.messageManager.</tt><tt class="descname">MessageManager</tt><a class="headerlink" href="#mainServer.messageManager.MessageManager" title="Permalink to this definition">¶</a></dt>
@@ -115,8 +115,26 @@
 
 <dl class="staticmethod">
 <dt id="mainServer.messageManager.MessageManager.eventsContext">
-<em class="property">static </em><tt class="descname">eventsContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.eventsContext" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><tt class="descname">eventsContext</tt><big>(</big><em>agentMessage={}</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.eventsContext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Контекст пакета запроса событий</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.friendAddContext">
+<em class="property">static </em><tt class="descname">friendAddContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.friendAddContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета добавления друзей</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.friendDeleteContext">
+<em class="property">static </em><tt class="descname">friendDeleteContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.friendDeleteContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета удаления друзей</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.getFriendsContext">
+<em class="property">static </em><tt class="descname">getFriendsContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.getFriendsContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст пакета получения списка друзей</p>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -168,6 +186,12 @@
 </dd></dl>
 
 <dl class="staticmethod">
+<dt id="mainServer.messageManager.MessageManager.statContext">
+<em class="property">static </em><tt class="descname">statContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.statContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Контекст cтраницы сайта &#8220;What is it?&#8221;</p>
+</dd></dl>
+
+<dl class="staticmethod">
 <dt id="mainServer.messageManager.MessageManager.testContext">
 <em class="property">static </em><tt class="descname">testContext</tt><big>(</big><em>agentMessage</em><big>)</big><a class="headerlink" href="#mainServer.messageManager.MessageManager.testContext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Контекст пакета тестирования</p>
@@ -199,7 +223,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">CHAPTER 4 Message manager</a><ul>
-<li><a class="reference internal" href="#id1">Система управления пакетами и сообщениями</a></li>
+<li><a class="reference internal" href="#module-mainServer.messageManager">Система управления пакетами и сообщениями</a></li>
 </ul>
 </li>
 </ul>

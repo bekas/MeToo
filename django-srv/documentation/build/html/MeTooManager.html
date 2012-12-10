@@ -56,35 +56,35 @@
             
   <div class="section" id="chapter-8-metoo-manager">
 <h1>CHAPTER 8 MeToo manager<a class="headerlink" href="#chapter-8-metoo-manager" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>Система управления походами на событие<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-mainServer.MeTooManager"></span><p>Модуль, отвечающий за работу с походами на события.</p>
+<div class="section" id="module-mainServer.MeTooManager">
+<span id="id1"></span><h2>Система управления походами на событие<a class="headerlink" href="#module-mainServer.MeTooManager" title="Permalink to this headline">¶</a></h2>
+<p>Модуль, отвечающий за работу с походами на события.</p>
 <dl class="class">
 <dt id="mainServer.MeTooManager.MeTooManager">
 <em class="property">class </em><tt class="descclassname">mainServer.MeTooManager.</tt><tt class="descname">MeTooManager</tt><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Класс, позволяющий узнать, кто идет на конкретное событие,</p>
 <p>пойти самому, изменить тип похода или отказаться от события</p>
-<dl class="method">
+<dl class="staticmethod">
 <dt id="mainServer.MeTooManager.MeTooManager.delMeToo">
-<tt class="descname">delMeToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.delMeToo" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><tt class="descname">delMeToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.delMeToo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Метод отказа от события</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="staticmethod">
 <dt id="mainServer.MeTooManager.MeTooManager.getUsersbyEvent">
-<tt class="descname">getUsersbyEvent</tt><big>(</big><em>sessionId</em>, <em>eventId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.getUsersbyEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><tt class="descname">getUsersbyEvent</tt><big>(</big><em>sessionId</em>, <em>eventId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.getUsersbyEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Метод, позволяющий узнать, кто идет на конкретное событие</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="staticmethod">
 <dt id="mainServer.MeTooManager.MeTooManager.meToo">
-<tt class="descname">meToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em>, <em>metooTypeId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.meToo" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><tt class="descname">meToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em>, <em>metooTypeId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.meToo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Метод, для того, чтобы пойти на событие</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="staticmethod">
 <dt id="mainServer.MeTooManager.MeTooManager.modMeToo">
-<tt class="descname">modMeToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em>, <em>metooTypeId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.modMeToo" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><tt class="descname">modMeToo</tt><big>(</big><em>sessionId</em>, <em>eventId</em>, <em>metooTypeId</em><big>)</big><a class="headerlink" href="#mainServer.MeTooManager.MeTooManager.modMeToo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Метод для измения типа похода</p>
 </dd></dl>
 
@@ -102,7 +102,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">CHAPTER 8 MeToo manager</a><ul>
-<li><a class="reference internal" href="#id1">Система управления походами на событие</a></li>
+<li><a class="reference internal" href="#module-mainServer.MeTooManager">Система управления походами на событие</a></li>
 </ul>
 </li>
 </ul>

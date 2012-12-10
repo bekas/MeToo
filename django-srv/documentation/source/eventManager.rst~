@@ -3,7 +3,7 @@ CHAPTER 7 Event manager
 *******************************************
 
 Система управления событиями
-======
+==============================
 
 .. automodule:: mainServer.eventManager
     :members:

@@ -25,7 +25,11 @@ Contents:
    
    eventManager.rst
     
-   MeTooManager.rst    
+   MeTooManager.rst
+   
+   config.rst    
+   
+   tests.py
 
 Indices and tables
 ==================

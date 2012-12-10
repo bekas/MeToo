@@ -1,10 +1,10 @@
 *******************************************
-CHAPTER 4 Session manager  
+CHAPTER 4 Message manager  
 *******************************************
 
 Система управления пакетами и сообщениями
 ======
 
-.. automodule:: mainServer.SessionManager
+.. automodule:: mainServer.messageManager
     :members:
 

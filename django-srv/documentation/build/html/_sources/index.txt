@@ -28,6 +28,8 @@ Contents:
    MeTooManager.rst
    
    config.rst    
+   
+   tests.rst
 
 Indices and tables
 ==================
