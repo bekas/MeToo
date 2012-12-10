@@ -20,8 +20,8 @@ public class CreateEventAnswer extends MetooServerAnswer {
 		if (error != null)
 			return;
 
-		if (!type.equals("create_event")) {
-			error = "EventListAnswer: wrong answer type (type == " + error + ")";
+		if (!type.equals("event_create")) {
+			error = "EventListAnswer: wrong answer type (type == " + type + ")";
 		} else {
 
 			NodeList nl;

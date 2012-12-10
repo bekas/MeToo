@@ -78,8 +78,9 @@ public abstract class MetooServerAnswer extends ServerAnswer {
 			if ((nl != null) && (nl.getLength() > 0))
 				session_id = Integer.parseInt(nl.item(0).getTextContent());
 			else {
-				error = "MetooServerAnswer: empty 'session_id' field";
-				return;
+				session_id = 0;
+				//error = "MetooServerAnswer: empty 'session_id' field";
+				//return;
 			}
 			
 			nl = parser.XPath("/metoo/result", doc.getNode());
