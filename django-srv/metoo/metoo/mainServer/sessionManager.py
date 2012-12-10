@@ -41,6 +41,14 @@ class SessionManager:
 	checkSessionWorker = CheckSessionWorker()
 	
 	@staticmethod
+	def stopTimer():
+		SessionManager.checkSessionWorker.stop()
+	
+	@staticmethod
+	def startTimer(delay):
+		SessionManager.checkSessionWorker.start(delay)
+	
+	@staticmethod
 	def __init__():
 		'''
 		Конструктор.Запускает очистку сессий.

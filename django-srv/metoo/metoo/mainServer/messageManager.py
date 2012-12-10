@@ -141,7 +141,7 @@ class MessageManager:
 		context = {}
 		context['title'] = 'About us'
 		context['type'] = 'about'
-		context['data'] = 'Some words about us...'
+		context['data'] = 'We are the young little company. И мы хотим захватить этот мир'
 		return context	
 		
 	@staticmethod	

@@ -23,15 +23,24 @@ class Worker:
 	Базовый класс для выполнения переодических действий
 	'''
 	#s = sched.scheduler(time.time, time.sleep)
+	go = True
 	
 	def doWork(self, delay):
 		'''
 		Метод, вызываемый переодически и запускающий метод выполняемого действия
 		'''
-		self.work()
-		Timer(delay, self.doWork, [delay]).start()
+		if self.go:
+			self.work()
+			Timer(delay, self.doWork, [delay]).start()
 		#self.s.enter(delay, 1, self.doWork, (delay))
 		#self.s.run()		
+	
+	def stop(self):
+		self.go = False
+	
+	def start(self,delay):
+		self.go = True
+		self.doWork(delay)
 		
 	def work(self):	
 		'''
