@@ -18,6 +18,7 @@ import android.widget.TabHost.TabSpec;
 import com.metoo.R;
 import com.metoo.activities.NavActivity;
 import com.metoo.activities.SettingsActivity;
+import com.metoo.activities.UserRegistrationActivity;
 import com.metoo.common.AppSettings;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
@@ -40,6 +41,7 @@ public class TestingLayout extends BaseLayout {
 	EditText teRawTextTest;
 	ProgressBar progrBar;
 	Button btnTestSettings;
+	Button btnRegister;
 	Button btnTestLogin;
 	Button btnTestMap;
 	TabHost tabHost;
@@ -63,13 +65,14 @@ public class TestingLayout extends BaseLayout {
         // Get UI alias objects
         progrBar = (ProgressBar)activity.findViewById(R.id.progressBar1);
         btnTestSettings = (Button)activity.findViewById(R.id.btnTestSettings);
+        btnRegister = (Button)activity.findViewById(R.id.btnRegister);
         btnTestLogin = (Button)activity.findViewById(R.id.btnTestLogin);
         btnTestMap = (Button)activity.findViewById(R.id.btnTestMap);
         tabHost = (TabHost)activity.findViewById(R.id.tabHostTest);
         
         tabHost.setup();
-        
- //       tabHost.removeAllViews();
+
+
         
         TabSpec tab1 = tabHost.newTabSpec("Рендер");
         LayoutInflater.from(
@@ -125,7 +128,15 @@ public class TestingLayout extends BaseLayout {
             	AndroidAppLog.W("'TestMap' button pressed");
             }
         });
-
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+            	Intent myIntent = new Intent(activity, UserRegistrationActivity.class);
+           	 	activity.startActivity(myIntent);
+            	AndroidAppLog.W("'Registration' button pressed");
+			}
+		});
         
         // Ui initial tweaks
         teRawTextTest.setEnabled(false);
