@@ -91,8 +91,8 @@ def processRequest(request,typePacket):
 	'''
 	packet = {}
 	packet['agent'] = request.META['HTTP_USER_AGENT']
-	packet['get'] = request.GET
-	packet['post'] = request.POST
+	packet['get'] = request.GET.copy()
+	packet['post'] = request.POST.copy()
 	
 	#TODO >>>>>>>>>
 	#packet['get'] = {}

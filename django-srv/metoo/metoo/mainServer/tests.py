@@ -8,6 +8,7 @@ from sessionManager import SessionManager
 from userManager import UserManager
 from eventManager import EventManager
 from MeTooManager import MeTooManager
+from errorManager import ErrorManager
 from django.db import models
 from models import Metoo, User, UserInterest, UserSocialNetwork, Friend, Photo, Event, Place
 
@@ -32,9 +33,9 @@ class AuthTest(TestCase):
 		'''
 		test_name = "TestUser"
 		test_pass = "test_pass"
-		test_code = 0
-		real_code = UserManager.connectUser(test_name, test_pass)
-		res = real_code > test_code
+		test_code = ErrorManager.Success
+		real_code,result = UserManager.connectUser(test_name, test_pass)
+		res = real_code == test_code
 		self.assertTrue(res)
 
 	def testBadPass(self):
@@ -43,8 +44,8 @@ class AuthTest(TestCase):
 		'''
 		test_name = "TestUser"
 		test_pass = "bad_pass"
-		test_code = -102
-		real_code = UserManager.connectUser(test_name, test_pass)
+		test_code = ErrorManager.AuthBadPass
+		real_code,result = UserManager.connectUser(test_name, test_pass)
 		self.assertEqual(test_code, real_code)
                 
 	def testBadLogin(self):
@@ -53,8 +54,8 @@ class AuthTest(TestCase):
 		'''
 		test_name = "UserNotExist"
 		test_pass = "test_pass"
-		test_code = -101
-		real_code = UserManager.connectUser(test_name, test_pass)
+		test_code = ErrorManager.AuthBadLogin
+		real_code,result = UserManager.connectUser(test_name, test_pass)
 		self.assertEqual(test_code, real_code)
 
 	def testEmptyLogin(self):
@@ -63,8 +64,8 @@ class AuthTest(TestCase):
 		'''
 		test_name = ''
 		test_pass = "test_pass"
-		test_code = -101
-		real_code = UserManager.connectUser(test_name, test_pass)
+		test_code = ErrorManager.AuthBadLogin
+		real_code,result = UserManager.connectUser(test_name, test_pass)
 		self.assertEqual(test_code, real_code)
 
 	def testEmptyPass(self):
@@ -73,8 +74,8 @@ class AuthTest(TestCase):
 		'''
 		test_name = "TestUser"
 		test_pass = ''
-		test_code = -102
-		real_code = UserManager.connectUser(test_name, test_pass)
+		test_code = ErrorManager.AuthBadPass
+		real_code,result = UserManager.connectUser(test_name, test_pass)
 		self.assertEqual(test_code, real_code)
 
 	def testLoginCase(self):
@@ -83,9 +84,9 @@ class AuthTest(TestCase):
 		'''
 		test_name = "testuser"
 		test_pass = "test_pass"
-		test_code = 0
-		real_code = UserManager.connectUser(test_name, test_pass)
-		self.assertTrue(test_code < real_code)
+		test_code = ErrorManager.Success
+		real_code,result = UserManager.connectUser(test_name, test_pass)
+		self.assertTrue(test_code == real_code)
 
 	def testPassCase(self):
 		'''
@@ -93,8 +94,8 @@ class AuthTest(TestCase):
 		'''
 		test_name = "TestUser"
 		test_pass = "Test_Pass"
-		test_code = -102
-		real_code = UserManager.connectUser(test_name, test_pass)
+		test_code = ErrorManager.Success
+		real_code,result = UserManager.connectUser(test_name, test_pass)
 		self.assertEqual(test_code, real_code)
 
 class SessionTest(TestCase):
@@ -105,19 +106,26 @@ class SessionTest(TestCase):
 		'''
 		Метод начальной инициализации
 		'''
+		#print("I`m SetUp and i know it")
 		photo = Photo(photo = 'this is a photo, believe me ;)')
 		photo.save()
 		user = User(login='test',password='test',avatarId = photo, rating = 0)
 		user.save()
+		self.userId1 = user.pk
+		#print("User1=",user.pk)
 		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
 		user.save()
+		self.userId2 = user.pk
+		#print("User2=",user.pk)
 
 	def testGetGoodSessionID(self):
 		'''
 		Тест получения ID сессии - корректные данные
 		'''
-		sessionId1 = SessionManager.getSessionID(1)
-		sessionId2 = SessionManager.getSessionID(2)
+		sessionId1 = SessionManager.getSessionID(self.userId1)
+		sessionId2 = SessionManager.getSessionID(self.userId2)
+		
+		print("sesID=",sessionId1)
 		self.assertTrue(sessionId1 > 0)
 		self.assertTrue(sessionId2 > 0)
 
@@ -125,7 +133,7 @@ class SessionTest(TestCase):
 		'''
 		Тест получения ID сессии - несуществующий юзер
 		'''
-		sessionId1 = SessionManager.getSessionID(4)
+		sessionId1 = SessionManager.getSessionID(self.userId2 + 1)
 		#sessionId2 = SessionManager.getSessionID("number")
 		self.assertTrue(sessionId1 < 0)
 		#self.assertTrue(sessionId2 < 0)
@@ -134,7 +142,7 @@ class SessionTest(TestCase):
 		'''
 		Тест проверки существования сессии - корректные данные
 		'''
-		sessionId = SessionManager.getSessionID(2)
+		sessionId = SessionManager.getSessionID(self.userId2)
 		exist = SessionManager.checkSession(sessionId)
 		self.assertTrue(exist)
 
@@ -154,7 +162,7 @@ class SessionTest(TestCase):
 		'''
 		Тест получения ID юзера - существующая сессия
 		'''
-		goodUserID = 2
+		goodUserID = self.userId2
 		sessionId = SessionManager.getSessionID(goodUserID)
 		userId = SessionManager.getUserId(sessionId)
 		self.assertEqual(userId, goodUserID)

@@ -54,7 +54,12 @@ class SessionManager:
 		'''
 		Метод для получения id сессии по id пользователя
 		'''
-		return SessionManager.createSession(User.objects.get(pk = userId)) 
+		if(User.objects.filter(pk = userId).exists()):
+			#print("Exists")
+			return SessionManager.createSession(User.objects.get(pk = userId)) 
+		else:
+			#print("Not exisits")
+			return -1
 	
 	@staticmethod
 	def createSession(user):
@@ -64,8 +69,11 @@ class SessionManager:
 		sessionId = -1
 		try:
 			newSession = Session(userId = user, referenceTime = TimeManager.getTime())
+			#print("create")
 			newSession.save()
+			#print("save")
 			sessionId = newSession.pk
+			#print("pk")
 		except:
 			sessionId = -1
 		return sessionId
