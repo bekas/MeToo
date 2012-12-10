@@ -53,9 +53,9 @@ class SessionManager:
 	
 	@staticmethod
 	def startTimerIfNot():
-		if not timerWorks:
-			timerWorks = True
-			startTimer(ConfigurationManager.loopDeleteSessionInterval())	
+		if not SessionManager.timerWorks:
+			SessionManager.timerWorks = True
+			SessionManager.startTimer(ConfigurationManager.loopDeleteSessionInterval())	
 	
 	@staticmethod
 	def __init__():

@@ -191,11 +191,11 @@ class MessageManager:
 		
 		devcontext={}
 		#User
-		
+		'''
 		devcontext['type'] = 'auth'
 		devcontext['login'] = 'new_test_log'
 		devcontext['password'] = 'new_test_pass'
-		
+		'''
 		'''
 		devcontext['type'] = 'registrate'
 		devcontext['login'] = 'new_test_log2'
@@ -255,13 +255,13 @@ class MessageManager:
 	    '''
 	
 		#Event
-		'''
+		
 		devcontext['type'] = 'events'
 		devcontext['session_id'] = '94'
 		devcontext['longitude'] = '37.6'
 		devcontext['latitude'] = '55.6'
 		devcontext['radius'] = '0.3'
-		'''
+		
 		'''
 		devcontext['type'] = 'event_modify'
 		devcontext['session_id'] = 15

@@ -37,7 +37,7 @@
     	  		<id>{{ event.id }}</id>
           		<creator_id>{{ event.creator_id }}</creator_id>
           	    <creator_name>{{ event.creator_name}}</creator_name>
-                <name>{{ event.name}}</name>
+                <name>{{ event.name }}</name>
                 <time>{{ event.date }}</time>
                 <description>{{ event.description }}</description>
                 <photo>{{ event.photo }}</photo>
