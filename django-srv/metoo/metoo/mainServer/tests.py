@@ -167,7 +167,7 @@ class SessionTest(TestCase):
 		userId = SessionManager.getUserId(sessionId)
 		self.assertEqual(userId, goodUserID)
 		
-        def testGetBadUserID(self):
+	def testGetBadUserID(self):
 		'''
 		Тест получения ID юзера - несуществующая сессия
 		'''
@@ -177,7 +177,7 @@ class SessionTest(TestCase):
 		self.assertTrue(userId1 < 0)
 		self.assertTrue(userId2 < 0)
 		#self.assertTrue(userId3 < 0)
-
+		
 class MeTooTest(TestCase):
 	'''
 	Класс тестов работы с событиями
