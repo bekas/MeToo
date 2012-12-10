@@ -2,7 +2,6 @@
 '''
 Модуль с тестами для проекта
 '''
-
 from django.test import TestCase
 from sessionManager import SessionManager
 from userManager import UserManager
@@ -128,7 +127,7 @@ class SessionTest(TestCase):
 		sessionId1 = SessionManager.getSessionID(self.userId1)
 		sessionId2 = SessionManager.getSessionID(self.userId2)
 		
-		print("sesID=",sessionId1)
+		#print("sesID=",sessionId1)
 		self.assertTrue(sessionId1 > 0)
 		self.assertTrue(sessionId2 > 0)
 
@@ -181,16 +180,15 @@ class SessionTest(TestCase):
 		self.assertTrue(userId2 < 0)
 		#self.assertTrue(userId3 < 0)	
 
-
-class GoTest(TestCase):
+class MetooManagerTest(TestCase):
 	'''
-	Класс тестов авторизации пользователя
+	Класс тестов похода на события
 	'''
 	def setUp(self):
 		'''
 		Метод начальной инициализации
 		'''
-		print("I`m SetUp and i know it")
+		#print("I`m SetUp and i know it")
 		photo = Photo(photo = 'this is a photo, believe me ;)')
 		photo.save()
 		user = User(login='test',password='test',avatarId = photo, rating = 0)
@@ -213,23 +211,23 @@ class GoTest(TestCase):
 		metoo.save()
 		self.metooId = metoo.pk
 		SessionManager.stopTimer()
-		
-	def getUsersbyEventBadSession(self):
+
+	def testGetUsersbyEventBadSession(self):
 		'''
 		Тест получения юзеров по событию - несуществующая сессия
 		'''
 		listUsers = MeTooManager.getUsersbyEvent(-1,self.eventId)
 		self.assertEqual(listUsers['result'], 501)
-		
-	def getUsersbyBadEvent(self):
+
+	def testGetUsersbyBadEvent(self):
 		'''
 		Тест получения юзеров по событию - несуществующее событие
 		'''
 		sessionId = SessionManager.getSessionID(self.userId)
 		listUsers = MeTooManager.getUsersbyEvent(sessionId,self.eventId+1)
 		self.assertEqual(listUsers['result'], 502)
-		
-	def getUsersbyEventPositive(self):
+
+	def testGetUsersbyEventPositive(self):
 		'''
 		Тест получения юзеров по событию - позитивный тест
 		'''
