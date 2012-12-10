@@ -217,7 +217,7 @@ class MeTooTest(TestCase):
 		sessionId = SessionManager.createSessionID(1)
 		listUsers = MeTooManager.getUsersbyEvent(sessionId,14)
 		self.assertEqual(listUsers['result'], 502)
-
+		
 	def getUsersbyEventPositive(self):
 		'''
 		Тест получения юзеров по событию - позитивный тест
@@ -242,6 +242,7 @@ class EventTest(TestCase):
 		user = User(login='TestUser',password='test_pass',avatarId = photo, rating = 0)
 		user.save()
 		sessionId = SessionManager.createSessionID(1)
+		SessionManager.stopTimer()
 
 	def testCreateGoodEvent(self):
 		'''
@@ -294,7 +295,7 @@ class EventTest(TestCase):
 		eventList = EventManager.createEvent(111, conditionals)
 		self.assertTrue(eventList == [])
 		
-        def testGetBadArgsEvent(self):
+	def testGetBadArgsEvent(self):
 		'''
 		Тест получения событий - некорректные условия
 		'''
