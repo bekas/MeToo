@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="/home/theurgist/.android-sdk-linux/add-ons/addon-google_apis-google-10/libs/maps.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Android/android-sdk/add-ons/addon-google_apis-google-10/libs/maps.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

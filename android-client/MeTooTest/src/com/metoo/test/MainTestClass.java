@@ -1,9 +1,16 @@
 package com.metoo.test;
 
 
+import org.w3c.dom.NodeList;
+
 import android.test.ActivityUnitTestCase;
 
 import com.metoo.activities.MainActivity;
+import com.metoo.model.EventList;
+import com.metoo.xmlparser.PageParser;
+import com.metoo.xmlparser.TaggedDoc;
+import com.metoo.xmlparser.XmlDoc;
+import com.metoo.xmlparser.XmlDoc.PageException;
 
 // Should try ActivityInstrumentationTestCase2
 public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
@@ -53,19 +60,19 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 		String errorInfo;
 		
 		// Test with right xml
-		XmlAnswer parser = new XmlAnswer();
-		errorInfo = parser.ParseMessage(testRightAnswer);
-		
-		assertNull(errorInfo);
-		assertEquals("234", parser.request_id);
-		assertEquals("auth", parser.type);
-		assertEquals((int)Integer.parseInt("321"), (int)parser.session_id);
-		assertEquals((int)Integer.parseInt("8"), (int)parser.result);
-		
-
-		// Test with wrong xml
-		errorInfo = parser.ParseMessage(testWrongAnswer);
-		assertNotNull(errorInfo);
+//		XmlAnswer parser = new XmlAnswer();
+//		errorInfo = parser.ParseMessage(testRightAnswer);
+//		
+//		assertNull(errorInfo);
+//		assertEquals("234", parser.request_id);
+//		assertEquals("auth", parser.type);
+//		assertEquals((int)Integer.parseInt("321"), (int)parser.session_id);
+//		assertEquals((int)Integer.parseInt("8"), (int)parser.result);
+//		
+//
+//		// Test with wrong xml
+//		errorInfo = parser.ParseMessage(testWrongAnswer);
+//		assertNotNull(errorInfo);
 	}
 	
 	public void testXmlEventAnswer() {
@@ -99,20 +106,35 @@ public class MainTestClass extends ActivityUnitTestCase<MainActivity> {
 	    "  </events>" +
 	    "</metoo>";
 		
-		XmlAnswer parser = new XmlAnswer();
-		String errorInfo = parser.ParseMessage(testAnswer);
+//		XmlAnswer parser = new XmlAnswer();
+//		String errorInfo = parser.ParseMessage(testAnswer);
 		
-//		XmlDoc page = new XmlDoc();
-//		try {
-//			page.LoadFromFile("res/raw/testevents.xml", true);
-//			TaggedDoc tagged = new TaggedDoc(page);
-//			PageParser pageParser = new PageParser();
-//			
-//			//pageParser.ReadFromPage(tagged, Event.class, "/");
-//			
-//		} catch (PageException e) {
-//			e.printStackTrace();
-//		}
+		
+		XmlDoc page = new XmlDoc();
+		try {
+			page.LoadFromFile("res/raw/testevents.xml", true);
+			TaggedDoc tagged = new TaggedDoc(page);
+			PageParser pageParser = new PageParser();
+			
+			//pageParser.ReadFromPage(tagged, Event.class, "/");
+
+			EventList events = new EventList();
+			
+			NodeList nl;
+			String xpath_expr = "/metoo";
+			nl = pageParser.XPath(xpath_expr, tagged.getNode());
+			if (nl != null) {
+				events = new EventList();
+				for(int i = 0; i < nl.getLength(); i++) {
+					events.serialize(nl.item(i), pageParser);
+				}
+			}
+		    System.out.println("XPath on "+xpath_expr+" extracted "+nl.getLength()+" nodes");
+			
+			
+		} catch (PageException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
