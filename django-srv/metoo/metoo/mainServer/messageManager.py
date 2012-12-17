@@ -323,9 +323,9 @@ class MessageManager:
 		devcontext['session_id'] = '9'
 		devcontext['latitude'] = '55.6'
 		devcontext['longitude'] = '37.6'
-		devcontext['name'] = 'AAA_qqф'
+		devcontext['name'] = 'Событие'
 		devcontext['time'] = '31-12-12 23:55'		
-		devcontext['description'] = 'qq_q'	
+		devcontext['description'] = 'Описание_события'	
 		devcontext['photo'] = 'new photo'	
 		devcontext['event_type_id'] = '1'			
 		
