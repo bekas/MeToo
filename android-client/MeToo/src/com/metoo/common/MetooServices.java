@@ -6,6 +6,7 @@ package com.metoo.common;
 import java.lang.reflect.InvocationTargetException;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
 import com.metoo.common.javautils.ClassChecker;
+import com.metoo.model.Event;
 import com.metoo.srvlink.answers.LoginAnswer;
 import com.metoo.srvlink.answers.MetooServerAnswer;
 import com.metoo.srvlink.answers.UserRegistrationAnswer;
@@ -111,6 +112,10 @@ public final class MetooServices {
 	}
 
 	
+	/*
+	public static boolean RequestEventInfo(int Id, IAsyncTaskNotifyer<Event, String, String> callback) {
+		
+	}*/
 	
 	
 	

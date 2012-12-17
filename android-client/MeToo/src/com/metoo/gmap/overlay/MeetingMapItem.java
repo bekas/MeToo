@@ -25,4 +25,7 @@ public class MeetingMapItem extends BaseMapItem {
 		this.meeting = meeting;
 	}
 
+	public Event GetEvent() {
+		return meeting;
+	}
 }

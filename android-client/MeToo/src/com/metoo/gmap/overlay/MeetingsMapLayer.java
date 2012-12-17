@@ -3,7 +3,6 @@ package com.metoo.gmap.overlay;
 import java.util.List;
 
 import com.google.android.maps.MapView;
-import com.google.android.maps.OverlayItem;
 import com.metoo.common.androidutils.AndroServices;
 import com.metoo.model.Event;
 import com.metoo.model.EventList;
@@ -15,8 +14,14 @@ import android.graphics.drawable.Drawable;
  * @author Theurgist
  */
 public class MeetingsMapLayer extends MapItemsLayer {
+	
 	AndroServices services;
 	MapView mapView;
+	
+	/**
+	 * Обратный вызов при нажатии пользователем какого-то оверлея
+	 */
+	IOnItemTap onItemTapped;
 	
 	/**
 	 * Список событий для отображения на карте
@@ -51,10 +56,31 @@ public class MeetingsMapLayer extends MapItemsLayer {
 	 */
 	 @Override
 	 protected boolean onTap(int index) {
-		 OverlayItem item = mOverlays.get(index);
-		 services.ShowInfoAlert(item.getTitle(), item.getSnippet());
-		 return true;
+		BaseMapItem item = mOverlays.get(index);
+		
+		if (onItemTapped != null)
+			onItemTapped.onItemTap(item);
+		else
+			services.ShowInfoAlert(item.getTitle(), item.getSnippet());
+		
+		return true;
 		 
+	 }
+	 
+	 /**
+	  * Регистрация слушателя события тапа по оверлею
+	  * @param listener
+	  */
+	 public void SetOnItemTappedListener(IOnItemTap listener) {
+		 onItemTapped = listener;
+	 }
+	 
+	 /**
+	  * Слушатель события тапа по оверлею
+	  * @author theurgist
+	  */
+	 public interface IOnItemTap {
+		 void onItemTap(BaseMapItem tapped);
 	 }
 	 
 }

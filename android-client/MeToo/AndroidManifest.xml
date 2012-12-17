@@ -58,6 +58,10 @@
             android:name="com.metoo.activities.UserRegistrationActivity"
             android:label="@string/title_activity_user_registration" >
         </activity>
+        <activity
+            android:name="com.metoo.activities.ShowEventActivity"
+            android:label="@string/title_activity_show_event" >
+        </activity>
     </application>
 
 </manifest>

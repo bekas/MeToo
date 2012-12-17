@@ -8,8 +8,10 @@ import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.AndroServices;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.common.androidutils.IAsyncTaskNotifyer;
+import com.metoo.gmap.overlay.BaseMapItem;
 import com.metoo.gmap.overlay.MeetingMapItem;
 import com.metoo.gmap.overlay.MeetingsMapLayer;
+import com.metoo.gmap.overlay.MeetingsMapLayer.IOnItemTap;
 import com.metoo.model.Event;
 import com.metoo.srvlink.answers.EventListAnswer;
 import com.metoo.srvlink.requests.GetEventsRequest;
@@ -54,6 +56,15 @@ public class NavActivity extends MapActivity
 		int[][] bounds = layout.mapView.getBounds();
 		cachedBottomLeft = new GeoPoint(bounds[0][0], bounds[0][1]);
 		cachedTopRight = new GeoPoint(bounds[1][0], bounds[1][1]);
+		
+		meetingsCache.SetOnItemTappedListener(new IOnItemTap() {
+			@Override
+			public void onItemTap(BaseMapItem tapped) {
+            	Intent myIntent = new Intent(NavActivity.this, ShowEventActivity.class);
+            	myIntent.putExtra("eventId", ((MeetingMapItem)tapped).GetEvent().Id);
+           	 	startActivity(myIntent);
+			}
+		});
 
     }
     /**
@@ -86,8 +97,8 @@ public class NavActivity extends MapActivity
 	 * Добавить несколько фейковых встреч в целях тестирования
 	 */
 	private void emulatedSituation() {
-		if (true)
-			return;
+		//if (true)
+		//	return;
 		
 		com.metoo.model.Event meeting1 = new com.metoo.model.Event();
 		meeting1.Id = 999991;
@@ -122,9 +133,9 @@ public class NavActivity extends MapActivity
 		MeetingMapItem overlayitem4 = new MeetingMapItem(meeting4);
 
 		meetingsCache.addOverlay(overlayitem);
-		meetingsCache.addOverlay(overlayitem2);
-		meetingsCache.addOverlay(overlayitem3);
-		meetingsCache.addOverlay(overlayitem4);
+		//meetingsCache.addOverlay(overlayitem2);
+		//meetingsCache.addOverlay(overlayitem3);
+		//meetingsCache.addOverlay(overlayitem4);
 		
 		layout.AddLayer(meetingsCache);
 	}
@@ -178,7 +189,7 @@ public class NavActivity extends MapActivity
 			GetEventsRequest req = new GetEventsRequest(
 					(double)center.getLatitudeE6() / 1E6, 
 					(double)center.getLongitudeE6() / 1E6, 
-					maxSpan/1E6*5);
+					maxSpan/1E6*1.5);
 			try {
 				MetooServices.Request(req, EventListAnswer.class, new MapDataReceiver());
 			} catch (Exception e) {
@@ -223,8 +234,9 @@ public class NavActivity extends MapActivity
 
 		@Override
 		public void onLongpress(GeoPoint longpressLocation) {
-
         	Intent myIntent = new Intent(NavActivity.this, CreateEventActivity.class);
+        	myIntent.putExtra("lat", longpressLocation.getLatitudeE6());
+        	myIntent.putExtra("lng", longpressLocation.getLongitudeE6());
        	 	startActivity(myIntent);
         	AndroidAppLog.E("Launching activity for event creating");
 		}
