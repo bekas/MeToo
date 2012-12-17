@@ -47,9 +47,17 @@ class MessageManager:
 						lambda x:
 							MessageManager.statContext(x),							
 
+					'map':
+						lambda x:
+							MessageManager.mapContext(x),
+
 					'download':
 						lambda x:
 							MessageManager.downloadContext(x),
+
+					'download_client':
+						lambda x:
+							MessageManager.downloadClientContext(x),
 
 					'ping': 
 						lambda x: 
@@ -166,10 +174,22 @@ class MessageManager:
 		context['data'] = 'You can download Android-client there.'
 		return context	
 	
+	
+	@staticmethod	
+	def downloadClientContext(agentMessage):
+		'''
+		Контекст cтраницы сайта "Download"
+		'''
+		context = {}
+		context['title'] = 'Download Android Client'
+		context['type'] = 'download_client'
+		context['data'] = 'SORRY, BUT WE ARE NOT SHARE OUR CLIENT IN Google Play YET :( ....'
+		return context	
+	
 	@staticmethod	
 	def statContext(agentMessage):
 		'''
-		Контекст cтраницы сайта "What is it?"
+		Контекст cтраницы сайта "Statictic"
 		'''
 		context = {}
 		context['title'] = 'Statistic'
@@ -178,6 +198,20 @@ class MessageManager:
 		context['users'] = UserManager.getUserStat()
 		context['events'] = MessageManager.eventsContext()
 		return context	
+	
+	@staticmethod	
+	def mapContext(agentMessage):
+		'''
+		Контекст cтраницы сайта "Event`s Map"
+		'''
+		context = {}
+		context['title'] = 'Event`s Map'
+		context['type'] = 'map'
+		context['data'] = 'On this page you can see event`s map.'
+		context['users'] = UserManager.getUserStat()
+		context['events'] = MessageManager.eventsContext()
+		return context	
+	
 	
 	@staticmethod	
 	def devContext(agentMessage):

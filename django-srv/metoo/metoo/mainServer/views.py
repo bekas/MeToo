@@ -33,6 +33,15 @@ def downloadPage(request):
 	context = MessageManager.createContext(packet['get'])
 	return render(context,packet)
 
+def downloadClientPage(request):
+	'''
+	Метод, возвращающий страницу сайта "Download Client For Android"
+	'''
+	packet = processRequest(request,'download_client')
+	context = MessageManager.createContext(packet['get'])
+	return render(context,packet)
+
+
 def whatPage(request):
 	'''
 	Метод, возвращающий страницу сайта "What is it"
@@ -40,6 +49,16 @@ def whatPage(request):
 	packet = processRequest(request,'what')
 	context = MessageManager.createContext(packet['get'])
 	return render(context,packet)
+
+def mapPage(request):
+	'''
+	Метод, возвращающий страницу сайта "What is it"
+	'''
+	packet = processRequest(request,'map')
+	context = MessageManager.createContext(packet['get'])
+	#return render_to_response('markertest.html',context)
+	return render(context,packet)
+
 
 def devPage(request):
 	'''

@@ -1,0 +1,59 @@
+
+	.box {
+	float: left;
+	margin: 1em;
+	width: 100px;
+	height: 60px;
+	border: 2px solid purple;
+	background-color: white;
+	// box-shadow: 2px 2px 2px #000;
+	border-radius: 5px;
+	line-height: 60px;
+	text-align: center;
+	-webkit-transition:all 1s ease-in-out;
+	-moz-transition:all 1s ease-in-out;
+	-o-transition:all 1s ease-in-out;
+	-ms-transition:all 1s ease-in-out;
+	}
+	.slideright:hover {
+	-webkit-transform:translate(3em,0);
+	-moz-transform:translate(3em,0);
+	-o-transform:translate(3em,0);
+	-ms-transform:translate(3em,0);
+	}
+
+	.rotate:hover {
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	}
+
+	.rounding:hover {
+	border-radius: 100px;
+	}
+
+	.scale:hover {
+	-webkit-transform:scale(2);
+	-moz-transform:scale(2);
+	-o-transform:scale(2);
+	-ms-transform:scale(2);
+	}
+
+	.color:hover {
+	background: red;
+	}
+
+	.skew:hover {
+	-webkit-transform: scale(1.0) skewX(10deg) skewY(10deg);
+	-webkit-transform-origin: 0% 0%;
+	-moz-transform: scale(1.0) skewX(10deg) skewY(10deg);
+	-moz-transform-origin: 0% 0%;
+	-o-transform: scale(1.0) skewX(10deg) skewY(10deg);
+	-o-transform-origin: 0% 0%;
+	-ms-transform: scale(1.0) skewX(10deg) skewY(10deg);
+	-ms-transform-origin: 0% 0%;
+	transform: scale(1.0) skewX(10deg) skewY(10deg);
+	transform-origin: 0% 0%;
+	}
+
