@@ -34,7 +34,7 @@ public final class MetooServices {
 	protected PageParser parser;
 
 	/**
-	 * Инициализация сервисов Metoo
+	 * Инициализация сервисов MeToo
 	 */
 	public static void Initialize() {
 		INSTANCE.connect = new Connector("http", AppSettings.GetSrvUrl()+":"+AppSettings.GetSrvPort());
