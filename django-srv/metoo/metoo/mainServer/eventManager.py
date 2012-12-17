@@ -27,9 +27,11 @@ class EventManager:
 		if SessionManager.checkSession(sessionId):
 			try:
 				userId = SessionManager.getUser(sessionId)
-				eName = 'Noname event'
+		
+				userId = User.objects.get(pk = 1)
+				eName = u'Noname event'
 				eTime = '31-12-12'
-				eDescription = 'No defenition'
+				eDescription = u'No defenition'
 				photo = Photo.objects.get(pk = 1)
 				eEventTypeId = 1
 				eLatitude = 0
@@ -37,31 +39,36 @@ class EventManager:
 				eCountryId = Country.objects.get(pk = 1)
 				eCityId = City.objects.get(pk = 1)
 				eNamePlace = 'Noname place'
-		
+
 				if eventArgs.has_key('name'):
 					eName = eventArgs['name']
-			
+	
 				if eventArgs.has_key('time'):
 					eTime = eventArgs['time']
-			
+	
 				if eventArgs.has_key('description'):
 					eDescription = eventArgs['description']
-			
+	
 				if eventArgs.has_key('photo'):
 					photo = Photo(photo = eventArgs['photo'])
 					photo.save()
 				else:
 					photo = Photo.objects.get(pk = 1)
-			
+	
 				if eventArgs.has_key('event_type_id'):
 					eEventTypeId = int(eventArgs['event_type_id'])
-			
+	
 				if eventArgs.has_key('longitude'):
 					eLongitude = float(eventArgs['longitude'])
-			
+	
 				if eventArgs.has_key('latitude'):
 					eLatitude = float(eventArgs['latitude'])	
+
 		
+				eName = eName.decode('utf-8').replace('_',' ')
+				eDescription = eDescription.decode('utf-8').replace('_',' ')
+		
+				print(eName)
 		
 				place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
 				place.save()
@@ -105,8 +112,8 @@ class EventManager:
 					addEvent['photo'] = event.photoId.photo
 					addEvent['type'] = event.eventTypeId.pk
 					addEvent['type_name'] = event.eventTypeId.name
-					addEvent['latitude'] = event.PlaceId.latitude
-					addEvent['longitude'] = event.PlaceId.longitude
+					addEvent['latitude'] = str(event.PlaceId.latitude)
+					addEvent['longitude'] = str(event.PlaceId.longitude)
 					eventList.append(addEvent)
 			except:
 				result = ErrorManager.EventGetError
@@ -175,6 +182,42 @@ class EventManager:
 			#TODO Вернуть норм ошибку
 			result = 300
 		return result
+	
+	@staticmethod
+	def getEvent(sessionId,eventId):
+		'''
+		Метод получения события по Id
+		'''
+		resEvent = {}
+		if sessionId > 0:
+			userId = SessionManager.getUserId(sessionId)
+		else:
+			userId = 1
+		result = ErrorManager.Success
+		if userId > 0:
+			try:
+				if EventManager.checkEvent(eventId):
+					event = Event.objects.get(pk = eventId)			
+					resEvent['id'] = event.pk
+					resEvent['creator_id'] = event.creatorId.pk
+					resEvent['creator_name'] = event.creatorId.login
+					resEvent['name'] = event.name
+					resEvent['date'] = event.time.strftime('%d-%m-%y %H:%M')
+					resEvent['description'] = event.description
+					resEvent['photo'] = event.photoId.photo
+					resEvent['type'] = event.eventTypeId.pk
+					resEvent['type_name'] = event.eventTypeId.name
+					resEvent['latitude'] = event.PlaceId.latitude
+					resEvent['longitude'] = event.PlaceId.longitude
+				else:
+					result = ErrorManager.EventGetError
+			except:
+				result = ErrorManager.EventGetError 
+		else:
+			result = ErrorManager.AuthNothing
+		return result, resEvent
+		
+		
 		
 	@staticmethod
 	def checkEvent(eventId):

@@ -19,11 +19,11 @@ class ConfigurationManager:
 		'''
 		Метод, возвращающий таймаут удаления старых сессий
 		'''
-		return datetime.timedelta(minutes=1)
+		return datetime.timedelta(minutes=10)
 	
 	@staticmethod	
 	def loopDeleteSessionInterval():
 		'''
 		Метод, возвращающий таймаут цикла удаления старых сессий
 		'''
-		return 60.0
+		return 10 * 60.0

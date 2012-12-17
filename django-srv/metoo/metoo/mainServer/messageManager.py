@@ -90,6 +90,10 @@ class MessageManager:
 					'events':
 						lambda x: 
 							MessageManager.eventsContext(x),
+					
+					'event_get':
+						lambda x: 
+							MessageManager.getEventContext(x),
 		
 					'event_create':
 						lambda x: 
@@ -120,7 +124,11 @@ class MessageManager:
 							MessageManager.modMetooContext(x),
 					'metoo_delete':
 						lambda x:
-							MessageManager.delMetooContext(x),						
+							MessageManager.delMetooContext(x),	
+					'metoo_i':
+						lambda x:
+							MessageManager.iMetooContext(x),			
+										
 					}[agentMessage['type']](agentMessage)	
 		
 		if 'request_id' in agentMessage:
@@ -178,12 +186,12 @@ class MessageManager:
 	@staticmethod	
 	def downloadClientContext(agentMessage):
 		'''
-		Контекст cтраницы сайта "Download"
+		Контекст cтраницы сайта "Download Client"
 		'''
 		context = {}
 		context['title'] = 'Download Android Client'
 		context['type'] = 'download_client'
-		context['data'] = 'SORRY, BUT WE ARE NOT SHARE OUR CLIENT IN Google Play YET :( ....'
+		context['data'] = 'Sorry, our project is still not ready to be published :('
 		return context	
 	
 	@staticmethod	
@@ -211,8 +219,7 @@ class MessageManager:
 		context['users'] = UserManager.getUserStat()
 		context['events'] = MessageManager.eventsContext()
 		return context	
-	
-	
+		
 	@staticmethod	
 	def devContext(agentMessage):
 		'''
@@ -266,11 +273,12 @@ class MessageManager:
 		#MeToo
 		
 		'''
-		devcontext['type'] = 'metoo'
-		devcontext['session_id'] = '94'
-		devcontext['event_id'] = '2'
+		devcontext['type'] = 'metoo_i'
+		devcontext['session_id'] = '9'
+		devcontext['event_id'] = '4'
 		devcontext['metoo_type_id'] = '1'
 		'''
+		
 		'''
 		devcontext['type'] = 'metoo_delete'
 		devcontext['session_id'] = '94'
@@ -289,12 +297,18 @@ class MessageManager:
 	    '''
 	
 		#Event
-		
+		'''		
 		devcontext['type'] = 'events'
 		devcontext['session_id'] = '94'
 		devcontext['longitude'] = '37.6'
 		devcontext['latitude'] = '55.6'
 		devcontext['radius'] = '0.3'
+		'''	
+		'''
+		devcontext['type'] = 'event_get'
+		devcontext['session_id'] = '0'
+		devcontext['event_id'] = '1'
+		'''
 		
 		'''
 		devcontext['type'] = 'event_modify'
@@ -304,17 +318,17 @@ class MessageManager:
 		devcontext['longitude'] = 37.0
 		devcontext['name'] = 'TEST_EVENT2'
 		'''
-		'''
+		
 		devcontext['type'] = 'event_create'
-		devcontext['session_id'] = '94'
+		devcontext['session_id'] = '9'
 		devcontext['latitude'] = '55.6'
 		devcontext['longitude'] = '37.6'
-		devcontext['name'] = 'New Event-2'
+		devcontext['name'] = 'AAA_qqф'
 		devcontext['time'] = '31-12-12 23:55'		
-		devcontext['description'] = 'Some words about..'	
+		devcontext['description'] = 'qq_q'	
 		devcontext['photo'] = 'new photo'	
 		devcontext['event_type_id'] = '1'			
-		'''
+		
 		'''
 		devcontext['type'] = 'event_delete'
 		devcontext['session_id'] = 15
@@ -430,6 +444,29 @@ class MessageManager:
 		context['result'], context['events'] = EventManager.getEvents(int(agentMessage['session_id']),agentMessage)
 		context['count'] = len(context['events'])
 		return context
+		
+		
+	@staticmethod	
+	def getEventContext(agentMessage = {}):
+		'''
+		Контекст пакета запроса события
+		'''
+		context = {}
+		context['type'] = 'event_get'
+		
+		if agentMessage.has_key('session_id'):	
+			agentMessage['session_id'] = int(agentMessage['session_id'])
+		else:
+			agentMessage['session_id'] = 0 #no a magic number =) only a created session...=) bad idea, i know it
+		
+		if agentMessage.has_key('event_id'):	
+			agentMessage['event_id'] = int(agentMessage['event_id'])
+		else:
+			agentMessage['event_id'] = 1 #no a magic number =) only a created session...=) bad idea, i know it
+		
+			
+		context['result'], context['event'] = EventManager.getEvent(int(agentMessage['session_id']),int(agentMessage['event_id']))
+		return context
 	
 	@staticmethod
 	def createEventContext(agentMessage):
@@ -527,7 +564,7 @@ class MessageManager:
 		Контекст пакета запроса отказа на событие
 		'''
 		context = {}
-		context['type'] = 'metoo'	
+		context['type'] = 'metoo_delete'	
 		result = MeTooManager.delMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']))
 		context['result'] = result
 		return context
@@ -538,7 +575,19 @@ class MessageManager:
 		Контекст пакета запроса изменения типа похода на событие
 		'''
 		context = {}
-		context['type'] = 'metoo'	
+		context['type'] = 'metoo_modify'	
 		result = MeTooManager.modMeToo(int(agentMessage['session_id']), int(agentMessage['event_id']), int(agentMessage['metoo_type_id']))
+		context['result'] = result
+		return context
+		
+		
+	@staticmethod	
+	def iMetooContext(agentMessage):
+		'''
+		Контекст пакета запроса иду ли я?
+		'''
+		context = {}
+		context['type'] = 'metoo_i'	
+		result = MeTooManager.meTooI(int(agentMessage['session_id']), int(agentMessage['event_id']))
 		context['result'] = result
 		return context

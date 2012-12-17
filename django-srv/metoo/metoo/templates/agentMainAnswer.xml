@@ -50,6 +50,25 @@
        </events>
     {% endif %}
     
+    
+    {% if type == "event_get" %}
+	<!--Список событий-->
+	  	<event>
+	  		<id>{{ event.id }}</id>
+      		<creator_id>{{ event.creator_id }}</creator_id>
+      	    <creator_name>{{ event.creator_name}}</creator_name>
+            <name>{{ event.name }}</name>
+            <time>{{ event.date }}</time>
+            <description>{{ event.description }}</description>
+            <photo>{{ event.photo }}</photo>
+            <latitude>{{ event.latitude }}</latitude>
+            <longitude>{{ event.longitude }}</longitude>
+         	<type_id>{{ event.type }}</type_id>      
+         	<type_name>{{ event.type_name }}</type_name>          
+         </event>
+    {% endif %}
+    
+    
     {% if type == "users" %}
     <!--Список пользователей-->	
 		<users N = "{{ count }}">

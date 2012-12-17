@@ -39,23 +39,23 @@ class SessionManager:
 	- Проверить, существует ли сессия
 	- Получить userId по сессии
 	'''
-	checkSessionWorker = CheckSessionWorker()
+	#checkSessionWorker = CheckSessionWorker()
 	
 	timerWorks = False
 	
-	@staticmethod
-	def stopTimer():
-		SessionManager.checkSessionWorker.stop()
+	#@staticmethod
+	#def stopTimer():
+	#	SessionManager.checkSessionWorker.stop()
 	
-	@staticmethod
-	def startTimer(delay):
-		SessionManager.checkSessionWorker.start(delay)
+	#@staticmethod
+	#def startTimer(delay):
+	#	SessionManager.checkSessionWorker.start(delay)
 	
-	@staticmethod
-	def startTimerIfNot():
-		if not SessionManager.timerWorks:
-			SessionManager.timerWorks = True
-			SessionManager.startTimer(ConfigurationManager.loopDeleteSessionInterval())	
+	#@staticmethod
+	#def startTimerIfNot():
+	#	if not SessionManager.timerWorks:
+	#		SessionManager.timerWorks = True
+	#		SessionManager.startTimer(ConfigurationManager.loopDeleteSessionInterval())	
 	
 	@staticmethod
 	def __init__():
@@ -71,7 +71,7 @@ class SessionManager:
 		'''
 		Метод для получения id сессии по id пользователя
 		'''
-		SessionManager.startTimerIfNot()
+		#SessionManager.startTimerIfNot()
 		if(User.objects.filter(pk = userId).exists()):
 			#print("Exists")
 			return SessionManager.createSession(User.objects.get(pk = userId)) 

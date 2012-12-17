@@ -108,6 +108,7 @@ def processRequest(request,typePacket):
 	'''
 	Метод обработки запроса
 	'''
+	request.encoding = 'utf-8'
 	packet = {}
 	packet['agent'] = request.META['HTTP_USER_AGENT']
 	packet['get'] = request.GET.copy()

@@ -8,7 +8,7 @@ from timeManager import TimeManager, Worker
 from configurationManager import ConfigurationManager
 from sessionManager import SessionManager
 from eventManager import EventManager
-
+from errorManager import ErrorManager
 
 class MeTooManager:
 	'''
@@ -40,19 +40,57 @@ class MeTooManager:
 			result['result'] = 501
 		return result
 	
+	@staticmethod
+	def meTooUser(sessionId,userId,eventId):
+		'''
+		Метод для того, чтобы узнать, идет ли данный юзер на событие
+		'''
+		userIdL = SessionManager.getUser(sessionId)
+		metooType = -1
+		result = ErrorManager.Success
+		if(userIdL != None):
+			if EventManager.checkEvent(eventId):
+				try:
+					if(Metoo.objects.filter(userId = userId,eventId_id = eventId).exists()):
+						result = ErrorManager.Success
+					else:
+						result = ErrorManager.MeTooNoSuccess
+				except:
+					result = ErrorManager.MeTooError
+			else:
+				result = ErrorManager.EventExistError	
+		else:
+			result = ErrorManager.AuthNothing
+		return result
+		
+	@staticmethod
+	def meTooI(sessionId,eventId):	
+		'''
+		Метод для того, чтобы узнать, идет ли данный юзер на событие
+		'''
+		userId = SessionManager.getUser(sessionId)
+		return MeTooManager.meTooUser(sessionId,userId,eventId)
+		
+	
 	@staticmethod	
 	def meToo(sessionId,eventId,metooTypeId):
 		'''
 		Метод, для того, чтобы пойти на событие
 		'''
 		userId = SessionManager.getUser(sessionId)
-		if(userId != -1):
-			if(not Metoo.objects.filter(userId=userId,eventId_id = eventId).exists()):
-				metoo = Metoo(userId=userId,eventId_id = eventId, metooTypeId_id = metooTypeId)
-				metoo.save()
-			result = 500
+		if(userId != None):
+			if EventManager.checkEvent(eventId):
+				try:
+					if(not Metoo.objects.filter(userId=userId,eventId_id = eventId).exists()):
+						metoo = Metoo(userId=userId,eventId_id = eventId, metooTypeId_id = metooTypeId)
+						metoo.save()
+					result = ErrorManager.Success
+				except:
+					result = ErrorManager.MeTooError
+			else:
+				result = ErrorManager.EventExistError	
 		else:
-			result = 501
+			result = ErrorManager.AuthNothing
 		return result
 	
 	@staticmethod	
@@ -65,9 +103,9 @@ class MeTooManager:
 			if(Metoo.objects.filter(userId=userId,eventId_id = eventId).exists()):
 				metoo = Metoo.objects.filter(userId=userId,eventId_id = eventId)
 				metoo.delete()
-			result = 500
+			result = ErrorManager.Success
 		else:
-			result = 501
+			result = ErrorManager.MeTooError
 		return result
 
 	@staticmethod	
@@ -81,7 +119,7 @@ class MeTooManager:
 				metoo = Metoo.objects.get(userId=userId,eventId_id = eventId)
 				metoo.metooTypeId_id = metooTypeId
 				metoo.save()
-			result = 500
+			result = ErrorManager.Success
 		else:
-			result = 501
+			result = ErrorManager.MeTooError
 		return result
