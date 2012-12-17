@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CHAPTER 10 Тестирование &mdash; MeToo 091 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '091',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MeToo 091 documentation" href="index.html" />
+    <link rel="prev" title="CHAPTER 9 Служебные модули" href="config.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="CHAPTER 9 Служебные модули"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="chapter-10">
+<h1>CHAPTER 10 Тестирование<a class="headerlink" href="#chapter-10" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Тестирование<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Тестами покрыты критические участки проекта: то, что чаще всего вызывается.</p>
+</div>
+<div class="section" id="module-mainServer.tests">
+<span id="tests-py"></span><h2>Тесты (tests.py)<a class="headerlink" href="#module-mainServer.tests" title="Permalink to this headline">¶</a></h2>
+<p>Модуль с тестами для проекта</p>
+<dl class="class">
+<dt id="mainServer.tests.AuthTest">
+<em class="property">class </em><tt class="descclassname">mainServer.tests.</tt><tt class="descname">AuthTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс тестов авторизации пользователя</p>
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод начальной инициализации</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testBadLogin">
+<tt class="descname">testBadLogin</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testBadLogin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест плохого логина</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testBadPass">
+<tt class="descname">testBadPass</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testBadPass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест плохого пароля</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testEmptyLogin">
+<tt class="descname">testEmptyLogin</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testEmptyLogin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест пустого логина</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testEmptyPass">
+<tt class="descname">testEmptyPass</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testEmptyPass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест пустого пароля</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testGoodData">
+<tt class="descname">testGoodData</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testGoodData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест корректных данных</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testLoginCase">
+<tt class="descname">testLoginCase</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testLoginCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест Case-a</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.AuthTest.testPassCase">
+<tt class="descname">testPassCase</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.AuthTest.testPassCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест Case-a</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mainServer.tests.EventTest">
+<em class="property">class </em><tt class="descclassname">mainServer.tests.</tt><tt class="descname">EventTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс тестов работы с событиями</p>
+<dl class="method">
+<dt id="mainServer.tests.EventTest.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод начальной инициализации</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.EventTest.testCreateBadArgsEvent">
+<tt class="descname">testCreateBadArgsEvent</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest.testCreateBadArgsEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID события - некорректные агрументы</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.EventTest.testCreateBadSessionEvent">
+<tt class="descname">testCreateBadSessionEvent</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest.testCreateBadSessionEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID события - несуществующая сессия</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.EventTest.testCreateGoodEvent">
+<tt class="descname">testCreateGoodEvent</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest.testCreateGoodEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID события - корректные данные</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.EventTest.testGetBadArgsEvent">
+<tt class="descname">testGetBadArgsEvent</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest.testGetBadArgsEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения событий - некорректные условия</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.EventTest.testGetBadSessionEvent">
+<tt class="descname">testGetBadSessionEvent</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.EventTest.testGetBadSessionEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения событий - несуществующая сессия</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mainServer.tests.MetooManagerTest">
+<em class="property">class </em><tt class="descclassname">mainServer.tests.</tt><tt class="descname">MetooManagerTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#mainServer.tests.MetooManagerTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс тестов похода на события</p>
+<dl class="method">
+<dt id="mainServer.tests.MetooManagerTest.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.MetooManagerTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод начальной инициализации</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.MetooManagerTest.testGetUsersbyBadEvent">
+<tt class="descname">testGetUsersbyBadEvent</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.MetooManagerTest.testGetUsersbyBadEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения юзеров по событию - несуществующее событие</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.MetooManagerTest.testGetUsersbyEventBadSession">
+<tt class="descname">testGetUsersbyEventBadSession</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.MetooManagerTest.testGetUsersbyEventBadSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения юзеров по событию - несуществующая сессия</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.MetooManagerTest.testGetUsersbyEventPositive">
+<tt class="descname">testGetUsersbyEventPositive</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.MetooManagerTest.testGetUsersbyEventPositive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения юзеров по событию - позитивный тест</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mainServer.tests.SessionTest">
+<em class="property">class </em><tt class="descclassname">mainServer.tests.</tt><tt class="descname">SessionTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Класс тестов сессии пользователя</p>
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Метод начальной инициализации</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.testCheckBadSessionID">
+<tt class="descname">testCheckBadSessionID</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.testCheckBadSessionID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест проверки существования сессии - несуществующая сессия</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.testCheckGoodSessionID">
+<tt class="descname">testCheckGoodSessionID</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.testCheckGoodSessionID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест проверки существования сессии - корректные данные</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.testGetBadSessionID">
+<tt class="descname">testGetBadSessionID</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.testGetBadSessionID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID сессии - несуществующий юзер</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.testGetBadUserID">
+<tt class="descname">testGetBadUserID</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.testGetBadUserID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID юзера - несуществующая сессия</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.testGetGoodSessionID">
+<tt class="descname">testGetGoodSessionID</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.testGetGoodSessionID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID сессии - корректные данные</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mainServer.tests.SessionTest.testGetGoodUserID">
+<tt class="descname">testGetGoodUserID</tt><big>(</big><big>)</big><a class="headerlink" href="#mainServer.tests.SessionTest.testGetGoodUserID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Тест получения ID юзера - существующая сессия</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CHAPTER 10 Тестирование</a><ul>
+<li><a class="reference internal" href="#id1">Тестирование</a></li>
+<li><a class="reference internal" href="#module-mainServer.tests">Тесты (tests.py)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="previous chapter">CHAPTER 9 Служебные модули</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tests.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="CHAPTER 9 Служебные модули"
+             >previous</a> |</li>
+        <li><a href="index.html">MeToo 091 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, MeTooCompany.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

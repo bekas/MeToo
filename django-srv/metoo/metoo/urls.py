@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     url(r'^download/', 'metoo.mainServer.views.downloadPage'), 
     url(r'^dev/', 'metoo.mainServer.views.devPage'), 
     url(r'^stat/', 'metoo.mainServer.views.statPage'), 
+    url(r'^map/', 'metoo.mainServer.views.mapPage'), 
+    url(r'^download_client/', 'metoo.mainServer.views.downloadClientPage'), 
+    
     
     # Examples:
     # url(r'^$', 'metoo.views.home', name='home'),
