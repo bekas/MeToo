@@ -47,7 +47,10 @@ public class ShowEventLayout extends BaseLayout {
 		super(parent, previous);
 		this.eventId = eventId;
 	}
-
+	public void SetEvent(Event ev) {
+		event = ev;
+	}
+	
 	@Override
 	public void onSuccess(String Result) {}
 	@Override
@@ -61,8 +64,10 @@ public class ShowEventLayout extends BaseLayout {
 		activity.setContentView(R.layout.tab_event_info);
 		//activity.setContentView(R.layout.screen_show_event);
 		
-        EventRequest req = new EventRequest(eventId);
-		MetooServices.Request(req, EventAnswer.class, new EventLoader());
+		if (event == null) {
+	        EventRequest req = new EventRequest(eventId);
+			MetooServices.Request(req, EventAnswer.class, new EventLoader());
+		}
 
         // Прогружаем табы
 

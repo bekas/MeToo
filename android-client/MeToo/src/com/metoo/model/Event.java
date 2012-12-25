@@ -36,12 +36,19 @@ public final class Event implements INodeSerializer {
 
 		Id = Integer.parseInt(parser.XPath("id", node).item(0).getTextContent());
 		//Date = parser.XPath("date", node).item(0).getTextContent();
-		Latitude = Double.parseDouble(parser.XPath("latitude", node).item(0).getTextContent());
-		Longitude = Double.parseDouble(parser.XPath("longitude", node).item(0).getTextContent());
+		Latitude = Double.parseDouble(
+				ReplaceCommasWithDots(parser.XPath("latitude", node).item(0).getTextContent()));
+		Longitude = Double.parseDouble(
+				ReplaceCommasWithDots(parser.XPath("longitude", node).item(0).getTextContent()));
 		Description = parser.XPath("description", node).item(0).getTextContent();
 		Name = parser.XPath("name", node).item(0).getTextContent();
 		
 		return true;
+	}
+	
+
+	protected String ReplaceCommasWithDots(String source) {
+		return source.replaceAll(",", ".");
 	}
 	
 }

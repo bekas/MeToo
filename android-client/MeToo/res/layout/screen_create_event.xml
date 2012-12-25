@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
+    <com.metoo.ui.views.EditTextEx
         android:id="@+id/etNewEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/create_event_hint_name" />
 
-    <EditText
+    <com.metoo.ui.views.EditTextEx
         android:id="@+id/etNewEventDescr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         android:minLines="4" >
 
         <requestFocus />
-    </EditText>
+    </com.metoo.ui.views.EditTextEx>
 
     <CheckBox
         android:id="@+id/chbIsNewEventPrivate"

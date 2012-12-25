@@ -16,14 +16,15 @@ import com.metoo.srvlink.answers.CreateEventAnswer;
 import com.metoo.srvlink.requests.CreateEventRequest;
 import com.metoo.ui.base.BaseActivity;
 import com.metoo.ui.base.BaseLayout;
+import com.metoo.ui.views.EditTextEx;
 
 /**
  * Модель окна создания события
  * @author theurgist
  */
 public class CreateEventLayout extends BaseLayout {
-	EditText etNewEventName;
-	EditText etNewEventDescr;
+	EditTextEx etNewEventName;
+	EditTextEx etNewEventDescr;
 	Button btnCreateEvent;
 	CheckBox chbIsNewEventPrivate;
 	
@@ -62,8 +63,8 @@ public class CreateEventLayout extends BaseLayout {
 		activity.setContentView(R.layout.screen_create_event);
 
 		btnCreateEvent = (Button)activity.findViewById(R.id.btnCreateEvent);
-		etNewEventName = (EditText)activity.findViewById(R.id.etNewEventName);
-		etNewEventDescr = (EditText)activity.findViewById(R.id.etNewEventDescr);
+		etNewEventName = (EditTextEx)activity.findViewById(R.id.etNewEventName);
+		etNewEventDescr = (EditTextEx)activity.findViewById(R.id.etNewEventDescr);
         chbIsNewEventPrivate = (CheckBox)activity.findViewById(R.id.chbIsNewEventPrivate);
         
         btnCreateEvent.setOnClickListener(new onSaveEvent());
