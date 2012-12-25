@@ -46,3 +46,5 @@ INSERT INTO MeToo.mainServer_event
 (id, creatorId_id, name, time, description, photoId_id, eventTypeId_id, PlaceId_id) 
 VALUES
  (1, 1, N'Rammstein performance', CURDATE(), N'Moskau!', 1, 1, 1);
+ 
+ALTER TABLE MeToo.mainServer_event CONVERT TO CHARACTER SET utf8

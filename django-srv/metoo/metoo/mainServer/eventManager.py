@@ -39,9 +39,13 @@ class EventManager:
 				eCountryId = Country.objects.get(pk = 1)
 				eCityId = City.objects.get(pk = 1)
 				eNamePlace = 'Noname place'
+				
+				print "Start create\n"
 
 				if eventArgs.has_key('name'):
+					print "if\n"
 					eName = eventArgs['name']
+					
 	
 				if eventArgs.has_key('time'):
 					eTime = eventArgs['time']
@@ -64,12 +68,18 @@ class EventManager:
 				if eventArgs.has_key('latitude'):
 					eLatitude = float(eventArgs['latitude'])	
 
-		
-				eName = eName.decode('utf-8').replace('_',' ')
-				eDescription = eDescription.decode('utf-8').replace('_',' ')
-		
+				
+				print "==\n"
+				
+				#eName = eName.decode('utf-8').replace('_',' ')
+				eName = eName.replace('_',' ')
+				print "decode\n"
+				#eDescription = eDescription.decode('utf-8').replace('_',' ')
+				eDescription = eDescription.replace('_',' ')
+				print "decode\n"
 				print(eName)
-		
+				print (eDescription)
+				
 				place = Place(cityId = eCityId, countryId = eCountryId, name = eNamePlace, latitude = eLatitude, longitude = eLongitude)
 				place.save()
 				newEvent = Event(creatorId = userId, name = eName, time = eTime, description = eDescription, photoId = photo, eventTypeId_id = eEventTypeId, PlaceId = place)
