@@ -81,6 +81,7 @@ public class MapViewEx extends MapView {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
     	processLongPress(ev);
+
     	
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             GeoPoint newCenter = this.getMapCenter();
@@ -184,15 +185,15 @@ public class MapViewEx extends MapView {
 
     /**
      * Логика для распознавания длительного нажатия
-     * @param event - событие, полученное в onTouchEvent()
+     * @param ev - событие, полученное в onTouchEvent()
      */
-    private void processLongPress(final MotionEvent event) { 
-        if (event.getPointerCount() > 1) {
+    private void processLongPress(final MotionEvent ev) { 
+        if (ev.getPointerCount() > 1) {
             // Дополнительное касание - мультитач-событие
             longpressTimer.cancel();
         }
         
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             // Палец дотронулся
         	
         	if (longpressTimer != null) {
@@ -204,8 +205,8 @@ public class MapViewEx extends MapView {
             longpressTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    GeoPoint longpressLocation = getProjection().fromPixels((int)event.getX(), 
-                            (int)event.getY());
+                    GeoPoint longpressLocation = getProjection().fromPixels((int)ev.getX(), 
+                            (int)ev.getY());
                     // Вызываем подписчика
                     if (longpressListener != null)
                     	longpressListener.onLongpress(longpressLocation);
@@ -215,17 +216,26 @@ public class MapViewEx extends MapView {
             longPressMapCenter = getMapCenter();
         }
          
-        else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+        else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
             // Палец сдвинул карту
             if (!getMapCenter().equals(longPressMapCenter)) {
                 // Отменяем, если центр-таки сменился
                 longpressTimer.cancel();
             }
+            
+            /*
+             * Считаем координаты
+             */
+            final int x = (int)ev.getX();
+            final int y = (int)ev.getY();
+
+            GeoPoint pt = getProjection().fromPixels(x,y);
              
             longPressMapCenter = getMapCenter();
+            //longPressMapCenter = pt;
         }
          
-        else if (event.getAction() == MotionEvent.ACTION_UP) {
+        else if (ev.getAction() == MotionEvent.ACTION_UP) {
             // Палец сняли с карты
             longpressTimer.cancel();
         }

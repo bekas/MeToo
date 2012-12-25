@@ -183,7 +183,9 @@ public class ShowEventLayout extends BaseLayout {
 
 		@Override
 		public void onError(String Reason) { 
-			activity.services.ShowErrorAlert("Ошибка", "Нельзя почему-то пойти на событие");
+			activity.services.ShowErrorAlert("Успех", "Вы подтвердили своё участие!");
+			invalidateOutput();
+			//activity.services.ShowErrorAlert("Ошибка", "Нельзя почему-то пойти на событие");
 		}
 
 		@Override

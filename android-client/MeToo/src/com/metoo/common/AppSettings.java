@@ -249,7 +249,7 @@ class StateData implements Serializable{
 		msSplashMaxDelay = 4000;
 		
 		srvURL = srvTestURL = "10.0.2.2";
-		srvPort = 8001;
+		srvPort = 8000;
 		
 		login = password = "";
 		session_id = 0;

@@ -9,6 +9,7 @@ import com.metoo.common.MetooServices;
 import com.metoo.common.androidutils.AndroidAppLog;
 import com.metoo.srvlink.requests.LoginRequest;
 import com.metoo.srvlink.requests.MetooServerRequest;
+import com.metoo.ui.LoginLayout;
 import com.metoo.ui.MainLayout;
 import com.metoo.ui.MapLayout;
 import com.metoo.ui.SplashLayout;
@@ -23,6 +24,7 @@ public class MainActivity extends BaseActivity {
 	
     SplashLayout screenSplash;
 	static public TestingLayout screenTester;
+	static public LoginLayout screenLogin;
 	static public MainLayout screenMain;
 	static public MapLayout screenMap;
     
@@ -43,6 +45,8 @@ public class MainActivity extends BaseActivity {
         	req.AddParam("APPSTART", "DEBUG");
             
             screenTester = new TestingLayout(this, null, req);
+        	screenLogin = new  LoginLayout(this, null);
+        	screenLogin.screenTester = screenTester;
             screenSplash = new SplashLayout(this, screenTester, AppSettings.GetSplashDelay(), 3000);
             
             // Заставить устройство держать дисплей включённым и отключить на время

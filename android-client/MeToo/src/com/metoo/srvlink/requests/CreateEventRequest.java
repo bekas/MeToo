@@ -3,6 +3,9 @@
  */
 package com.metoo.srvlink.requests;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * @author theurgist
  *
@@ -22,8 +25,14 @@ public class CreateEventRequest extends MetooServerRequest {
 			double latitude,
 			double longitude) {
 		AddParam("type", "event_create");
-		AddParam("name", eventName);
-		AddParam("description", eventDesrc);
+		try {
+			AddParam("name", URLEncoder.encode(ReplaceSpacesWithUnderlines(eventName), "UTF-8"));
+			//URLEncoder.encode(«группа», «UTF-8»);
+			AddParam("description", URLEncoder.encode(ReplaceSpacesWithUnderlines(eventDesrc), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			
+			e.printStackTrace();
+		}
 		AddParam("latitude", ReplaceCommasWithDots(String.format("%.8f", latitude)));
 		AddParam("longitude", ReplaceCommasWithDots(String.format("%.8f", longitude)));
 		//AddParam("latitude", "55,4");

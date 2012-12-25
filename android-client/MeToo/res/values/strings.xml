@@ -32,5 +32,6 @@ Waiting for answer..
     <string name="title_activity_user_registration">Регистрация пользователя</string>
     <string name="passwords_not_match">Пароли не совпадают</string>
     <string name="title_activity_show_event">Просмотр события</string>
+    <string name="login_as_anon">Гостевой вход</string>
 
 </resources>

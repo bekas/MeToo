@@ -26,6 +26,7 @@ public class LoginLayout extends BaseLayout {
 	EditText etUsername;
 	EditText etPasswd;
 	Button btnLogin;
+	Button btnAnon;
 	ProgressBar pbLogin;
 	TextView lblLoginProblem;
 	TextView lblLoginOk;
@@ -33,6 +34,9 @@ public class LoginLayout extends BaseLayout {
 
 	UsernameValidator usernameValidator;
 	PasswordValidator passwdValidator;
+	
+
+	static public TestingLayout screenTester;
 	
 	
 	public LoginLayout(BaseActivity parent, BaseLayout previous) {
@@ -54,6 +58,7 @@ public class LoginLayout extends BaseLayout {
         etUsername = (EditText)activity.findViewById(R.id.etUsername);
         etPasswd = (EditText)activity.findViewById(R.id.etPasswd);
         btnLogin = (Button)activity.findViewById(R.id.btnLogin);
+        btnAnon = (Button)activity.findViewById(R.id.btnAnon);
         pbLogin = (ProgressBar)activity.findViewById(R.id.pbLogin);
         lblLoginProblem = (TextView)activity.findViewById(R.id.lblLoginProblem);
         lblLoginOk = (TextView)activity.findViewById(R.id.lblLoginOk);
@@ -66,6 +71,13 @@ public class LoginLayout extends BaseLayout {
         passwdValidator.SetOnContentChangedListener(validator);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	sendLoginData();
+            }
+        });
+        btnAnon.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	etUsername.setText("");
+            	etPasswd.setText("");
             	sendLoginData();
             }
         });

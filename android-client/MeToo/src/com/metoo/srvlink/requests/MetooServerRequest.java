@@ -24,8 +24,12 @@ public class MetooServerRequest extends ServerRequest {
 
 
 
-	
+
 	protected String ReplaceCommasWithDots(String source) {
 		return source.replaceAll(",", ".");
+	}
+	protected String ReplaceSpacesWithUnderlines(String source) {
+		String buf = source.replaceAll(" ", "_");
+		return buf.replaceAll("\n", "_");
 	}
 }

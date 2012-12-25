@@ -97,9 +97,13 @@
         android:text="@string/login"
         android:visibility="visible" />
 
-
-
-
+    <Button
+        android:id="@+id/btnAnon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/button_top_padding"
+        android:text="@string/login_as_anon"
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/pbLogin"
