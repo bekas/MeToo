@@ -36,7 +36,7 @@ public class LoginLayout extends BaseLayout {
 	PasswordValidator passwdValidator;
 	
 
-	static public TestingLayout screenTester;
+	static public SplashLayout screenEnterSplash;
 	
 	
 	public LoginLayout(BaseActivity parent, BaseLayout previous) {
@@ -76,8 +76,8 @@ public class LoginLayout extends BaseLayout {
         });
         btnAnon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	etUsername.setText("");
-            	etPasswd.setText("");
+            	etUsername.setText("guest");
+            	etPasswd.setText("guest");
             	sendLoginData();
             }
         });
@@ -129,6 +129,13 @@ public class LoginLayout extends BaseLayout {
 		btnLogin.setVisibility(View.VISIBLE);
 	}
 	void proceedOk(Integer session_id) {
+		/*
+		if (screenEnterSplash != null) {
+			SplashLayout T = screenEnterSplash;
+			screenEnterSplash = null;
+			
+		}*/
+		
 		//_parent.services.showToastText("Success! Logged in with session_id=" + session_id);
 		lblLoginOk.setText("Success! Logged in with session_id=" + session_id);
 		lblLoginOk.setVisibility(View.VISIBLE);

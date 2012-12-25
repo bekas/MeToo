@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity {
             
             screenTester = new TestingLayout(this, null, req);
         	screenLogin = new  LoginLayout(this, null);
-        	screenLogin.screenTester = screenTester;
             screenSplash = new SplashLayout(this, screenTester, AppSettings.GetSplashDelay(), 3000);
+        	//screenLogin.screenEnterSplash = screenSplash;
             
             // Заставить устройство держать дисплей включённым и отключить на время
             // работы приложения блокировщик клавиатуры - так удобнее тестировать
